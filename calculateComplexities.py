@@ -4,8 +4,8 @@
 import pymysql
 import rpy2.robjects as robj
 
-conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='', db='APiCS')
-#conn = pymysql.connect(host='localhost', port=3307, user='root', passwd='', db='APiCS')
+#conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='', db='APiCS')
+conn = pymysql.connect(host='localhost', port=3307, user='root', passwd='', db='APiCS')
 cur = conn.cursor()
 
 
@@ -109,9 +109,17 @@ for feat in walsFeatComp:
 	t = robj.r['t.test']
 	p = t(apicsvector,walsvector,**{'var.equal': True})[2][0] # Do two-sample t-test assuming equal variance
 	
+	if p <= .05:
+		sig = "significant"
+	else: sig = "null"
+	
 	print "WALS average: ", walscompavg
 	print "APiCS average: ", apicscompavg
-	print "p-value = ", p
+	print "p-value = ", p, "("+sig+")"
+	if p <= .05 and walscompavg > apicscompavg:
+		print "WALS more complex"
+	elif p <= .05: print "APiCS more complex"
+	else: print "equal complexity"
 	print ""
 
 
