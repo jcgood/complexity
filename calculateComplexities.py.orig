@@ -4,8 +4,8 @@
 import pymysql
 import rpy2.robjects as robj
 
-#conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='', db='APiCS')
-conn = pymysql.connect(host='localhost', port=3307, user='root', passwd='', db='APiCS')
+conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='', db='APiCS')
+#conn = pymysql.connect(host='localhost', port=3307, user='root', passwd='', db='APiCS')
 cur = conn.cursor()
 
 
@@ -49,7 +49,11 @@ for row in cur.fetchall():
 cur.execute("""SELECT WALSAPiCSValues.Language, APiCSFeatures.`WALS-APICS`,  WALSAPiCSValues.Wals_value_number
 FROM WALSAPiCSValues
 INNER JOIN APiCSFeatures ON WALSAPiCSValues.`APiCS_number` = APiCSFeatures.Feature_number
+<<<<<<< HEAD
 WHERE APiCSFeatures.`WALS-APICS` != \"None\" AND APiCSFeatures.ComplexityType is not NULL""")
+=======
+WHERE APiCSFeatures.`ComplexityType` != \"None\"""")
+>>>>>>> 48c8dec89df1f66a1deb356b0a0028a6e160ceef
 
 apicswalsFeatComp = { }
 apicswalsFeatLangCount = { }
@@ -58,6 +62,18 @@ for row in cur.fetchall():
 	lang, feat, value = row
 	compfeat = complexities[feat]
 	compValue = compfeat[str(value)]
+<<<<<<< HEAD
+
+	if compValue != None:
+		if feat in apicswalsFeatComp:
+			apicswalsFeatComp[feat] += compValue
+			apicswalsFeatLangCount[feat] += 1
+			apicsCompList[feat].append( compValue )
+		else:
+			apicswalsFeatComp[feat] = compValue
+			apicswalsFeatLangCount[feat] = 1
+			apicsCompList[feat] = [ compValue ]
+=======
 	
 	if feat in apicswalsFeatComp:
 		apicswalsFeatComp[feat] += compValue
@@ -67,6 +83,7 @@ for row in cur.fetchall():
 		apicswalsFeatComp[feat] = compValue
 		apicswalsFeatLangCount[feat] = 1
 		apicsCompList[feat] = [ compValue ]
+>>>>>>> 48c8dec89df1f66a1deb356b0a0028a6e160ceef
 
 
 # Now do the same thing for the WALS languages
