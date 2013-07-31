@@ -4,8 +4,8 @@
 import pymysql
 import rpy2.robjects as robj
 
-#conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='', db='APiCS')
-conn = pymysql.connect(host='localhost', port=3307, user='root', passwd='', db='APiCS')
+conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='', db='APiCS')
+#conn = pymysql.connect(host='localhost', port=3307, user='root', passwd='', db='APiCS')
 cur = conn.cursor()
 
 
@@ -33,12 +33,14 @@ for row in cur.fetchall():
 
 
 # Make a dictionary for feature types
-cur.execute("SELECT `WALS-APICS`, `ComplexityType` FROM APiCSFeatures")
+cur.execute("SELECT `WALS-APICS`, `ComplexityType`, `ComplexityDegree` FROM APiCSFeatures")
 types = { }
+degrees = { }
 for row in cur.fetchall():
-	feat, type = row	
-	if feat != "None":
+	feat, type, deg = row	
+	if type != None:
 		types[feat] = type
+		degrees[feat] = deg
 
 
 
@@ -46,7 +48,7 @@ for row in cur.fetchall():
 cur.execute("""SELECT WALSAPiCSValues.Language, APiCSFeatures.`WALS-APICS`,  WALSAPiCSValues.Wals_value_number
 FROM WALSAPiCSValues
 INNER JOIN APiCSFeatures ON WALSAPiCSValues.`APiCS_number` = APiCSFeatures.Feature_number
-WHERE APiCSFeatures.`WALS-APICS` != \"None\"""")
+WHERE APiCSFeatures.`ComplexityType` != \"None\"""")
 
 apicswalsFeatComp = { }
 apicswalsFeatLangCount = { }
@@ -55,16 +57,15 @@ for row in cur.fetchall():
 	lang, feat, value = row
 	compfeat = complexities[feat]
 	compValue = compfeat[str(value)]
-	# Since the DB is incomplete need conditional, remove when believed complete for error checking
-	if compValue != None:
-		if feat in apicswalsFeatComp:
-			apicswalsFeatComp[feat] += compValue
-			apicswalsFeatLangCount[feat] += 1
-			apicsCompList[feat].append( compValue )
-		else:
-			apicswalsFeatComp[feat] = compValue
-			apicswalsFeatLangCount[feat] = 1
-			apicsCompList[feat] = [ compValue ]
+	
+	if feat in apicswalsFeatComp:
+		apicswalsFeatComp[feat] += compValue
+		apicswalsFeatLangCount[feat] += 1
+		apicsCompList[feat].append( compValue )
+	else:
+		apicswalsFeatComp[feat] = compValue
+		apicswalsFeatLangCount[feat] = 1
+		apicsCompList[feat] = [ compValue ]
 
 
 # Now do the same thing for the WALS languages
@@ -94,8 +95,10 @@ for row in cur.fetchall():
 
 
 # Get average complexity for APiCS and WALS; features should be precisely the same
+outfile = open('/Users/jcgood/Desktop/APiCS.txt', 'w')
+print >> outfile, "Feature\t", "Description\t", "Types\t", "Degrees\t", "WALSscore\t", "APiCSscore\t", "Significance\t", "Comparison"
 for feat in walsFeatComp:
-	print feat+",", names[feat]+",", types[feat]
+	print feat+",", names[feat]+",", types[feat]+",", degrees[feat]
 	walscompval = walsFeatComp[feat]
 	walscompavg = walscompval / float(walsFeatLangCount[feat])
 	apicscompval = apicswalsFeatComp[feat]
@@ -118,10 +121,17 @@ for feat in walsFeatComp:
 	print "p-value = ", p, "("+sig+")"
 	if p <= .05 and walscompavg > apicscompavg:
 		print "WALS more complex"
-	elif p <= .05: print "APiCS more complex"
-	else: print "equal complexity"
+		winner = "WALS"
+	elif p <= .05:
+		print "APiCS more complex"
+		winner = "APiCS"
+	else:
+		print "equal complexity"
+		winner = "Same"
+	
 	print ""
 
+	print >> outfile, feat+"\t", names[feat]+"\t", types[feat]+"\t", str(degrees[feat])+"\t", str(walscompavg)+"\t", str(apicscompavg)+"\t", str(p)+"\t", winner
 
 cur.close()
 conn.close()
