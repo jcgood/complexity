@@ -9,7 +9,7 @@ conn = pymysql.connect(host='localhost', port=3307, user='root', passwd='', db='
 cur = conn.cursor()
 
 
-cur.execute("SELECT `Feature_number`, `Values_number`, Complexity FROM WALSValueInfo")
+cur.execute("SELECT `Feature_number`, `Values_number`, Complexity FROM WALSValueInfo WHERE Complexity is not NULL")
 complexities = { }
 for row in cur.fetchall():
 	feat, value, complexity = row	
@@ -22,6 +22,7 @@ for row in cur.fetchall():
 		compfeat[str(value)] = complexity
 		complexities[feat] = compfeat
 
+print complexities
 
 
 # Make a dictionary for feature names
@@ -46,7 +47,7 @@ for row in cur.fetchall():
 cur.execute("""SELECT WALSAPiCSValues.Language, APiCSFeatures.`WALS-APICS`,  WALSAPiCSValues.Wals_value_number
 FROM WALSAPiCSValues
 INNER JOIN APiCSFeatures ON WALSAPiCSValues.`APiCS_number` = APiCSFeatures.Feature_number
-WHERE APiCSFeatures.`WALS-APICS` != \"None\"""")
+WHERE APiCSFeatures.`WALS-APICS` != \"None\" AND APiCSFeatures.ComplexityType is not NULL""")
 
 apicswalsFeatComp = { }
 apicswalsFeatLangCount = { }
@@ -55,7 +56,7 @@ for row in cur.fetchall():
 	lang, feat, value = row
 	compfeat = complexities[feat]
 	compValue = compfeat[str(value)]
-	# Since the DB is incomplete need conditional, remove when believed complete for error checking
+
 	if compValue != None:
 		if feat in apicswalsFeatComp:
 			apicswalsFeatComp[feat] += compValue
@@ -69,7 +70,9 @@ for row in cur.fetchall():
 
 # Now do the same thing for the WALS languages
 cur.execute("""SELECT WALSValues.langid, WALSValues.Value_number, WALSValues.Feature_number
-FROM WALSValues""")
+FROM WALSValues
+INNER JOIN APiCSFeatures on  WALSValues.Feature_number = APiCSFeatures.`WALS-APICS`
+WHERE APiCSFeatures.`ComplexityType` is not NULL""")
 
 walsFeatComp = {}
 walsFeatLangCount = { }
