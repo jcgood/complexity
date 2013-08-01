@@ -4,8 +4,8 @@
 import pymysql
 import rpy2.robjects as robj
 
-#conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='', db='APiCS')
-conn = pymysql.connect(host='localhost', port=3307, user='root', passwd='', db='APiCS')
+conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='', db='APiCS')
+#conn = pymysql.connect(host='localhost', port=3307, user='root', passwd='', db='APiCS')
 cur = conn.cursor()
 
 # Make dictionary of dictionary of complexities for a given value
@@ -74,16 +74,7 @@ for row in cur.fetchall():
 	compfeat = complexities[feat]
 	compValue = compfeat[str(value)]
 	
-	if feat in apicswalsFeatComp:
-		apicswalsFeatComp[feat] += compValue
-		apicswalsFeatLangCount[feat] += 1
-		apicsCompList[feat].append( compValue )
-	else:
-		apicswalsFeatComp[feat] = compValue
-		apicswalsFeatLangCount[feat] = 1
-		apicsCompList[feat] = [ compValue ]
-
-	# Now get the numbers across languages (just for paradigmatic)
+	# Get the numbers across languages (just for paradigmatic)
 	if lang in apicsLangComp:
 		if types[feat] == "Paradigmatic":
 			langCompList = apicsLangComp[lang]
@@ -93,6 +84,19 @@ for row in cur.fetchall():
 	else:
 		if types[feat] == "Paradigmatic":
 			apicsLangComp[lang] = [ compValue / float(degrees[feat])  ]
+
+	## TODO: SEPAARETE FOR LOOPS< DO ONES BELOW FIRST
+
+	# Now do the same thing across features
+	if feat in apicswalsFeatComp:
+		apicswalsFeatComp[feat] += compValue
+		apicswalsFeatLangCount[feat] += 1
+		apicsCompList[feat].append( compValue )
+	else:
+		apicswalsFeatComp[feat] = compValue
+		apicswalsFeatLangCount[feat] = 1
+		apicsCompList[feat] = [ compValue ]
+
 
 
 
@@ -195,6 +199,7 @@ for lang in apicsLangComp:
 	# Only do languages with lots of features (paradigmatic ones only included); 26 is a semi-arbitrary choice to get a reasonable total number of language of both groups of about equal size
 	if len(apicsLangComp[lang]) >= 26:
 		mean = sum(apicsLangComp[lang])/len(apicsLangComp[lang])
+		#print apicsLangComp[lang]
 		print lang, mean
 		totalAPiCS += mean
 		APiCSLangCompList.append(mean)
@@ -208,6 +213,7 @@ for lang in walsLangComp:
 	# Only do languages with lots of features (paradigmatic ones only included)
 	if len(walsLangComp[lang]) >= 26:
 		mean = sum(walsLangComp[lang])/len(walsLangComp[lang])
+		#print walsLangComp[lang]
 		print lang, mean
 		totalWALS += mean
 		WALSLangCompList.append(mean)
@@ -216,7 +222,7 @@ for lang in walsLangComp:
 print ""
 print "APiCS", totalAPiCS/APiCSCount, "WALS", totalWALS/WALSCount
 
-print WALSLangCompList, APiCSLangCompList
+#print WALSLangCompList, APiCSLangCompList
 
 apicslangvector = robj.FloatVector(APiCSLangCompList)
 walslangvector = robj.FloatVector(WALSLangCompList)
