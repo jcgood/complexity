@@ -4,8 +4,8 @@
 import pymysql
 import rpy2.robjects as robj
 
-conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='', db='APiCS')
-#conn = pymysql.connect(host='localhost', port=3307, user='root', passwd='', db='APiCS')
+#conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='', db='APiCS')
+conn = pymysql.connect(host='localhost', port=3307, user='root', passwd='', db='APiCS')
 cur = conn.cursor()
 
 # Make dictionary of dictionary of complexities for a given value
@@ -65,16 +65,14 @@ FROM WALSAPiCSValues
 INNER JOIN APiCSFeatures ON WALSAPiCSValues.`APiCS_number` = APiCSFeatures.Feature_number
 WHERE APiCSFeatures.`WALS-APICS` != \"None\" AND APiCSFeatures.ComplexityType is not NULL""")
 
-apicswalsFeatComp = { }
-apicswalsFeatLangCount = { }
-apicsCompList = { } # For statistical processing
-apicsLangComp = { }
+apicsLangComp = { }	# For paradigmatic
+apicsLangCompSyn = { } # For syntagmatic
 for row in cur.fetchall():
 	lang, feat, value = row
 	compfeat = complexities[feat]
 	compValue = compfeat[str(value)]
 	
-	# Get the numbers across languages (just for paradigmatic)
+	# Get the numbers across languages
 	if lang in apicsLangComp:
 		if types[feat] == "Paradigmatic":
 			langCompList = apicsLangComp[lang]
@@ -85,17 +83,45 @@ for row in cur.fetchall():
 		if types[feat] == "Paradigmatic":
 			apicsLangComp[lang] = [ compValue / float(degrees[feat])  ]
 
-	## TODO: SEPAARETE FOR LOOPS< DO ONES BELOW FIRST
 
-	# Now do the same thing across features
+	# Now syntagmatic
+	if lang in apicsLangCompSyn:
+		if types[feat] == "Syntagmatic":
+			langCompList = apicsLangCompSyn[lang]
+			langCompList.append( compValue / float(degrees[feat]) )
+			apicsLangCompSyn[lang] = langCompList
+			
+	else:
+		if types[feat] == "Syntagmatic":
+			apicsLangCompSyn[lang] = [ compValue / float(degrees[feat])  ]
+
+
+
+# Now do the same thing across features
+cur.execute("""SELECT WALSAPiCSValues.Language, APiCSFeatures.`WALS-APICS`,  WALSAPiCSValues.Wals_value_number
+FROM WALSAPiCSValues
+INNER JOIN APiCSFeatures ON WALSAPiCSValues.`APiCS_number` = APiCSFeatures.Feature_number
+WHERE APiCSFeatures.`WALS-APICS` != \"None\" AND APiCSFeatures.ComplexityType is not NULL""")
+apicswalsFeatComp = { }
+apicswalsFeatLangCount = { }
+apicsCompList = { } # For statistical processing
+for row in cur.fetchall():
+	lang, feat, value = row
+	compfeat = complexities[feat]
+	compValue = compfeat[str(value)]
+
 	if feat in apicswalsFeatComp:
 		apicswalsFeatComp[feat] += compValue
 		apicswalsFeatLangCount[feat] += 1
 		apicsCompList[feat].append( compValue )
-	else:
+
+	elif len(apicsLangComp[lang]) >= 26:
+	#else:
 		apicswalsFeatComp[feat] = compValue
 		apicswalsFeatLangCount[feat] = 1
 		apicsCompList[feat] = [ compValue ]
+
+
 
 
 
@@ -106,10 +132,46 @@ FROM WALSValues
 INNER JOIN APiCSFeatures on  WALSValues.Feature_number = APiCSFeatures.`WALS-APICS`
 WHERE APiCSFeatures.`ComplexityType` is not NULL""")
 
+walsLangComp = { } # For paradigmatic
+walsLangCompSyn = { } 
+for row in cur.fetchall():
+	lang, value, feat = row
+	compfeat = complexities[feat]
+	compValue = compfeat[str(value)]
+
+	# Now get the numbers across languages
+	if lang in walsLangComp:
+		if types[feat] == "Paradigmatic":
+			langCompList = walsLangComp[lang]
+			langCompList.append( compValue / float(degrees[feat]) )
+			walsLangComp[lang] = langCompList
+			
+	else:
+		if types[feat] == "Paradigmatic":
+			walsLangComp[lang] = [ compValue / float(degrees[feat])  ]
+
+	# Now syntagmatic
+	if lang in walsLangCompSyn:
+		if types[feat] == "Syntagmatic":
+			langCompList = walsLangCompSyn[lang]
+			langCompList.append( compValue / float(degrees[feat]) )
+			walsLangCompSyn[lang] = langCompList
+			
+	else:
+		if types[feat] == "Syntagmatic":
+			walsLangCompSyn[lang] = [ compValue / float(degrees[feat])  ]
+	
+
+
+
+cur.execute("""SELECT WALSValues.LanguageName, WALSValues.Value_number, WALSValues.Feature_number
+FROM WALSValues
+INNER JOIN APiCSFeatures on  WALSValues.Feature_number = APiCSFeatures.`WALS-APICS`
+WHERE APiCSFeatures.`ComplexityType` is not NULL""")
+
 walsFeatComp = {}
 walsFeatLangCount = { }
 walsCompList = { } # See comments above
-walsLangComp = { }
 for row in cur.fetchall():
 	lang, value, feat = row
 	compfeat = complexities[feat]
@@ -121,21 +183,14 @@ for row in cur.fetchall():
 			walsFeatLangCount[feat] += 1
 			walsCompList[feat].append( compValue )
 
-		else:
+		# This tests to make sure the well-featured languages don't throw off calculations 
+		elif lang in walsLangComp and len(walsLangComp[lang]) >= 26:
+		#else:
 			walsFeatComp[feat] = compValue
 			walsFeatLangCount[feat] = 1
 			walsCompList[feat] = [ compValue ]
 
-	# Now get the numbers across languages
-	if lang in walsLangComp:
-		if types[feat] == "Paradigmatic":
-			langCompList = walsLangComp[lang]
-			langCompList.append( compValue / float(degrees[feat]) )
-			walsLangComp[lang] = langCompList
-	
-	else:
-		if types[feat] == "Paradigmatic":
-			walsLangComp[lang] = [ compValue / float(degrees[feat])  ]
+
 
 walfull = 0
 for lang in walsLangComp:
@@ -144,51 +199,49 @@ for lang in walsLangComp:
 		walfull += 1
 		
 
-#print walsCompList
-
 
 # Get average complexity for APiCS and WALS; features should be precisely the same
-outfile = open('/Users/jcgood/Desktop/APiCS.txt', 'w')
-print >> outfile, "Feature\t", "Description\t", "Types\t", "Degrees\t", "WALSscore\t", "APiCSscore\t", "Significance\t", "Comparison"
-for feat in walsFeatComp:
-	print feat+",", names[feat]+",", types[feat]+",", degrees[feat]
-	walscompval = walsFeatComp[feat]
-	walscompavg = walscompval / float(walsFeatLangCount[feat])
-	apicscompval = apicswalsFeatComp[feat]
-	apicscompavg = apicscompval / float(apicswalsFeatLangCount[feat])
-	
-	apicsvals = apicsCompList[feat]
-	walsvals = walsCompList[feat]
-	
-	apicsvector = robj.IntVector(apicsvals)
-	walsvector = robj.IntVector(walsvals)
-	t = robj.r['t.test']
-	p = t(apicsvector,walsvector,**{'var.equal': True})[2][0] # Do two-sample t-test assuming equal variance
-	
-	sd = robj.r['sd']
-	apicssd = sd(apicsvector)
-	walssd = sd(walsvector)
-	
-	if p <= .05:
-		sig = "significant"
-	else: sig = "null"
-	
-	print "WALS average: ", walscompavg, "(sd:", walssd[0], ")"
-	print "APiCS average: ", apicscompavg, "(sd: ", apicssd[0], ")"
-	print "p-value = ", p, "("+sig+")"
-	if p <= .05 and walscompavg > apicscompavg:
-		print "WALS more complex"
-		winner = "WALS"
-	elif p <= .05:
-		print "APiCS more complex"
-		winner = "APiCS"
-	else:
-		print "equal complexity"
-		winner = "Same"
-	
-	print ""
-
-	print >> outfile, feat+"\t", names[feat]+"\t", types[feat]+"\t", str(degrees[feat])+"\t", str(walscompavg)+"\t", str(apicscompavg)+"\t", str(p)+"\t", winner
+# outfile = open('/Users/jcgood/Desktop/APiCS.txt', 'w')
+# print >> outfile, "Feature\t", "Description\t", "Types\t", "Degrees\t", "WALSscore\t", "APiCSscore\t", "Significance\t", "Comparison"
+# for feat in walsFeatComp:
+# 	print feat+",", names[feat]+",", types[feat]+",", degrees[feat]
+# 	walscompval = walsFeatComp[feat]
+# 	walscompavg = walscompval / float(walsFeatLangCount[feat])
+# 	apicscompval = apicswalsFeatComp[feat]
+# 	apicscompavg = apicscompval / float(apicswalsFeatLangCount[feat])
+# 	
+# 	apicsvals = apicsCompList[feat]
+# 	walsvals = walsCompList[feat]
+# 	
+# 	apicsvector = robj.IntVector(apicsvals)
+# 	walsvector = robj.IntVector(walsvals)
+# 	t = robj.r['t.test']
+# 	p = t(apicsvector,walsvector,**{'var.equal': True})[2][0] # Do two-sample t-test assuming equal variance
+# 	
+# 	sd = robj.r['sd']
+# 	apicssd = sd(apicsvector)
+# 	walssd = sd(walsvector)
+# 	
+# 	if p <= .05:
+# 		sig = "significant"
+# 	else: sig = "null"
+# 	
+# 	print "WALS average: ", walscompavg, "(sd:", walssd[0], ")"
+# 	print "APiCS average: ", apicscompavg, "(sd: ", apicssd[0], ")"
+# 	print "p-value = ", p, "("+sig+")"
+# 	if p <= .05 and walscompavg > apicscompavg:
+# 		print "WALS more complex"
+# 		winner = "WALS"
+# 	elif p <= .05:
+# 		print "APiCS more complex"
+# 		winner = "APiCS"
+# 	else:
+# 		print "equal complexity"
+# 		winner = "Same"
+# 	
+# 	print ""
+# 
+# 	print >> outfile, feat+"\t", names[feat]+"\t", types[feat]+"\t", str(degrees[feat])+"\t", str(walscompavg)+"\t", str(apicscompavg)+"\t", str(p)+"\t", winner
 
 
 # Now get average complexity for all features within a language; start with APiCS
@@ -221,6 +274,8 @@ for lang in walsLangComp:
 
 print ""
 print "APiCS", totalAPiCS/APiCSCount, "WALS", totalWALS/WALSCount
+print ""
+
 
 #print WALSLangCompList, APiCSLangCompList
 
@@ -229,9 +284,53 @@ walslangvector = robj.FloatVector(WALSLangCompList)
 t = robj.r['t.test']
 p = t(apicslangvector,walslangvector,**{'var.equal': True}) # Do two-sample t-test assuming equal variance
 
-print "p:", p
+#print "p:", p
+
+
+
+# Now same for syntagmatic
+# Now get average complexity for all features within a language; start with APiCS
+totalAPiCSSyn = 0
+APiCSCountSyn = 0
+APiCSLangCompListSyn = [ ]
+for lang in apicsLangCompSyn:
+	# Only do languages with lots of features (paradigmatic ones only included); 26 is a semi-arbitrary choice to get a reasonable total number of language of both groups of about equal size
+	if len(apicsLangCompSyn[lang]) >= 13:
+		mean = sum(apicsLangCompSyn[lang])/len(apicsLangCompSyn[lang])
+		#print apicsLangCompSyn[lang]
+		print lang, mean
+		totalAPiCSSyn += mean
+		APiCSLangCompListSyn.append(mean)
+		APiCSCountSyn += 1
+
+# Now WALS 
+totalWALSSyn = 0
+WALSCountSyn = 0
+WALSLangCompListSyn = [ ]
+for lang in walsLangCompSyn:
+	# Only do languages with lots of features (paradigmatic ones only included)
+	if len(walsLangCompSyn[lang]) >= 13:
+		mean = sum(walsLangCompSyn[lang])/len(walsLangCompSyn[lang])
+		#print walsLangCompSyn[lang]
+		print lang, mean
+		totalWALSSyn += mean
+		WALSLangCompListSyn.append(mean)
+		WALSCountSyn += 1
 
 print ""
+print "APiCS", totalAPiCSSyn/APiCSCountSyn, "WALS", totalWALSSyn/WALSCountSyn
+
+print APiCSCountSyn, WALSCountSyn
+
+apicslangsynvector = robj.FloatVector(APiCSLangCompListSyn)
+walslangsynvector = robj.FloatVector(WALSLangCompListSyn)
+t = robj.r['t.test']
+p = t(apicslangsynvector,walslangsynvector,**{'var.equal': True}) # Do two-sample t-test assuming equal variance
+
+print p
+
+print "apicsl <- c(", APiCSLangCompListSyn, ")"
+print "walsl <- c(", WALSLangCompListSyn, ")"
 
 
 cur.close()
