@@ -222,13 +222,21 @@ def getWALSLangComps(cur,complexities,walsLangComp,majorFeats=False):
 def getFeatComplexity(walsFeatComp,walsFeatLangCount,walsCompList,apicswalsFeatComp,apicswalsFeatLangCount,apicsCompList,names,types,degrees):
 
 	outfile = open('APiCSFeatureComps.txt', 'w')
-	print >> outfile, "Feature\t", "Description\t", "Types\t", "Degrees\t", "WALSscore\t", "APiCSscore\t", "Significance\t", "Comparison"
+	
+	walsFCompAvg = [ ]
+	apicsFCompAvg = [ ]
+	print >> outfile, "Feature\t", "Description\t", "Types\t", "Degrees\t", "WALSscore\t", "APiCSscore\t", "WALSNorm\t", "APiCSNorm\t", "CompAvg\t", "Significance\t", "Comparison"
 	for feat in walsFeatComp:
 		#print feat+",", names[feat]+",", types[feat]+",", degrees[feat]
 		walscompval = walsFeatComp[feat]
 		walscompavg = walscompval / float(walsFeatLangCount[feat])
 		apicscompval = apicswalsFeatComp[feat]
 		apicscompavg = apicscompval / float(apicswalsFeatLangCount[feat])
+
+		deg = degrees[feat]
+		apicsavgnorm = apicscompavg / float(deg)
+		walsavgnorm = walscompavg / float(deg)
+		compavg = (apicsavgnorm + walsavgnorm) / float(2)
 	
 		apicsvals = apicsCompList[feat]
 		walsvals = walsCompList[feat]
@@ -261,12 +269,22 @@ def getFeatComplexity(walsFeatComp,walsFeatLangCount,walsCompList,apicswalsFeatC
 	# 	
 	# 	print ""
 
-		print >> outfile, feat+"\t", names[feat]+"\t", types[feat]+"\t", str(degrees[feat])+"\t", str(walscompavg)+"\t", str(apicscompavg)+"\t", str(p)+"\t", winner
-
-
+		print >> outfile, feat+"\t", names[feat]+"\t", types[feat]+"\t", str(degrees[feat])+"\t", str(walscompavg)+"\t", str(apicscompavg)+"\t", str(walsavgnorm)+"\t", str(apicsavgnorm)+"\t", str(compavg)+"\t",  str(p)+"\t", winner
+		
+		walsFCompAvg.append(walscompavg/degrees[feat])
+		apicsFCompAvg.append(apicscompavg/degrees[feat])
+			
+	return(walsFCompAvg,apicsFCompAvg)
+	
+	
 
 # Now get average complexity for all features within a language; start with APiCS; only paradigmatic
 def getLangCompPar(walsLangComp,apicsLangComp):
+
+	outfile = open('APiCSLangComps.txt', 'w')
+
+	print >> outfile, "Language\tComplexity\tSet"
+
 	totalAPiCS = 0
 	APiCSCount = 0
 	APiCSLangCompList = [ ]
@@ -274,8 +292,7 @@ def getLangCompPar(walsLangComp,apicsLangComp):
 		# Only do languages with lots of features (paradigmatic ones only included); 26 is a semi-arbitrary choice to get a reasonable total number of language of both groups of about equal size
 		if len(apicsLangComp[lang]) >= 26:
 			mean = sum(apicsLangComp[lang])/len(apicsLangComp[lang])
-			#print apicsLangComp[lang]
-			#print lang, mean
+			print >> outfile, lang+"\t"+str(mean)+"\t"+"APiCS"
 			totalAPiCS += mean
 			APiCSLangCompList.append(mean)
 			APiCSCount += 1
@@ -288,8 +305,7 @@ def getLangCompPar(walsLangComp,apicsLangComp):
 		# Only do languages with lots of features (paradigmatic ones only included)
 		if len(walsLangComp[lang]) >= 26:
 			mean = sum(walsLangComp[lang])/len(walsLangComp[lang])
-			#print walsLangComp[lang]
-			#print lang, mean
+			print >> outfile, lang+"\t"+str(mean)+"\t"+"WALS"
 			totalWALS += mean
 			WALSLangCompList.append(mean)
 			WALSCount += 1
