@@ -1,0 +1,46 @@
+Feature	Description	Types	Degrees	WALSscore	APiCSscore	Significance	Comparison
+WALS 64A	Nominal and Verbal Conjunction	Paradigmatic	2	1.36544850498	1.33333333333	0.658638384622	Same
+WALS 98A	Alignment of Case Marking of Full Noun Phrases	Paradigmatic	3	0.989473684211	0.394736842105	1.01191942663e-05	WALS
+WALS 86A	Order of Genitive and Noun	Syntagmatic	2	1.07692307692	1.11688311688	0.208023777366	Same
+WALS 105A	Ditransitive Constructions: The Verb 'Give'	Paradigmatic	2	1.10582010582	1.14102564103	0.37018159297	Same
+WALS 101A	Expression of Pronominal Subjects	Paradigmatic	2	1.01547116737	0.631578947368	8.57745948525e-09	WALS
+WALS 129A	Hand and Arm	Paradigmatic	2	1.63047001621	1.42666666667	0.000620033501923	WALS
+WALS 52A	Comitatives and Instrumentals	Paradigmatic	2	1.76397515528	1.28	5.40975976686e-17	WALS
+WALS 44A	Gender Distinctions in Independent Personal Pronouns	Paradigmatic	4	0.973544973545	0.65	0.0718157649002	Same
+WALS 37A	Definite Articles	Paradigmatic	2	0.956451612903	1.25316455696	0.00383153854107	APiCS
+WALS 33A	Coding of Nominal Plurality	Paradigmatic	4	1.9287054409	2.07692307692	0.105337322038	Same
+WALS 13A	Tone	Paradigmatic	3	1.00189753321	0.608108108108	0.00820030332224	WALS
+WALS 112A	Negative Morphemes	Syntagmatic	2	1.10353753236	1.06153846154	0.275207972294	Same
+WALS 54A	Distributive Numerals	Paradigmatic	3	1.59760956175	0.583333333333	2.54845907611e-14	WALS
+WALS 42A	Pronominal and Adnominal Demonstratives	Paradigmatic	2	1.28855721393	1.4358974359	0.018746532787	APiCS
+WALS 93A	Position of Interrogative Phrases in Content Questions	Syntagmatic	2	1.02552719201	1.10526315789	0.000134662173612	APiCS
+WALS 46A	Indefinite Pronouns	Paradigmatic	4	0.429447852761	0.64	0.158808864429	Same
+WALS 89A	Order of Numeral and Noun	Syntagmatic	1	0.943674176776	1.0	0.033525802798	APiCS
+WALS 81A	Order of Subject, Object and Verb	Syntagmatic	1	0.862745098039	0.910256410256	0.232122185446	Same
+WALS 38A	Indefinite Articles	Paradigmatic	2	0.63670411985	1.13157894737	1.86173377477e-07	APiCS
+WALS 122A	Relativization on Subjects	Paradigmatic	2	1.03012048193	1.14492753623	0.00096803880746	APiCS
+WALS 91A	Order of Degree Word and Adjective	Syntagmatic	2	1.1288981289	1.19480519481	0.119932215555	Same
+WALS 87A	Order of Adjective and Noun	Syntagmatic	1	0.919472913616	0.881578947368	0.242899341754	Same
+WALS 99A	Alignment of Case Marking of Pronouns	Paradigmatic	3	1.06395348837	1.42105263158	0.00962332988437	APiCS
+WALS 63A	Noun Phrase Conjunction	Paradigmatic	2	1.55982905983	1.54237288136	0.810201116751	Same
+WALS 71A	The Prohibitive	Paradigmatic	2	1.54343434343	0.666666666667	9.31265967592e-16	WALS
+WALS 116A	Polar Questions	Syntagmatic	2	1.01467505241	1.24675324675	1.14448911763e-28	APiCS
+WALS 106A	Reciprocal Constructions	Paradigmatic	3	1.65714285714	1.9	0.0214540589654	APiCS
+WALS 85A	Order of Adposition and Noun Phrase	Syntagmatic	2	1.02362869198	1.05194805195	0.370750540376	Same
+WALS 45A	Politeness Distinctions in Pronouns	Paradigmatic	3	1.44927536232	1.35820895522	0.323312511885	Same
+WALS 53A	Ordinal Numerals	Paradigmatic	6	3.47663551402	3.796875	0.191182489407	Same
+WALS 119A	Nominal and Locational Predication	Paradigmatic	2	1.69689119171	1.49350649351	0.000538855179252	WALS
+WALS 24A	Locus of Marking in Possessive Noun Phrases	Syntagmatic	2	0.957627118644	0.721518987342	0.000139793739136	WALS
+WALS 47A	Intensifiers and Reflexive Pronouns	Paradigmatic	2	1.44047619048	1.37878787879	0.392226052805	Same
+WALS 120A	Zero Copula for Predicate Nominals	Paradigmatic	2	1.45336787565	1.58227848101	0.0366441665537	APiCS
+WALS 34A	Occurrence of Nominal Plurality	Paradigmatic	5	2.6323024055	2.73417721519	0.530179336554	Same
+WALS 109A	Applicative Constructions	Paradigmatic	4	1.46448087432	0.186666666667	3.41495984446e-09	WALS
+WALS 55A	Numeral Classifiers	Paradigmatic	2	0.505	0.105263157895	8.66009957498e-06	WALS
+WALS 88A	Order of Demonstrative and Noun	Syntagmatic	2	0.959116925593	0.898734177215	0.0472042631296	WALS
+WALS 41A	Distance Contrasts in Demonstratives	Paradigmatic	5	2.46581196581	1.97333333333	8.31603574376e-08	WALS
+WALS 79A	Suppletion According to Tense and Aspect	Paradigmatic	4	0.974093264249	0.947368421053	0.885518505813	Same
+WALS 115A	Negative Indefinite Pronouns and Predicate Negation	Paradigmatic	2	1.06310679612	1.13698630137	0.0488177438083	APiCS
+WALS 124A	'Want' Complement Subjects	Syntagmatic	2	1.04946996466	1.17567567568	0.000235254721638	APiCS
+WALS 10A	Vowel Nasalization	Paradigmatic	2	1.26229508197	1.30263157895	0.491644555505	Same
+WALS 39A	Inclusive/Exclusive Distinction in Independent Pronouns	Paradigmatic	3	1.645	1.23684210526	0.000582372361383	WALS
+WALS 90A	Order of Relative Clause and Noun	Syntagmatic	2	0.941818181818	1.03947368421	0.00715076564152	APiCS
