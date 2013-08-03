@@ -347,9 +347,85 @@ def getLangCompSyn(walsLangCompSyn,apicsLangCompSyn):
 
 
 
+def to_R(walsFCompAvgs,apicsFCompAvgs,WALSLangCompListPar,WALSLangCompListSyn,APiCSLangCompListPar,APiCSLangCompListSyn):
+
+	rfile = open('APiCSWALS.r', 'w')
+
+	print >> rfile, "library(ggplot2)"
+	print >> rfile, "library(plyr)"
+
+	print >> rfile, "apicsFeatCompAvgs <- c(", ",".join(map(str, apicsFCompAvgs)), ")"
+	print >> rfile, "walsFeatCompAvgs <- c(", ",".join(map(str, walsFCompAvgs)), ")"
+
+	print >> rfile, "apicsFeatCompAvgsDF = as.data.frame(apicsFeatCompAvgs)"
+	print >> rfile, "walsFeatCompAvgsDF = as.data.frame(walsFeatCompAvgs)"
+
+	print >> rfile, "apicsFeatCompAvgsDF$set = \"APiCS\""
+	print >> rfile, "walsFeatCompAvgsDF$set = \"WALS\""
+
+	print >> rfile, "apicsFeatCompAvgsDF = rename(apicsFeatCompAvgsDF, c(\"apicsFeatCompAvgs\" = \"Complexity\"))"
+	print >> rfile, "walsFeatCompAvgsDF = rename(walsFeatCompAvgsDF, c(\"walsFeatCompAvgs\" = \"Complexity\"))"
+
+	print >> rfile, "awFeat = rbind(apicsFeatCompAvgsDF,walsFeatCompAvgsDF)"
+	print >> rfile, "distPlot = ggplot(awFeat, aes(Complexity, fill=set)) + geom_density(alpha=0.2)"
+	print >> rfile, "ggsave(\"/Users/jcgood/gitrepos/complexity/featDistr.pdf\", plot=distPlot)"
+
+	print >> rfile, "alangcompPar <- c(", ",".join(map(str, APiCSLangCompListPar)), ")"
+	print >> rfile, "wlangcompPar <- c(", ",".join(map(str, WALSLangCompListPar)), ")"
+	print >> rfile, "alangcompSyn <- c(", ",".join(map(str, APiCSLangCompListSyn)), ")"
+	print >> rfile, "wlangcompSyn <- c(", ",".join(map(str, WALSLangCompListSyn)), ")"
+
+	print >> rfile, "alangcompParDF = as.data.frame(alangcompPar)"
+	print >> rfile, "wlangcompParDF = as.data.frame(wlangcompPar)"
+	print >> rfile, "alangcompSynDF = as.data.frame(alangcompSyn)"
+	print >> rfile, "wlangcompSynDF = as.data.frame(wlangcompSyn)"
+
+	print >> rfile, "alangcompParDF$set = \"APiCS\""
+	print >> rfile, "alangcompSynDF$set = \"APiCS\""
+	print >> rfile, "wlangcompParDF$set = \"WALS\""
+	print >> rfile, "wlangcompSynDF$set = \"WALS\""
+
+	print >> rfile, "alangcompParDF = rename(alangcompParDF, c(\"alangcompPar\" = \"Complexity\"))"
+	print >> rfile, "alangcompSynDF = rename(alangcompSynDF, c(\"alangcompSyn\" = \"Complexity\"))"
+	print >> rfile, "wlangcompParDF = rename(wlangcompParDF, c(\"wlangcompPar\" = \"Complexity\"))"
+	print >> rfile, "wlangcompSynDF = rename(wlangcompSynDF, c(\"wlangcompSyn\" = \"Complexity\"))"
+
+	print >> rfile, "awPar = rbind(alangcompParDF,wlangcompParDF)"
+	print >> rfile, "awSyn = rbind(alangcompSynDF,wlangcompSynDF)"
+
+	print >> rfile, "parPlot = ggplot(awPar, aes(Complexity, fill=set)) + geom_density(alpha=0.2)"
+	print >> rfile, "synPlot = ggplot(awSyn, aes(Complexity, fill=set)) + geom_density(alpha=0.2)"
+
+	print >> rfile, "ggsave(\"/Users/jcgood/gitrepos/complexity/parDistr.pdf\", plot=parPlot)"
+	print >> rfile, "ggsave(\"/Users/jcgood/gitrepos/complexity/synDistr.pdf\", plot=synPlot)"
 
 
+def getLangCompsTable(cur,complexities,names):
+	cur.execute("SELECT `Language`, `WALSFeature`, `Wals_value_Number` FROM WALSAPICSValues ORDER BY `Language`")
+	langfile = open('APiCSLangCompVals.txt', 'w')
+	print >> langfile, "Language\t", "Feature\t", "Feature_name\t", "Value\t", "Value_complexity"
+	for row in cur.fetchall():
+		lang, feat, val = row
+		if feat in complexities:
+			complexity = complexities[feat]
+			compval = complexity[str(val)]
+			print >> langfile, lang+"\t", feat+"\t", names[feat]+"\t", str(val)+"\t", str(compval)
+		
+		
 
+# R sample case
+# apicslangsynvector = robj.FloatVector(APiCSLangCompListSyn)
+# walslangsynvector = robj.FloatVector(WALSLangCompListSyn)
+# t = robj.r['t.test']
+# p = t(apicslangsynvector,walslangsynvector,**{'var.equal': True}) # Do two-sample t-test assuming equal variance
+#print p
+
+
+# apicslangvector = robj.FloatVector(APiCSLangCompListPar)
+# walslangvector = robj.FloatVector(WALSLangCompListPar)
+# t = robj.r['t.test']
+# p = t(apicslangvector,walslangvector,**{'var.equal': True}) # Do two-sample t-test assuming equal variance
+# print p
 
 
 # THIS WAS FOR WHEN I THOUGHT I COULD USE THE VARIABLE FEATURES OF APICS, BUT I HAVE NO GOOD WAY OF COMPARING THEM TO WALS

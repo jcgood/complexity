@@ -5,7 +5,7 @@ Pidgin Hawaiian	0.44623655914	APiCS
 Chinese Pidgin Russian	0.462222222222	APiCS
 Creolese	0.552083333333	APiCS
 Krio	0.413978494624	APiCS
-Hawai?i Creole	0.53125	APiCS
+African American English	0.478125	APiCS
 Kikongo-Kituba	0.405208333333	APiCS
 Papiá Kristang	0.46875	APiCS
 Gullah	0.5	APiCS
@@ -14,23 +14,23 @@ Cameroon Pidgin English	0.44623655914	APiCS
 Kinubi	0.433333333333	APiCS
 Nicaraguan Creole English	0.440860215054	APiCS
 Papiamentu	0.451111111111	APiCS
-Bislama	0.433333333333	APiCS
+Sranan	0.438888888889	APiCS
+Cavite Chabacano	0.6	APiCS
 Michif	0.677419354839	APiCS
 Kriol	0.465517241379	APiCS
 Guyanais	0.446875	APiCS
-Sranan	0.438888888889	APiCS
-Cavite Chabacano	0.6	APiCS
+Bislama	0.433333333333	APiCS
 Cape Verdean Creole of Brava	0.494623655914	APiCS
 Fanakalo	0.405376344086	APiCS
 Chinese Pidgin English	0.525287356322	APiCS
 Early Sranan	0.433333333333	APiCS
-Trinidad English Creole	0.446428571429	APiCS
+Seychelles Creole	0.436458333333	APiCS
 Belizean Creole	0.441666666667	APiCS
 Santome	0.5	APiCS
 Guadeloupean Creole	0.390322580645	APiCS
 Afrikaans	0.552688172043	APiCS
 Gurindji Kriol	0.484375	APiCS
-Seychelles Creole	0.436458333333	APiCS
+Trinidad English Creole	0.446428571429	APiCS
 Palenquero	0.408602150538	APiCS
 Cape Verdean Creole of Santiago	0.494623655914	APiCS
 Zamboanga Chabacano	0.59247311828	APiCS
@@ -40,7 +40,7 @@ Lingala	0.488541666667	APiCS
 Ternate Chabacano	0.532291666667	APiCS
 Guinea-Bissau Kriyol	0.510752688172	APiCS
 Ghanaian Pidgin English	0.546875	APiCS
-African American English	0.478125	APiCS
+Hawai?i Creole	0.53125	APiCS
 Korlai	0.545161290323	APiCS
 Norf'k	0.583333333333	APiCS
 Cape Verdean Creole of São Vicente	0.477777777778	APiCS
@@ -63,13 +63,13 @@ Media Lengua	0.380952380952	APiCS
 Diu Indo-Portuguese	0.529761904762	APiCS
 Mixed Ma?a/Mbugu	0.478494623656	APiCS
 Mauritian Creole	0.509375	APiCS
+Sri Lankan Malay	0.478125	APiCS
 Tayo	0.390322580645	APiCS
 Juba Arabic	0.376666666667	APiCS
 Sango	0.472043010753	APiCS
 Pidgin Hindustani	0.291111111111	APiCS
 Sri Lanka Portuguese	0.677419354839	APiCS
 Singlish	0.515625	APiCS
-Sri Lankan Malay	0.478125	APiCS
 Louisiana Creole	0.471875	APiCS
 Saramaccan	0.5125	APiCS
 Kanuri	0.614102564103	WALS
