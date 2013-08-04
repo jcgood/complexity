@@ -101,7 +101,7 @@ def getAPiCSFeatureComps(cur,types,complexities,degrees):
 
 
 # # Now do the same thing across features
-def getAPiCSLangComps(cur,complexities,apicsLangComp,majorFeats=False):
+def getAPiCSLangComps(cur,complexities,apicsLangComp,majorFeats=False,noMixed=False):
 
 	cur.execute("""SELECT WALSAPiCSValues.Language, APiCSFeatures.`WALS-APICS`,  WALSAPiCSValues.Wals_value_number
 	FROM WALSAPiCSValues
@@ -114,6 +114,10 @@ def getAPiCSLangComps(cur,complexities,apicsLangComp,majorFeats=False):
 		lang, feat, value = row
 		compfeat = complexities[feat]
 		compValue = compfeat[str(value)]
+
+		mixedLangs = ["Michif", "Sri Lanka Portuguese"]
+		if noMixed and lang in mixedLangs:
+			continue
 
 		if feat in apicswalsFeatComp:
 			apicswalsFeatComp[feat] += compValue
@@ -367,7 +371,7 @@ def to_R(walsFCompAvgs,apicsFCompAvgs,WALSLangCompListPar,WALSLangCompListSyn,AP
 	print >> rfile, "walsFeatCompAvgsDF = rename(walsFeatCompAvgsDF, c(\"walsFeatCompAvgs\" = \"Complexity\"))"
 
 	print >> rfile, "awFeat = rbind(apicsFeatCompAvgsDF,walsFeatCompAvgsDF)"
-	print >> rfile, "distPlot = ggplot(awFeat, aes(Complexity, fill=set)) + geom_density(alpha=0.2)"
+	print >> rfile, "distPlot = ggplot(awFeat, aes(Complexity, fill=set)) + geom_density(alpha=0.2, aes(y=..scaled..)) + theme(panel.grid=element_blank(), panel.background = element_blank())"
 	print >> rfile, "ggsave(\"/Users/jcgood/gitrepos/complexity/featDistr.pdf\", plot=distPlot)"
 
 	print >> rfile, "alangcompPar <- c(", ",".join(map(str, APiCSLangCompListPar)), ")"
@@ -393,11 +397,15 @@ def to_R(walsFCompAvgs,apicsFCompAvgs,WALSLangCompListPar,WALSLangCompListSyn,AP
 	print >> rfile, "awPar = rbind(alangcompParDF,wlangcompParDF)"
 	print >> rfile, "awSyn = rbind(alangcompSynDF,wlangcompSynDF)"
 
-	print >> rfile, "parPlot = ggplot(awPar, aes(Complexity, fill=set)) + geom_density(alpha=0.2)"
-	print >> rfile, "synPlot = ggplot(awSyn, aes(Complexity, fill=set)) + geom_density(alpha=0.2)"
-
+	print >> rfile, "parPlot = ggplot(awPar, aes(Complexity, fill=set)) + geom_density(alpha=0.2, aes(y=..scaled..)) + theme(panel.grid=element_blank(), panel.background = element_blank())"
+	print >> rfile, "synPlot = ggplot(awSyn, aes(Complexity, fill=set)) + geom_density(alpha=0.2, aes(y=..scaled..)) + theme(panel.grid=element_blank(), panel.background = element_blank())"
 	print >> rfile, "ggsave(\"/Users/jcgood/gitrepos/complexity/parDistr.pdf\", plot=parPlot)"
 	print >> rfile, "ggsave(\"/Users/jcgood/gitrepos/complexity/synDistr.pdf\", plot=synPlot)"
+	
+	print >> rfile, "aParHist = ggplot(alangcompParDF,aes(Complexity, fill=set)) + geom_histogram(alpha=0.5) + geom_density(alpha=.2) + theme(panel.grid=element_blank(), panel.background = element_blank())"
+	print >> rfile, "wParHist = ggplot(wlangcompParDF,aes(Complexity, fill=set)) + geom_histogram(alpha=0.5, fill=\"#33CCCC\") + geom_density(alpha=.2, fill=\"#33CCCC\") + theme(panel.grid=element_blank(), panel.background = element_blank())"
+	print >> rfile, "ggsave(\"/Users/jcgood/gitrepos/complexity/aParHist.pdf\", plot=aParHist)"
+	print >> rfile, "ggsave(\"/Users/jcgood/gitrepos/complexity/wParHist.pdf\", plot=wParHist)"
 
 
 def getLangCompsTable(cur,complexities,names):
