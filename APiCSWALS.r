@@ -37,3 +37,7 @@ aParHist = ggplot(alangcompParDF,aes(Complexity, fill=set)) + geom_histogram(alp
 wParHist = ggplot(wlangcompParDF,aes(Complexity, fill=set)) + geom_histogram(alpha=0.5, fill="#33CCCC") + geom_density(alpha=.2, fill="#33CCCC") + theme(panel.grid=element_blank(), panel.background = element_blank())
 ggsave("/Users/jcgood/gitrepos/complexity/aParHist.pdf", plot=aParHist)
 ggsave("/Users/jcgood/gitrepos/complexity/wParHist.pdf", plot=wParHist)
+fc = read.table("/Users/jcgood/gitrepos/complexity/FeatComp.txt", row.names=NULL, header=TRUE)
+fcfit = glm(fc$Set ~ fc$Feature*fc$Complexity, family="binomial")
+layout(matrix(c(1,2,3,4),2,2))
+fcplot = plot(fcfit)

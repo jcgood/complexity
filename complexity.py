@@ -239,7 +239,9 @@ def getFeatComplexity(walsFeatComp,walsFeatLangCount,walsCompList,apicswalsFeatC
 	
 	walsFCompAvg = [ ]
 	apicsFCompAvg = [ ]
-	print >> outfile, "Feature\t", "Description\t", "Types\t", "Degrees\t", "WALSscore\t", "APiCSscore\t", "WALSNorm\t", "APiCSNorm\t", "CompAvg\t", "Significance\t", "Comparison"
+	# NOTE DON'T JUST UNCOMMENT THIS SINCE I ALSO REARRANGED COLUMNS--see below
+	#print >> outfile, "Feature\t", "Description\t", "Types\t", "Degrees\t", "WALSscore\t", "APiCSscore\t", "WALSNorm\t", "APiCSNorm\t", "CompAvg\t", "Significance\t", "Comparison"
+	print >> outfile, "{\sc feature}\t&", "{\sc description}&\t", "{\sc type}&\t",   "{\sc apics}&\t", "{\sc wals}&\t", "$\sim$ {\sc p-value}&\t", "{\sc complexity}\t\\\\" # Just doing limited info for printing on paper
 	for feat in walsFeatComp:
 		#print feat+",", names[feat]+",", types[feat]+",", degrees[feat]
 		walscompval = walsFeatComp[feat]
@@ -273,17 +275,19 @@ def getFeatComplexity(walsFeatComp,walsFeatLangCount,walsCompList,apicswalsFeatC
 	#	print "p-value = ", p, "("+sig+")"
 		if p <= .05 and walscompavg > apicscompavg:
 	#		print "WALS more complex"
-			winner = "WALS"
+			winner = "WALS $>$ APiCS"
 		elif p <= .05:
 	#		print "APiCS more complex"
-			winner = "APiCS"
+			winner = "APiCS $>$ WALS"
 		else:
 	#		print "equal complexity"
-			winner = "Same"
+			winner = "APiCS $\sim$ WALS"
 	# 	
 	# 	print ""
 
-		print >> outfile, feat+"\t", names[feat]+"\t", types[feat]+"\t", str(degrees[feat])+"\t", str(walscompavg)+"\t", str(apicscompavg)+"\t", str(walsavgnorm)+"\t", str(apicsavgnorm)+"\t", str(compavg)+"\t",  str(p)+"\t", winner
+	# This matches with old top line (not rearranged)
+	#	print >> outfile, feat+"\t", names[feat]+"\t", types[feat]+"\t", str(degrees[feat])+"\t", str(walscompavg)+"\t", str(apicscompavg)+"\t", str(walsavgnorm)+"\t", str(apicsavgnorm)+"\t", str(compavg)+"\t",  str(p)+"\t", winner
+		print >> outfile, feat+"\t&", names[feat]+"\t&", types[feat]+"\t&", str(round(walsavgnorm,2))+"\t&", str(round(apicsavgnorm,2))+"\t&", str(round(p,2))+"\t&", winner+"\t\\\\"
 		
 		walsFCompAvg.append(walscompavg/degrees[feat])
 		apicsFCompAvg.append(apicscompavg/degrees[feat])
@@ -378,9 +382,6 @@ def featComparison(apicsLangFeatCompPar,walsLangFeatCompPar,apicsLangComp,walsLa
 			feat = feat.replace(" ", "")
 			print >> fcfile, feat+"\t", str(comp)+"\t", set
 		
-		#ADD ME and GLM stuff
-		# read.table("/Users/jcgood/gitrepos/complexity/FeatComp.txt", row.names=NULL, header=TRUE)
-		#fcfit = glm(Set ~ Feature*Complexity, family="binomial")
 		
 def to_R(walsFCompAvgs,apicsFCompAvgs,WALSLangCompListPar,WALSLangCompListSyn,APiCSLangCompListPar,APiCSLangCompListSyn):
 
@@ -437,6 +438,13 @@ def to_R(walsFCompAvgs,apicsFCompAvgs,WALSLangCompListPar,WALSLangCompListSyn,AP
 	print >> rfile, "wParHist = ggplot(wlangcompParDF,aes(Complexity, fill=set)) + geom_histogram(alpha=0.5, fill=\"#33CCCC\") + geom_density(alpha=.2, fill=\"#33CCCC\") + theme(panel.grid=element_blank(), panel.background = element_blank())"
 	print >> rfile, "ggsave(\"/Users/jcgood/gitrepos/complexity/aParHist.pdf\", plot=aParHist)"
 	print >> rfile, "ggsave(\"/Users/jcgood/gitrepos/complexity/wParHist.pdf\", plot=wParHist)"
+	
+	# For GLM (not really used for now, but for future reference)
+	print >> rfile, "fc = read.table(\"/Users/jcgood/gitrepos/complexity/FeatComp.txt\", row.names=NULL, header=TRUE)"
+	print >> rfile, "fcfit = glm(fc$Set ~ fc$Feature*fc$Complexity, family=\"binomial\")" # binomial default to logit function, I think
+	print >> rfile, "layout(matrix(c(1,2,3,4),2,2))" #  4 graphs/page
+	print >> rfile, "fcplot = plot(fcfit)"
+
 
 
 def getLangCompsTable(cur,complexities,names):
