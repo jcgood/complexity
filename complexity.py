@@ -69,6 +69,7 @@ def getAPiCSFeatureComps(cur,types,complexities,degrees):
 
 	apicsLangComp = { }	# For paradigmatic
 	apicsLangCompSyn = { } # For syntagmatic
+	apicsLangFeatCompPar = [ ]
 	for row in cur.fetchall():
 		lang, feat, value = row
 		compfeat = complexities[feat]
@@ -77,14 +78,17 @@ def getAPiCSFeatureComps(cur,types,complexities,degrees):
 		# Get the numbers across languages
 		if lang in apicsLangComp:
 			if types[feat] == "Paradigmatic":
+				normComp = compValue / float(degrees[feat]) 
 				langCompList = apicsLangComp[lang]
-				langCompList.append( compValue / float(degrees[feat]) )
+				langCompList.append(normComp)
 				apicsLangComp[lang] = langCompList
-	
+				apicsLangFeatCompPar.append([ lang,feat,normComp,"APiCS" ]) # For regression
+		
 		else:
 			if types[feat] == "Paradigmatic":
-				apicsLangComp[lang] = [ compValue / float(degrees[feat])  ]
-
+				normComp = compValue / float(degrees[feat]) 
+				apicsLangComp[lang] = [normComp]
+				apicsLangFeatCompPar.append([ lang,feat,normComp,"APiCS" ])
 
 		# Now syntagmatic
 		if lang in apicsLangCompSyn:
@@ -97,10 +101,11 @@ def getAPiCSFeatureComps(cur,types,complexities,degrees):
 			if types[feat] == "Syntagmatic":
 				apicsLangCompSyn[lang] = [ compValue / float(degrees[feat])  ]
 
-	return(apicsLangComp,apicsLangCompSyn)
+	
+	return(apicsLangComp,apicsLangCompSyn,apicsLangFeatCompPar)
 
 
-# # Now do the same thing across features
+# Now do the same thing across features
 def getAPiCSLangComps(cur,complexities,apicsLangComp,majorFeats=False,noMixed=False):
 
 	cur.execute("""SELECT WALSAPiCSValues.Language, APiCSFeatures.`WALS-APICS`,  WALSAPiCSValues.Wals_value_number
@@ -154,6 +159,7 @@ def getWALSFeatureComps(cur,types,complexities,degrees):
 
 	walsLangComp = { } # For paradigmatic
 	walsLangCompSyn = { } 
+	walsLangFeatCompPar = [ ]
 	for row in cur.fetchall():
 		lang, value, feat = row
 		compfeat = complexities[feat]
@@ -162,13 +168,17 @@ def getWALSFeatureComps(cur,types,complexities,degrees):
 		# Now get the numbers across languages
 		if lang in walsLangComp:
 			if types[feat] == "Paradigmatic":
+				normComp = compValue / float(degrees[feat]) 
 				langCompList = walsLangComp[lang]
-				langCompList.append( compValue / float(degrees[feat]) )
+				langCompList.append(normComp)
 				walsLangComp[lang] = langCompList
+				walsLangFeatCompPar.append([ lang,feat,normComp,"WALS" ]) # For regression
 			
 		else:
 			if types[feat] == "Paradigmatic":
-				walsLangComp[lang] = [ compValue / float(degrees[feat])  ]
+				normComp = compValue / float(degrees[feat]) 
+				walsLangComp[lang] = [normComp]
+				walsLangFeatCompPar.append([ lang,feat,normComp,"WALS" ]) # For regression
 
 		# Now syntagmatic
 		if lang in walsLangCompSyn:
@@ -181,7 +191,7 @@ def getWALSFeatureComps(cur,types,complexities,degrees):
 			if types[feat] == "Syntagmatic":
 				walsLangCompSyn[lang] = [ compValue / float(degrees[feat])  ]
 	
-	return(walsLangComp,walsLangCompSyn)
+	return(walsLangComp,walsLangCompSyn,walsLangFeatCompPar)
 
 
 
@@ -350,7 +360,28 @@ def getLangCompSyn(walsLangCompSyn,apicsLangCompSyn):
 	return(totalWALSSyn,WALSCountSyn,WALSLangCompListSyn,totalAPiCSSyn,APiCSCountSyn,APiCSLangCompListSyn)
 
 
+def featComparison(apicsLangFeatCompPar,walsLangFeatCompPar,apicsLangComp,walsLangComp):
+	
+	fcfile = open('FeatComp.txt', 'w')
 
+	print >> fcfile, "Feature\tComplexity\tSet"
+	
+	for featcomp in apicsLangFeatCompPar:
+		lang, feat, comp, set = featcomp
+		if len(apicsLangComp[lang]) >= 26:
+			feat = feat.replace(" ", "")
+			print >> fcfile, feat+"\t", str(comp)+"\t", set
+
+	for featcomp in walsLangFeatCompPar:
+		lang, feat, comp, set = featcomp
+		if len(walsLangComp[lang]) >= 26:
+			feat = feat.replace(" ", "")
+			print >> fcfile, feat+"\t", str(comp)+"\t", set
+		
+		#ADD ME and GLM stuff
+		# read.table("/Users/jcgood/gitrepos/complexity/FeatComp.txt", row.names=NULL, header=TRUE)
+		#fcfit = glm(Set ~ Feature*Complexity, family="binomial")
+		
 def to_R(walsFCompAvgs,apicsFCompAvgs,WALSLangCompListPar,WALSLangCompListSyn,APiCSLangCompListPar,APiCSLangCompListSyn):
 
 	rfile = open('APiCSWALS.r', 'w')
