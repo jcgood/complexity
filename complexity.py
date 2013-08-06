@@ -301,7 +301,7 @@ def getLangCompPar(walsLangComp,apicsLangComp):
 
 	outfile = open('APiCSLangComps.txt', 'w')
 
-	print >> outfile, "Language\tComplexity\tSet"
+	print >> outfile, "Language \\=\tComplexity\t \\=Set"
 
 	totalAPiCS = 0
 	APiCSCount = 0
@@ -310,7 +310,7 @@ def getLangCompPar(walsLangComp,apicsLangComp):
 		# Only do languages with lots of features (paradigmatic ones only included); 26 is a semi-arbitrary choice to get a reasonable total number of language of both groups of about equal size
 		if len(apicsLangComp[lang]) >= 26:
 			mean = sum(apicsLangComp[lang])/len(apicsLangComp[lang])
-			print >> outfile, lang+"\t"+str(mean)+"\t"+"APiCS"
+			print >> outfile, lang, "\\>\t "+str(round(mean,2)), "\t\\> "+"APiCS \\\\"
 			totalAPiCS += mean
 			APiCSLangCompList.append(mean)
 			APiCSCount += 1
@@ -323,7 +323,7 @@ def getLangCompPar(walsLangComp,apicsLangComp):
 		# Only do languages with lots of features (paradigmatic ones only included)
 		if len(walsLangComp[lang]) >= 26:
 			mean = sum(walsLangComp[lang])/len(walsLangComp[lang])
-			print >> outfile, lang+"\t"+str(mean)+"\t"+"WALS"
+			print >> outfile, lang, "\\>\t "+str(round(mean,2)), "\t\\> "+"WALS \\\\"
 			totalWALS += mean
 			WALSLangCompList.append(mean)
 			WALSCount += 1
@@ -441,7 +441,7 @@ def to_R(walsFCompAvgs,apicsFCompAvgs,WALSLangCompListPar,WALSLangCompListSyn,AP
 	
 	# For GLM (not really used for now, but for future reference)
 	print >> rfile, "fc = read.table(\"/Users/jcgood/gitrepos/complexity/FeatComp.txt\", row.names=NULL, header=TRUE)"
-	print >> rfile, "fcfit = glm(fc$Set ~ fc$Feature*fc$Complexity, family=\"binomial\")" # binomial default to logit function, I think
+	print >> rfile, "fcfit = glm(fc$Set ~ fc$Feature:fc$Complexity, family=\"binomial\")" # binomial default to logit function, I think; the colon means only use interacting terms, a "*" does interacting and individual
 	print >> rfile, "layout(matrix(c(1,2,3,4),2,2))" #  4 graphs/page
 	print >> rfile, "fcplot = plot(fcfit)"
 
@@ -468,7 +468,20 @@ def getDocumentation(cur):
 	for row in cur.fetchall():
 		feat,name,type,degree,doc = row
 		print >> docfile, feat+"\t"+name+"\t"+type+"\t"+str(degree)+"\t"+doc
-		
+
+
+def getValDocumentation(cur):
+
+	cur.execute("SELECT `WALSValueInfo`.`Feature_number`, `WALSValueInfo`.`Value_description`, `WALSValueInfo`.`Values_number`, `WALSValueInfo`.`Complexity`, `WALSValueInfo`.`ComplexityDocumentation` FROM `WALSValueInfo` WHERE `WALSValueInfo`.`Complexity` IS NOT NULL")
+	docvalfile = open('ValDocumentation.txt', 'w')
+	print >> docvalfile, "Feature\tValueDescription\tValueID\tComplexity\tJustification"
+
+	for row in cur.fetchall():
+		feat,val,valid,comp,doc = row
+		print >> docvalfile, feat+"\t"+val+"\t"+str(valid)+"\t"+str(comp)+"\t"+doc
+
+
+	
 
 # R sample case
 # apicslangsynvector = robj.FloatVector(APiCSLangCompListSyn)

@@ -1,0 +1,209 @@
+Feature	ValueDescription	ValueID	Complexity	Justification
+WALS 10A	Contrast present	1	2.0	Oral/nasal vowel paired
+WALS 10A	Contrast absent	2	1.0	One oral vowel
+WALS 13A	No tones	1	0.0	No linguemes required for transfer of non-distinction
+WALS 13A	Simple tone system	2	2.0	One lingueme for each tone
+WALS 13A	Complex tone system	3	3.0	One lingueme for each tone
+WALS 24A	Head marking	1	1.0	One morpheme for syntagmatic complexity
+WALS 24A	Dependent marking	2	1.0	One morpheme for syntagmatic complexity
+WALS 24A	Double marking	3	2.0	Two morphemes for syntagmatic complexity
+WALS 24A	No marking	4	0.0	Zero dedicated morphemes
+WALS 24A	Other	5	1.0	Chapter examples give one morpheme
+WALS 33A	Plural prefix	1	2.0	Two linguemes
+WALS 33A	Plural suffix	2	2.0	Two linguemes
+WALS 33A	Plural stem change	3	2.0	Two linguemes
+WALS 33A	Plural tone	4	2.0	Two linguemes
+WALS 33A	Plural complete reduplication	5	2.0	Two linguemes
+WALS 33A	Mixed morphological plural	6	4.0	At least two pairs of linguemes
+WALS 33A	Plural word	7	2.0	Two linguemes
+WALS 33A	Plural clitic	8	2.0	Two linguemes
+WALS 33A	No plural	9	0.0	No coding at all
+WALS 34A	No nominal plural	1	0.0	No coding at all
+WALS 34A	Only human nouns, optional	2	5.0	A pair of inaminate contexts, a pair of animate contexts, plus a lingueme for optionality
+WALS 34A	Only human nouns, obligatory	3	4.0	A pair of inaminate contexts, a pair of animate contexts
+WALS 34A	All nouns, always optional	4	3.0	A singular context, and two plural contexts (optional/non-optional)
+WALS 34A	All nouns, optional in inanimates	5	5.0	A pair of inaminate contexts, a pair of animate contexts, plus a lingueme for optionality
+WALS 34A	All nouns, always obligatory	6	2.0	One pair of linguemes
+WALS 37A	Definite word distinct from demonstrative	1	2.0	Two lingueme transfer of definite and demonstrative
+WALS 37A	Demonstrative word used as definite article	2	1.0	One lingueme transfer of demonstrative in right context
+WALS 37A	Definite affix	3	1.0	One lingueme
+WALS 37A	No definite, but indefinite article	4	0.0	Irrelevant for this metric
+WALS 37A	No definite or indefinite article	5	0.0	Irrelevant for this metric
+WALS 38A	Indefinite word distinct from 'one'	1	2.0	Two lingueme transfer of indefinite and 'one'
+WALS 38A	Indefinite word same as 'one'	2	1.0	One lingueme transfer of 'one' in right context
+WALS 38A	Indefinite affix	3	1.0	One lingueme
+WALS 38A	No indefinite, but definite article	4	0.0	Irrelevant for this metric
+WALS 38A	No definite or indefinite article	5	0.0	Irrelevant for this metric
+WALS 39A	No 'we'	1	0.0	No distinction, no transfer
+WALS 39A	'We' the same as 'I'	2	1.0	One lingueme with relevant readig transferred (logically tricky)
+WALS 39A	No inclusive/exclusive	3	1.0	One pronoun transferred
+WALS 39A	Only inclusive	4	2.0	Two linguemes, one for I/we, one for we.INCL
+WALS 39A	Inclusive/exclusive	5	3.0	Three linguemes, for I and two we's
+WALS 41A	No distance contrast	1	1.0	One demonstrative transferred
+WALS 41A	Two-way contrast	2	2.0	Two linguemes
+WALS 41A	Three-way contrast	3	3.0	Three linguemes
+WALS 41A	Four-way contrast	4	4.0	Four linguemes
+WALS 41A	Five (or more)-way contrast	5	5.0	Five linguemes
+WALS 42A	Identical	1	1.0	One lingueme
+WALS 42A	Different stem	2	2.0	Two linguemes
+WALS 42A	Different inflection	3	2.0	At least two linguemes
+WALS 44A	In 3rd person + 1st and/or 2nd person	1	4.0	Two linguemes across at least third person and one other person
+WALS 44A	3rd person only, but also non-singular	2	4.0	Two linguemes across at least singular and plural
+WALS 44A	3rd person singular only	3	2.0	Two linguemes for third person
+WALS 44A	1st or 2nd person but not 3rd	4	2.0	At least two linguemes
+WALS 44A	3rd person non-singular only	5	2.0	At least two linguemes for a non-singular category
+WALS 44A	No gender distinctions	6	0.0	No linguemes beyond pronouns; hard to get this to logically cohere with other complexity assignments
+WALS 45A	No politeness distinction	1	1.0	At least one lingueme
+WALS 45A	Binary politeness distinction	2	2.0	Two linguemes
+WALS 45A	Multiple politeness distinctions	3	3.0	At least three linguemes
+WALS 45A	Pronouns avoided for politeness	4	3.0	Technically could be less than three but Helmbrechet's discussion suggests usually includes more than two distinctions within non-pronouns
+WALS 46A	Interrogative-based	1	0.0	No paradigm
+WALS 46A	Generic-noun-based	2	0.0	No paradigm
+WALS 46A	Special	3	2.0	Assuming one pair transferred
+WALS 46A	Mixed	4	4.0	Assuming at least two pairs transferred
+WALS 46A	Existential construction	5	2.0	Minimal syntactic paradigm
+WALS 47A	Identical	1	1.0	One lingueme
+WALS 47A	Differentiated	2	2.0	Two linguemes
+WALS 52A	Identity	1	1.0	One lingueme
+WALS 52A	Differentiation	2	2.0	Two linguemes
+WALS 52A	Mixed	3	2.0	Two linguemes since still only two morphemes
+WALS 53A	None	1	0.0	No linguemes for lack of distinction
+WALS 53A	One, two, three	2	0.0	No linguemes for lack of distinction
+WALS 53A	First, two, three	3	2.0	Two linguemes for one distinction
+WALS 53A	One-th, two-th, three-th	4	2.0	Two linguemes is logically sufficient to transfer a pattern
+WALS 53A	First/one-th, two-th, three-th	5	3.0	Two linguemes to establish productive pattern, one more for special case of one
+WALS 53A	First, two-th, three-th	6	4.0	Two linguemes to establish pattern for one, two more for other numbers
+WALS 53A	First, second, three-th	7	6.0	Two linguemes to establish pattern for one, two to establish pattern for two, two to establish general pattern
+WALS 53A	Various	8	6.0	Arbitrary upper bound for various based on highest number for non-various strategies
+WALS 54A	No distributive numerals	1	0.0	No linguemes for lack of distinction
+WALS 54A	Marked by reduplication	2	2.0	Two linguemes for one distinction
+WALS 54A	Marked by prefix	3	2.0	Two linguemes for one distinction
+WALS 54A	Marked by suffix	4	2.0	Two linguemes for one distinction
+WALS 54A	Marked by preceding word	5	2.0	Two linguemes for one distinction
+WALS 54A	Marked by following word	6	2.0	Two linguemes for one distinction
+WALS 54A	Marked by mixed or other strategies	7	3.0	Splitting the difference between complex two-way distinctions (which is syntagmatic complexity) and mixed distinction (which would require four)
+WALS 55A	Absent	1	0.0	No paradigm
+WALS 55A	Optional	2	2.0	Two linguemes to demonstrate optionality
+WALS 55A	Obligatory	3	1.0	One lingueme
+WALS 63A	'And' different from 'with'	1	2.0	Two linguemes
+WALS 63A	'And' identical to 'with'	2	1.0	One lingueme
+WALS 64A	Identity	1	1.0	One lingueme
+WALS 64A	Differentiation	2	2.0	Two linguemes
+WALS 64A	Both expressed by juxtaposition	3	0.0	No linguemes for non-distinction
+WALS 71A	Normal imperative + normal negative	1	0.0	No special linguemes
+WALS 71A	Normal imperative + special negative	2	2.0	A pair of linguemes (negative imperative, negative declarative)
+WALS 71A	Special imperative + normal negative	3	2.0	A pair of linguemes (negative imperative, negative declarative)
+WALS 71A	Special imperative + special negative	4	2.0	A pair of linguemes ((negative imperative, negative declarative), additional complexity syntagmatic
+WALS 79A	Tense	1	2.0	One pairs of linguemes
+WALS 79A	Aspect	2	2.0	One pairs of linguemes
+WALS 79A	Tense and aspect	3	4.0	Two pairs of linguemes
+WALS 79A	None	4	0.0	No dedicated linguemes
+WALS 81A	SOV	1	1.0	One word order pattern transferred
+WALS 81A	SVO	2	1.0	One word order pattern transferred
+WALS 81A	VSO	3	1.0	One word order pattern transferred
+WALS 81A	VOS	4	1.0	One word order pattern transferred
+WALS 81A	OVS	5	1.0	One word order pattern transferred
+WALS 81A	OSV	6	1.0	One word order pattern transferred
+WALS 81A	No dominant order	7	0.0	Based on the fact that, following Dryer 81B, split word order seems less common than "free" word order.
+WALS 85A	Postpositions	1	1.0	One lingueme
+WALS 85A	Prepositions	2	1.0	One lingueme
+WALS 85A	Inpositions	3	1.0	One lingueme
+WALS 85A	No dominant order	4	2.0	No dominant order generally seems to mean split
+WALS 85A	No adpositions	5	0.0	No transfer needed
+WALS 86A	Genitive-Noun	1	1.0	One pattern transferred
+WALS 86A	Noun-Genitive	2	1.0	One pattern transferred
+WALS 86A	No dominant order	3	2.0	Dryer implies that no dominant is more often associated with differently dominant than free; this two linguemes
+WALS 87A	Adjective-Noun	1	1.0	One pattern transferred
+WALS 87A	Noun-Adjective	2	1.0	One pattern transferred
+WALS 87A	No dominant order	3	0.0	Unclear if no dominant is "mixed" or "free" but text suggests "free" may be more likely; this no syntagmatic complexity
+WALS 87A	Only internally-headed relative clauses	4	1.0	Difficult to classify; assuming one construction
+WALS 89A	Numeral-Noun	1	1.0	One pattern transferred
+WALS 89A	Noun-Numeral	2	1.0	One pattern transferred
+WALS 89A	No dominant order	3	0.0	Dryer implies that no dominant order is more often free than split
+WALS 89A	Numeral only modifies verb	4	1.0	Difficult to classify; assuming one construction
+WALS 90A	Noun-Relative clause	1	1.0	One lingueme
+WALS 90A	Relative clause-Noun	2	1.0	One lingueme
+WALS 90A	Internally headed	3	1.0	Coded as one lingueme, but not obvious
+WALS 90A	Correlative	4	2.0	Internally-headed plus a complication
+WALS 90A	Adjoined	5	2.0	Internally-headed plus a complication
+WALS 90A	Doubly headed	6	2.0	Double marking
+WALS 90A	Mixed	7	0.0	Discussion implies this tends to mean free ordering
+WALS 91A	Degree word-Adjective	1	1.0	One lingueme
+WALS 91A	Adjective-Degree word	2	1.0	One lingueme
+WALS 91A	No dominant order	3	2.0	Two linguemes for simplest case of conditioned word order differences; Dryer implies this is split rather than free
+WALS 93A	Initial interrogative phrase	1	1.0	One lingueme
+WALS 93A	Not initial interrogative phrase	2	1.0	One lingueme
+WALS 93A	Mixed	3	2.0	Two linguemes for simplest mixed system
+WALS 98A	Neutral	1	0.0	No linguemes
+WALS 98A	Nominative - accusative (standard)	2	2.0	One intransitive sentence, one transitive one
+WALS 98A	Nominative - accusative (marked nominative)	3	2.0	One intransitive sentence, one transitive one
+WALS 98A	Ergative - absolutive	4	2.0	One intransitive sentence, one transitive one
+WALS 98A	Tripartite	5	2.0	One intransitive sentence, one transitive one
+WALS 98A	Active-inactive	6	3.0	Two intransitive sentences, one transitive one
+WALS 99A	Neutral	1	0.0	No linguemes
+WALS 99A	Nominative - accusative (standard)	2	2.0	One intransitive sentence, one transitive one
+WALS 99A	Nominative - accusative (marked nominative)	3	2.0	One intransitive sentence, one transitive one
+WALS 99A	Ergative - absolutive	4	2.0	One intransitive sentence, one transitive one
+WALS 99A	Tripartite	5	2.0	One intranstive sentence, one transitive one
+WALS 99A	Active - inactive	6	3.0	Two intransitive sentences, one transitive one
+WALS 99A	None	7	0.0	This is difficult since it refers to something that is not allowed, and the model does not define what is required for transfer of "ungrammaticality"
+WALS 101A	Obligatory pronouns in subject position	1	0.0	Same as regular clauses; no special transfer needed
+WALS 101A	Subject affixes on verb	2	1.0	Need transfer of one clause with pronominal subject
+WALS 101A	Subject clitics on variable host	3	1.0	Need transfer of one clause with pronominal subject
+WALS 101A	Subject pronouns in different position	4	1.0	Need transfer of one clause with pronominal subject
+WALS 101A	Optional pronouns in subject position	5	2.0	Need transfer of two clauses to show optionality
+WALS 101A	Mixed	6	2.0	Need transfer of two clauses to show mixed pattern
+WALS 105A	Indirect-object construction	1	1.0	Need transfer of one lingueme to show coding
+WALS 105A	Double-object construction	2	1.0	Need transfer of one lingueme to show coding
+WALS 105A	Secondary-object construction	3	1.0	Need transfer of one lingueme to show coding
+WALS 105A	Mixed	4	2.0	Need at least two linguemes to show mixed pattern
+WALS 106A	No reciprocals	1	0.0	Iconic construction does not require special transfer
+WALS 106A	Distinct from reflexive	2	2.0	A pair of linguemes
+WALS 106A	Mixed	3	3.0	At least three linguemes for German type, which is cited asn an example
+WALS 106A	Identical to reflexive	4	1.0	One lingueme
+WALS 109A	Benefactive object; both bases	1	2.0	One lingueme for each base (assuming "benefactive" won't be extended), but explicit data for non-applicability to one base
+WALS 109A	Benefactive object; only transitive	2	2.0	One lingueme for each base (assuming "benefactive" won't be extended), but explicit data for non-applicability to one base
+WALS 109A	Benefactive and other; both bases	3	4.0	One lingueme for each base across at least two classes
+WALS 109A	Benefactive and other; only transitive	4	4.0	One lingueme for each base across at least two classes
+WALS 109A	Non-benefactive object; both bases	5	2.0	One lingueme for each base (assuming "non-benefactive" won't be extended), but explicit data for non-applicability to one base
+WALS 109A	Non-benefactive object; only transitive	6	2.0	One lingueme for each base (assuming "non-benefactive" won't be extended), but explicit data for non-applicability to one base
+WALS 109A	Non-benefactive object; only intransitive	7	2.0	One lingueme for each base (assuming "non-benefactive" won't be extended), but explicit data for non-applicability to one base
+WALS 109A	No applicative construction	8	0.0	No cofinh
+WALS 112A	Negative affix	1	1.0	One morpheme, one syntagmatic complexity
+WALS 112A	Negative particle	2	1.0	One morpheme, one syntagmatic complexity
+WALS 112A	Negative auxiliary verb	3	1.0	One morpheme, one syntagmatic complexity
+WALS 112A	Negative word, unclear if verb or particle	4	1.0	One morpheme, one syntagmatic complexity
+WALS 112A	Variation between negative word and affix	5	1.0	One morpheme, one syntagmatic complexity per construction (paradigmatic complexity not coded)
+WALS 112A	Double negation	6	2.0	Two morphemes
+WALS 115A	Predicate negation also present	1	1.0	One lingueme
+WALS 115A	No predicate negation	2	1.0	One lingueme
+WALS 115A	Mixed behaviour	3	2.0	Two linguemes to show mixed pattern
+WALS 115A	Negative existential construction	4	1.0	One lingueme
+WALS 116A	Question particle	1	1.0	One morpheme, one syntagmatic complexity
+WALS 116A	Interrogative verb morphology	2	1.0	One morpheme, one syntagmatic complexity; ignoring possibility of parsing difficulty
+WALS 116A	Mixture of previous two types	3	2.0	Two morphemes to transfer syntagmatic aspects of construction
+WALS 116A	Interrogative word order	4	1.0	One coding change for transfer
+WALS 116A	Absence of declarative morphemes	5	1.0	One coding change for transfer
+WALS 116A	Interrogative intonation only	6	1.0	One coding change for transfer
+WALS 116A	No interrogative-declarative distinction	7	0.0	No coding
+WALS 119A	Different	1	2.0	Two linguemes
+WALS 119A	Identical	2	1.0	One lingueme
+WALS 120A	Impossible	1	1.0	One lingueme for copula
+WALS 120A	Possible	2	2.0	Two linguemes for optionality
+WALS 122A	Relative pronoun	1	1.0	One lingueme
+WALS 122A	Non-reduction	2	1.0	One lingueme
+WALS 122A	Pronoun-retention	3	2.0	Two linguemes (to make clear retention is a dedicated relativization strategy)
+WALS 122A	Gap	4	1.0	One lingueme
+WALS 124A	Subject is left implicit	1	1.0	One lingueme
+WALS 124A	Subject is expressed overtly	2	1.0	One lingueme
+WALS 124A	Both construction types exist	3	2.0	Two linguemes for mixed system
+WALS 124A	Desiderative verbal affix	4	1.0	One lingueme
+WALS 124A	Desiderative particle	5	1.0	One lingueme
+WALS 129A	Identical	1	1.0	One lingueme
+WALS 129A	Different	2	2.0	Two linguemes
+WALS 88A	Demonstrative-Noun	1	1.0	One lingueme
+WALS 88A	Noun-Demonstrative	2	1.0	One lingueme
+WALS 88A	Demonstrative prefix	3	1.0	One lingueme
+WALS 88A	Demonstrative suffix	4	1.0	One lingueme
+WALS 88A	Demonstrative before and after Noun	5	2.0	Two linguemes for syntagmatic complexity
+WALS 88A	Mixed	6	0.0	Dryer's discussion implies this usually mean free ordering

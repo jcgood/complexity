@@ -29,5 +29,8 @@ getLangCompsTable(cur,complexities,names)
 # Generates file
 featComparison(apicsLangFeatCompPar,walsLangFeatCompPar,apicsLangCompPar,walsLangCompPar)
 
-# Generates fiel
+# Generates file
 getDocumentation(cur)
+
+# Generates file
+getValDocumentation(cur)
