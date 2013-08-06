@@ -239,6 +239,8 @@ def getFeatComplexity(walsFeatComp,walsFeatLangCount,walsCompList,apicswalsFeatC
 	
 	walsFCompAvg = [ ]
 	apicsFCompAvg = [ ]
+	walsFCompAvgPar = [ ]
+	apicsFCompAvg = [ ]
 	# NOTE DON'T JUST UNCOMMENT THIS SINCE I ALSO REARRANGED COLUMNS--see below
 	#print >> outfile, "Feature\t", "Description\t", "Types\t", "Degrees\t", "WALSscore\t", "APiCSscore\t", "WALSNorm\t", "APiCSNorm\t", "CompAvg\t", "Significance\t", "Comparison"
 	print >> outfile, "{\sc feature}\t&", "{\sc description}&\t", "{\sc type}&\t",   "{\sc apics}&\t", "{\sc wals}&\t", "$\sim$ {\sc p-value}&\t", "{\sc complexity}\t\\\\" # Just doing limited info for printing on paper
@@ -291,9 +293,13 @@ def getFeatComplexity(walsFeatComp,walsFeatLangCount,walsCompList,apicswalsFeatC
 		
 		walsFCompAvg.append(walscompavg/degrees[feat])
 		apicsFCompAvg.append(apicscompavg/degrees[feat])
+		
+		if types[feat] == "Paradigmatic":
+			walsFCompAvgPar.append(walscompavg/degrees[feat])
+			apicsFCompAvg.append(apicscompavg/degrees[feat])
 			
-	return(walsFCompAvg,apicsFCompAvg)
-	
+			
+	return(walsFCompAvg,apicsFCompAvg,walsFCompAvgPar,walsFCompAvgPar)
 	
 
 # Now get average complexity for all features within a language; start with APiCS; only paradigmatic
@@ -383,7 +389,7 @@ def featComparison(apicsLangFeatCompPar,walsLangFeatCompPar,apicsLangComp,walsLa
 			print >> fcfile, feat+"\t"+str(comp)+"\t"+set
 		
 		
-def to_R(walsFCompAvgs,apicsFCompAvgs,WALSLangCompListPar,WALSLangCompListSyn,APiCSLangCompListPar,APiCSLangCompListSyn):
+def to_R(walsFCompAvgs,apicsFCompAvgs,WALSLangCompListPar,WALSLangCompListSyn,APiCSLangCompListPar,APiCSLangCompListSyn,walsFCompAvgsPar,apicsFCompAvgsPar):
 
 	rfile = open('APiCSWALS.r', 'w')
 
@@ -405,6 +411,24 @@ def to_R(walsFCompAvgs,apicsFCompAvgs,WALSLangCompListPar,WALSLangCompListSyn,AP
 	print >> rfile, "awFeat = rbind(apicsFeatCompAvgsDF,walsFeatCompAvgsDF)"
 	print >> rfile, "distPlot = ggplot(awFeat, aes(Complexity, fill=set)) + geom_density(alpha=0.2, aes(y=..scaled..)) + theme(panel.grid=element_blank(), panel.background = element_blank())"
 	print >> rfile, "ggsave(\"/Users/jcgood/gitrepos/complexity/featDistr.pdf\", plot=distPlot)"
+
+
+	print >> rfile, "apicsFeatCompAvgsPar <- c(", ",".join(map(str, apicsFCompAvgsPar)), ")"
+	print >> rfile, "walsFeatCompAvgsPar <- c(", ",".join(map(str, walsFCompAvgsPar)), ")"
+
+	print >> rfile, "apicsFeatCompAvgsParDF = as.data.frame(apicsFeatCompAvgsPar)"
+	print >> rfile, "walsFeatCompAvgsParDF = as.data.frame(walsFeatCompAvgsPar)"
+
+	print >> rfile, "apicsFeatCompAvgsParDF$set = \"APiCS\""
+	print >> rfile, "walsFeatCompAvgsParDF$set = \"WALS\""
+
+	print >> rfile, "apicsFeatCompAvgsParDF = rename(apicsFeatCompAvgsParDF, c(\"apicsFeatCompAvgsPar\" = \"Complexity\"))"
+	print >> rfile, "walsFeatCompAvgsParDF = rename(walsFeatCompAvgsParDF, c(\"walsFeatCompAvgsPar\" = \"Complexity\"))"
+
+	print >> rfile, "awFeatPar = rbind(apicsFeatCompAvgsParDF,walsFeatCompAvgsParDF)"
+	print >> rfile, "distPlot = ggplot(awFeatPar, aes(Complexity, fill=set)) + geom_density(alpha=0.2, aes(y=..scaled..)) + theme(panel.grid=element_blank(), panel.background = element_blank())"
+	print >> rfile, "ggsave(\"/Users/jcgood/gitrepos/complexity/featDistrPar.pdf\", plot=distPlot)"
+
 
 	print >> rfile, "alangcompPar <- c(", ",".join(map(str, APiCSLangCompListPar)), ")"
 	print >> rfile, "wlangcompPar <- c(", ",".join(map(str, WALSLangCompListPar)), ")"
