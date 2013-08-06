@@ -286,7 +286,7 @@ def getFeatComplexity(walsFeatComp,walsFeatLangCount,walsCompList,apicswalsFeatC
 	# 	print ""
 
 	# This matches with old top line (not rearranged)
-	#	print >> outfile, feat+"\t", names[feat]+"\t", types[feat]+"\t", str(degrees[feat])+"\t", str(walscompavg)+"\t", str(apicscompavg)+"\t", str(walsavgnorm)+"\t", str(apicsavgnorm)+"\t", str(compavg)+"\t",  str(p)+"\t", winner
+	#	print >> outfile, feat+"\t"+names[feat]+"\t"+types[feat]+"\t"+str(degrees[feat])+"\t"+str(walscompavg)+"\t"+str(apicscompavg)+"\t"+str(walsavgnorm)+"\t"+str(apicsavgnorm)+"\t"+str(compavg)+"\t"+ str(p)+"\t"+winner
 		print >> outfile, feat+"\t&", names[feat]+"\t&", types[feat]+"\t&", str(round(walsavgnorm,2))+"\t&", str(round(apicsavgnorm,2))+"\t&", str(round(p,2))+"\t&", winner+"\t\\\\"
 		
 		walsFCompAvg.append(walscompavg/degrees[feat])
@@ -374,13 +374,13 @@ def featComparison(apicsLangFeatCompPar,walsLangFeatCompPar,apicsLangComp,walsLa
 		lang, feat, comp, set = featcomp
 		if len(apicsLangComp[lang]) >= 26:
 			feat = feat.replace(" ", "")
-			print >> fcfile, feat+"\t", str(comp)+"\t", set
+			print >> fcfile, feat+"\t"+str(comp)+"\t"+set
 
 	for featcomp in walsLangFeatCompPar:
 		lang, feat, comp, set = featcomp
 		if len(walsLangComp[lang]) >= 26:
 			feat = feat.replace(" ", "")
-			print >> fcfile, feat+"\t", str(comp)+"\t", set
+			print >> fcfile, feat+"\t"+str(comp)+"\t"+set
 		
 		
 def to_R(walsFCompAvgs,apicsFCompAvgs,WALSLangCompListPar,WALSLangCompListSyn,APiCSLangCompListPar,APiCSLangCompListSyn):
@@ -456,8 +456,18 @@ def getLangCompsTable(cur,complexities,names):
 		if feat in complexities:
 			complexity = complexities[feat]
 			compval = complexity[str(val)]
-			print >> langfile, lang+"\t", feat+"\t", names[feat]+"\t", str(val)+"\t", str(compval)
+			print >> langfile, lang+"\t"+feat+"\t"+names[feat]+"\t"+str(val)+"\t"+str(compval)
 		
+
+def getDocumentation(cur):
+
+	cur.execute("SELECT APiCSFeatures.`WALS-APICS`, APiCSFeatures.`Feature_name`, APiCSFeatures.`ComplexityType`, APiCSFeatures.`ComplexityDegree`, APiCSFeatures.`ComplexityDocumentation` FROM `APiCSFeatures` WHERE APiCSFeatures.`ComplexityType` IS NOT NULL ORDER BY APiCSFeatures.`WALSNumberOnly`")
+	docfile = open('CompDocumentation.txt', 'w')
+	print >> docfile, "Feature\tDescription\tType\tComplexityMax\tJustification"
+
+	for row in cur.fetchall():
+		feat,name,type,degree,doc = row
+		print >> docfile, feat+"\t"+name+"\t"+type+"\t"+str(degree)+"\t"+doc
 		
 
 # R sample case
