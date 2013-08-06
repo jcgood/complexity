@@ -1,9 +1,12 @@
 from complexity import *
 import pymysql
 
+import socket
 
-#conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='', db='APiCS')
-conn = pymysql.connect(host='localhost', port=3307, user='root', passwd='', db='APiCS')
+hostname = socket.gethostname()
+
+conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='', db='APiCS')
+#conn = pymysql.connect(host='localhost', port=3307, user='root', passwd='', db='APiCS')
 
 cur = conn.cursor()
 

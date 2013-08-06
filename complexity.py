@@ -240,7 +240,7 @@ def getFeatComplexity(walsFeatComp,walsFeatLangCount,walsCompList,apicswalsFeatC
 	walsFCompAvg = [ ]
 	apicsFCompAvg = [ ]
 	walsFCompAvgPar = [ ]
-	apicsFCompAvg = [ ]
+	apicsFCompAvgPar = [ ]
 	# NOTE DON'T JUST UNCOMMENT THIS SINCE I ALSO REARRANGED COLUMNS--see below
 	#print >> outfile, "Feature\t", "Description\t", "Types\t", "Degrees\t", "WALSscore\t", "APiCSscore\t", "WALSNorm\t", "APiCSNorm\t", "CompAvg\t", "Significance\t", "Comparison"
 	print >> outfile, "{\sc feature}\t&", "{\sc description}&\t", "{\sc type}&\t",   "{\sc apics}&\t", "{\sc wals}&\t", "$\sim$ {\sc p-value}&\t", "{\sc complexity}\t\\\\" # Just doing limited info for printing on paper
@@ -296,10 +296,10 @@ def getFeatComplexity(walsFeatComp,walsFeatLangCount,walsCompList,apicswalsFeatC
 		
 		if types[feat] == "Paradigmatic":
 			walsFCompAvgPar.append(walscompavg/degrees[feat])
-			apicsFCompAvg.append(apicscompavg/degrees[feat])
+			apicsFCompAvgPar.append(apicscompavg/degrees[feat])
 			
 			
-	return(walsFCompAvg,apicsFCompAvg,walsFCompAvgPar,walsFCompAvgPar)
+	return(walsFCompAvg,apicsFCompAvg,walsFCompAvgPar,apicsFCompAvgPar)
 	
 
 # Now get average complexity for all features within a language; start with APiCS; only paradigmatic
