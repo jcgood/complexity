@@ -411,7 +411,8 @@ def to_R(walsFCompAvgs,apicsFCompAvgs,WALSLangCompListPar,WALSLangCompListSyn,AP
 	print >> rfile, "awFeat = rbind(apicsFeatCompAvgsDF,walsFeatCompAvgsDF)"
 	print >> rfile, "distPlot = ggplot(awFeat, aes(Complexity, fill=set)) + geom_density(alpha=0.2, aes(y=..scaled..)) + theme(panel.grid=element_blank(), panel.background = element_blank())"
 	print >> rfile, "ggsave(\"/Users/jcgood/gitrepos/complexity/featDistr.pdf\", plot=distPlot)"
-
+	print >> rfile, "distPlotBW = distPlot +  scale_fill_grey(start = 0, end = .9)"
+	print >> rfile, "ggsave(\"/Users/jcgood/gitrepos/complexity/featDistrBW.pdf\", plot=distPlotBW)"
 
 	print >> rfile, "apicsFeatCompAvgsPar <- c(", ",".join(map(str, apicsFCompAvgsPar)), ")"
 	print >> rfile, "walsFeatCompAvgsPar <- c(", ",".join(map(str, walsFCompAvgsPar)), ")"
@@ -426,8 +427,10 @@ def to_R(walsFCompAvgs,apicsFCompAvgs,WALSLangCompListPar,WALSLangCompListSyn,AP
 	print >> rfile, "walsFeatCompAvgsParDF = rename(walsFeatCompAvgsParDF, c(\"walsFeatCompAvgsPar\" = \"Complexity\"))"
 
 	print >> rfile, "awFeatPar = rbind(apicsFeatCompAvgsParDF,walsFeatCompAvgsParDF)"
-	print >> rfile, "distPlot = ggplot(awFeatPar, aes(Complexity, fill=set)) + geom_density(alpha=0.2, aes(y=..scaled..)) + theme(panel.grid=element_blank(), panel.background = element_blank())"
-	print >> rfile, "ggsave(\"/Users/jcgood/gitrepos/complexity/featDistrPar.pdf\", plot=distPlot)"
+	print >> rfile, "distPlotPar = ggplot(awFeatPar, aes(Complexity, fill=set)) + geom_density(alpha=0.2, aes(y=..scaled..)) + theme(panel.grid=element_blank(), panel.background = element_blank())"
+	print >> rfile, "ggsave(\"/Users/jcgood/gitrepos/complexity/featDistrPar.pdf\", plot=distPlotPar)"
+	print >> rfile, "distPlotParBW = distPlotPar +  scale_fill_grey(start = 0, end = .9)"
+	print >> rfile, "ggsave(\"/Users/jcgood/gitrepos/complexity/featDistrParBW.pdf\", plot=distPlotParBW)"
 
 
 	print >> rfile, "alangcompPar <- c(", ",".join(map(str, APiCSLangCompListPar)), ")"
@@ -454,9 +457,13 @@ def to_R(walsFCompAvgs,apicsFCompAvgs,WALSLangCompListPar,WALSLangCompListSyn,AP
 	print >> rfile, "awSyn = rbind(alangcompSynDF,wlangcompSynDF)"
 
 	print >> rfile, "parPlot = ggplot(awPar, aes(Complexity, fill=set)) + geom_density(alpha=0.2, aes(y=..scaled..)) + theme(panel.grid=element_blank(), panel.background = element_blank())"
+	print >> rfile, "parPlotBW = parPlot +  scale_fill_grey(start = 0, end = .9)"
 	print >> rfile, "synPlot = ggplot(awSyn, aes(Complexity, fill=set)) + geom_density(alpha=0.2, aes(y=..scaled..)) + theme(panel.grid=element_blank(), panel.background = element_blank())"
+	print >> rfile, "synPlotBW = synPlot +  scale_fill_grey(start = 0, end = .9)"
 	print >> rfile, "ggsave(\"/Users/jcgood/gitrepos/complexity/parDistr.pdf\", plot=parPlot)"
 	print >> rfile, "ggsave(\"/Users/jcgood/gitrepos/complexity/synDistr.pdf\", plot=synPlot)"
+	print >> rfile, "ggsave(\"/Users/jcgood/gitrepos/complexity/parDistrBW.pdf\", plot=parPlotBW)"
+	print >> rfile, "ggsave(\"/Users/jcgood/gitrepos/complexity/synDistrBW.pdf\", plot=synPlotBW)"
 	
 	print >> rfile, "aParHist = ggplot(alangcompParDF,aes(Complexity, fill=set)) + geom_histogram(alpha=0.5) + geom_density(alpha=.2) + theme(panel.grid=element_blank(), panel.background = element_blank())"
 	print >> rfile, "wParHist = ggplot(wlangcompParDF,aes(Complexity, fill=set)) + geom_histogram(alpha=0.5, fill=\"#33CCCC\") + geom_density(alpha=.2, fill=\"#33CCCC\") + theme(panel.grid=element_blank(), panel.background = element_blank())"
@@ -468,7 +475,7 @@ def to_R(walsFCompAvgs,apicsFCompAvgs,WALSLangCompListPar,WALSLangCompListSyn,AP
 	print >> rfile, "fcfit = glm(fc$Set ~ fc$Feature:fc$Complexity, family=\"binomial\")" # binomial default to logit function, I think; the colon means only use interacting terms, a "*" does interacting and individual
 	print >> rfile, "layout(matrix(c(1,2,3,4),2,2))" #  4 graphs/page
 	print >> rfile, "fcplot = plot(fcfit)"
-
+	# Note 1 - pchisq(residualDeviance, resisdualDF) (see http://data.princeton.edu/R/glms.html) appears to be a valid "significance" test for extent to which model models the data
 
 
 def getLangCompsTable(cur,complexities,names):
