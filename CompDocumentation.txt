@@ -1,6 +1,6 @@
 Feature	Description	Type	ComplexityMax	Justification
 WALS 10A	Nasal vowels	Paradigmatic	2	One pair of linguemes to establish minimal system
-WALS 13A	Tone	Paradigmatic	3	Three linguemes for minimal system of most complext type
+WALS 13A	Tone	Paradigmatic	3	Three linguemes for minimal system of most complex type
 WALS 24A	Marking of possessor noun phrases	Syntagmatic	2	Double marking possible, adding a degree of complexity
 WALS 33A	Expression of nominal plural meaning	Paradigmatic	4	Syntagmatic and paradigmatic; coded as paradigmatic; two pairs of linguemes for minimal mixed system
 WALS 34A	Occurrence of nominal plural markers	Paradigmatic	5	Two linguemes for singular/plural; two for animate/inanimate; one more for optionality in inanimates
@@ -19,13 +19,13 @@ WALS 54A	Adnominal distributive numerals	Paradigmatic	3	A pair of linguemes to e
 WALS 55A	Sortal numeral classifiers	Paradigmatic	2	A pair of linguemes to establish optionality
 WALS 63A	Noun phrase conjunction and comitative	Paradigmatic	2	A pair of linguemes to establish coding distinction
 WALS 64A	Nominal and verbal conjunction	Paradigmatic	2	A pair of linguemes to establish coding distinction
-WALS 71A	The prohibitive	Paradigmatic	2	One pair of linguemes to establish special imperative; another pair to establish special negative
+WALS 71A	The prohibitive	Paradigmatic	4	One pair of linguemes to establish special imperative; another pair to establish special negative
 WALS 79A	Suppletion according to tense and aspect	Paradigmatic	4	Two pairs of linguemes for suppletive tense and aspect
 WALS 81A	Order of subject, object, and verb	Syntagmatic	1	Following description of WALS feature, no dominant order is usually free word order, meaning maximum complexity is one
 WALS 85A	Order of adposition and noun phrase	Syntagmatic	2	Following description of WALS feature, no dominant order is usually split order, requiring at least two linguemes
 WALS 86A	Order of possessor and possessum	Syntagmatic	2	Following description of WALS feature, no dominant order is usually split order, requiring at least two linguemes
 WALS 87A	Order of adjective and noun	Syntagmatic	1	Following description of WALS feature, it is not clear if no dominant word order is free word order or split word order; thus, conservative maximum complexity is one
-WALS 88A	Order of demonstrative and noun	Syntagmatic	2	Marking on both sides of known adds a degree of complexity
+WALS 88A	Order of demonstrative and noun	Syntagmatic	2	Marking on both sides of noun, adding a degree of complexity
 WALS 89A	Order of cardinal numeral and noun	Syntagmatic	1	Following description of WALS feature, it is not clear if no dominant word order is free word order or split word order; thus, conservative maximum complexity is one
 WALS 90A	Order of relative clause and noun	Syntagmatic	2	Doubly headed marking possible as well as other complications, adding a degree of complexity
 WALS 91A	Order of degree word and adjective	Syntagmatic	2	Following description of WALS feature, no dominant order is usually split order, requiring at least two linguemes
@@ -42,5 +42,5 @@ WALS 116A	Polar questions	Syntagmatic	2	Mixed marking possible, adding a degree 
 WALS 119A	Predicative noun phrases and predicative locative phrases	Paradigmatic	2	A pair of linguemes to establish coding distinction
 WALS 120A	Predicative noun phrases	Paradigmatic	2	A pair of linguemes to establish optionality
 WALS 122A	Subject relative clauses	Paradigmatic	2	A pair of linguemes to identify pronoun retention strategy
-WALS 124A	Wantí complement subjects	Syntagmatic	2	A pair of linguemes to establish optionaity of subject expression
+WALS 124A	Wantí complement subjects	Syntagmatic	2	A pair of linguemes to establish optionality of subject expression
 WALS 129A	Hand' and 'arm'	Paradigmatic	2	One lingueme for each word

@@ -92,8 +92,8 @@ WALS 64A	Differentiation	2	2.0	Two linguemes
 WALS 64A	Both expressed by juxtaposition	3	0.0	No linguemes for non-distinction
 WALS 71A	Normal imperative + normal negative	1	0.0	No special linguemes
 WALS 71A	Normal imperative + special negative	2	2.0	A pair of linguemes (negative imperative, negative declarative)
-WALS 71A	Special imperative + normal negative	3	2.0	A pair of linguemes (negative imperative, negative declarative)
-WALS 71A	Special imperative + special negative	4	2.0	A pair of linguemes ((negative imperative, negative declarative), additional complexity syntagmatic
+WALS 71A	Special imperative + normal negative	3	2.0	A pair of linguemes (negative imperative, positive imperative)
+WALS 71A	Special imperative + special negative	4	4.0	A pair of linguemes (negative imperative, negative declarative, positive imperative, positive declarative)
 WALS 79A	Tense	1	2.0	One pairs of linguemes
 WALS 79A	Aspect	2	2.0	One pairs of linguemes
 WALS 79A	Tense and aspect	3	4.0	Two pairs of linguemes

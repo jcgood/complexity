@@ -1,5 +1,5 @@
 Language \=	Complexity	 \=Set
-Ambon Malay \>	 0.47 	\> APiCS \\
+Ambon Malay \>	 0.45 	\> APiCS \\
 Martinican Creole \>	 0.38 	\> APiCS \\
 Pidgin Hawaiian \>	 0.45 	\> APiCS \\
 Chinese Pidgin Russian \>	 0.46 	\> APiCS \\
@@ -7,43 +7,43 @@ Creolese \>	 0.55 	\> APiCS \\
 Krio \>	 0.41 	\> APiCS \\
 African American English \>	 0.48 	\> APiCS \\
 Kikongo-Kituba \>	 0.41 	\> APiCS \\
-Papiá Kristang \>	 0.47 	\> APiCS \\
+Papiá Kristang \>	 0.45 	\> APiCS \\
 Gullah \>	 0.5 	\> APiCS \\
 Haitian Creole \>	 0.43 	\> APiCS \\
 Cameroon Pidgin English \>	 0.45 	\> APiCS \\
-Kinubi \>	 0.43 	\> APiCS \\
+Kinubi \>	 0.42 	\> APiCS \\
 Nicaraguan Creole English \>	 0.44 	\> APiCS \\
 Papiamentu \>	 0.45 	\> APiCS \\
 Sranan \>	 0.44 	\> APiCS \\
-Cavite Chabacano \>	 0.6 	\> APiCS \\
-Michif \>	 0.68 	\> APiCS \\
+Cavite Chabacano \>	 0.58 	\> APiCS \\
+Michif \>	 0.66 	\> APiCS \\
 Kriol \>	 0.47 	\> APiCS \\
 Guyanais \>	 0.45 	\> APiCS \\
 Bislama \>	 0.43 	\> APiCS \\
-Cape Verdean Creole of Brava \>	 0.49 	\> APiCS \\
+Cape Verdean Creole of Brava \>	 0.48 	\> APiCS \\
 Fanakalo \>	 0.41 	\> APiCS \\
 Chinese Pidgin English \>	 0.53 	\> APiCS \\
 Early Sranan \>	 0.43 	\> APiCS \\
 Seychelles Creole \>	 0.44 	\> APiCS \\
-Belizean Creole \>	 0.44 	\> APiCS \\
+Belizean Creole \>	 0.43 	\> APiCS \\
 Santome \>	 0.5 	\> APiCS \\
 Guadeloupean Creole \>	 0.39 	\> APiCS \\
-Afrikaans \>	 0.55 	\> APiCS \\
-Gurindji Kriol \>	 0.48 	\> APiCS \\
+Afrikaans \>	 0.54 	\> APiCS \\
+Gurindji Kriol \>	 0.47 	\> APiCS \\
 Trinidad English Creole \>	 0.45 	\> APiCS \\
-Palenquero \>	 0.41 	\> APiCS \\
-Cape Verdean Creole of Santiago \>	 0.49 	\> APiCS \\
-Zamboanga Chabacano \>	 0.59 	\> APiCS \\
+Palenquero \>	 0.39 	\> APiCS \\
+Cape Verdean Creole of Santiago \>	 0.48 	\> APiCS \\
+Zamboanga Chabacano \>	 0.58 	\> APiCS \\
 Fa d?Ambô \>	 0.48 	\> APiCS \\
 Jamaican \>	 0.47 	\> APiCS \\
-Lingala \>	 0.49 	\> APiCS \\
+Lingala \>	 0.47 	\> APiCS \\
 Ternate Chabacano \>	 0.53 	\> APiCS \\
-Guinea-Bissau Kriyol \>	 0.51 	\> APiCS \\
+Guinea-Bissau Kriyol \>	 0.49 	\> APiCS \\
 Ghanaian Pidgin English \>	 0.55 	\> APiCS \\
 Hawai?i Creole \>	 0.53 	\> APiCS \\
-Korlai \>	 0.55 	\> APiCS \\
-Norf'k \>	 0.58 	\> APiCS \\
-Cape Verdean Creole of São Vicente \>	 0.48 	\> APiCS \\
+Korlai \>	 0.53 	\> APiCS \\
+Norf'k \>	 0.57 	\> APiCS \\
+Cape Verdean Creole of São Vicente \>	 0.46 	\> APiCS \\
 Chinuk Wawa \>	 0.31 	\> APiCS \\
 Negerhollands \>	 0.37 	\> APiCS \\
 Berbice Dutch \>	 0.37 	\> APiCS \\
@@ -51,11 +51,11 @@ Vincentian Creole \>	 0.5 	\> APiCS \\
 Angolar \>	 0.47 	\> APiCS \\
 Principense \>	 0.48 	\> APiCS \\
 Nigerian Pidgin \>	 0.48 	\> APiCS \\
-Casamancese Creole \>	 0.47 	\> APiCS \\
+Casamancese Creole \>	 0.45 	\> APiCS \\
 Nengee \>	 0.47 	\> APiCS \\
-Singapore Bazaar Malay \>	 0.42 	\> APiCS \\
+Singapore Bazaar Malay \>	 0.4 	\> APiCS \\
 San Andres Creole English \>	 0.51 	\> APiCS \\
-Tok Pisin \>	 0.4 	\> APiCS \\
+Tok Pisin \>	 0.38 	\> APiCS \\
 Bahamian Creole \>	 0.51 	\> APiCS \\
 Pichi \>	 0.47 	\> APiCS \\
 Reunion Creole \>	 0.48 	\> APiCS \\
@@ -63,81 +63,81 @@ Media Lengua \>	 0.38 	\> APiCS \\
 Diu Indo-Portuguese \>	 0.53 	\> APiCS \\
 Mixed Ma?a/Mbugu \>	 0.48 	\> APiCS \\
 Mauritian Creole \>	 0.51 	\> APiCS \\
-Sri Lankan Malay \>	 0.48 	\> APiCS \\
+Sri Lankan Malay \>	 0.46 	\> APiCS \\
 Tayo \>	 0.39 	\> APiCS \\
-Juba Arabic \>	 0.38 	\> APiCS \\
+Juba Arabic \>	 0.36 	\> APiCS \\
 Sango \>	 0.47 	\> APiCS \\
 Pidgin Hindustani \>	 0.29 	\> APiCS \\
-Sri Lanka Portuguese \>	 0.68 	\> APiCS \\
+Sri Lanka Portuguese \>	 0.66 	\> APiCS \\
 Singlish \>	 0.52 	\> APiCS \\
 Louisiana Creole \>	 0.47 	\> APiCS \\
 Saramaccan \>	 0.51 	\> APiCS \\
 Kanuri \>	 0.61 	\> WALS \\
 Meithei \>	 0.59 	\> WALS \\
-Japanese \>	 0.61 	\> WALS \\
+Japanese \>	 0.6 	\> WALS \\
 Swahili \>	 0.49 	\> WALS \\
 Lakhota \>	 0.52 	\> WALS \\
 Yoruba \>	 0.5 	\> WALS \\
-Indonesian \>	 0.51 	\> WALS \\
+Indonesian \>	 0.49 	\> WALS \\
 Lango \>	 0.5 	\> WALS \\
 Kannada \>	 0.63 	\> WALS \\
 Persian \>	 0.48 	\> WALS \\
-Supyire \>	 0.57 	\> WALS \\
+Supyire \>	 0.55 	\> WALS \\
 Burushaski \>	 0.56 	\> WALS \\
-Maybrat \>	 0.41 	\> WALS \\
-Korean \>	 0.56 	\> WALS \\
+Maybrat \>	 0.39 	\> WALS \\
+Korean \>	 0.55 	\> WALS \\
 Evenki \>	 0.43 	\> WALS \\
-Quechua (Imbabura) \>	 0.45 	\> WALS \\
+Quechua (Imbabura) \>	 0.43 	\> WALS \\
 Guaraní \>	 0.61 	\> WALS \\
 Georgian \>	 0.55 	\> WALS \\
 Basque \>	 0.55 	\> WALS \\
 English \>	 0.48 	\> WALS \\
-Hungarian \>	 0.6 	\> WALS \\
+Hungarian \>	 0.58 	\> WALS \\
 German \>	 0.51 	\> WALS \\
-Vietnamese \>	 0.54 	\> WALS \\
+Vietnamese \>	 0.52 	\> WALS \\
 Tukang Besi \>	 0.53 	\> WALS \\
-Ket \>	 0.42 	\> WALS \\
+Ket \>	 0.4 	\> WALS \\
 Yimas \>	 0.38 	\> WALS \\
 Malagasy \>	 0.52 	\> WALS \\
-Yukaghir (Kolyma) \>	 0.47 	\> WALS \\
+Yukaghir (Kolyma) \>	 0.45 	\> WALS \\
 Slave \>	 0.48 	\> WALS \\
-Khalkha \>	 0.52 	\> WALS \\
+Khalkha \>	 0.51 	\> WALS \\
 Kobon \>	 0.41 	\> WALS \\
-Tagalog \>	 0.6 	\> WALS \\
+Tagalog \>	 0.59 	\> WALS \\
 Hunzib \>	 0.42 	\> WALS \\
-Thai \>	 0.54 	\> WALS \\
-Burmese \>	 0.55 	\> WALS \\
+Thai \>	 0.52 	\> WALS \\
+Burmese \>	 0.53 	\> WALS \\
 Hixkaryana \>	 0.45 	\> WALS \\
-Arabic (Egyptian) \>	 0.46 	\> WALS \\
+Arabic (Egyptian) \>	 0.44 	\> WALS \\
 Greenlandic (West) \>	 0.45 	\> WALS \\
-Gooniyandi \>	 0.42 	\> WALS \\
+Gooniyandi \>	 0.4 	\> WALS \\
 Imonda \>	 0.47 	\> WALS \\
-Abkhaz \>	 0.61 	\> WALS \\
+Abkhaz \>	 0.6 	\> WALS \\
 Latvian \>	 0.52 	\> WALS \\
 Russian \>	 0.49 	\> WALS \\
 Chukchi \>	 0.46 	\> WALS \\
-Mandarin \>	 0.6 	\> WALS \\
+Mandarin \>	 0.59 	\> WALS \\
 Hebrew (Modern) \>	 0.55 	\> WALS \\
 Tiwi \>	 0.45 	\> WALS \\
-Finnish \>	 0.48 	\> WALS \\
+Finnish \>	 0.46 	\> WALS \\
 Krongo \>	 0.51 	\> WALS \\
 French \>	 0.52 	\> WALS \\
 Turkish \>	 0.48 	\> WALS \\
-Fijian \>	 0.53 	\> WALS \\
-Ainu \>	 0.58 	\> WALS \\
+Fijian \>	 0.51 	\> WALS \\
+Ainu \>	 0.56 	\> WALS \\
 Lezgian \>	 0.52 	\> WALS \\
-Jakaltek \>	 0.45 	\> WALS \\
+Jakaltek \>	 0.43 	\> WALS \\
 Alamblak \>	 0.52 	\> WALS \\
 Zulu \>	 0.5 	\> WALS \\
-Hindi \>	 0.52 	\> WALS \\
+Hindi \>	 0.5 	\> WALS \\
 Ngiyambaa \>	 0.44 	\> WALS \\
 Greek (Modern) \>	 0.6 	\> WALS \\
-Chamorro \>	 0.55 	\> WALS \\
+Chamorro \>	 0.53 	\> WALS \\
 Maori \>	 0.62 	\> WALS \\
 Hausa \>	 0.55 	\> WALS \\
 Mapudungun \>	 0.47 	\> WALS \\
-Oromo (Harar) \>	 0.54 	\> WALS \\
+Oromo (Harar) \>	 0.52 	\> WALS \\
 Yaqui \>	 0.58 	\> WALS \\
-Iraqw \>	 0.47 	\> WALS \\
+Iraqw \>	 0.45 	\> WALS \\
 Amele \>	 0.45 	\> WALS \\
-Spanish \>	 0.64 	\> WALS \\
+Spanish \>	 0.63 	\> WALS \\

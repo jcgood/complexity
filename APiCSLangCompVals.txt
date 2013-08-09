@@ -2026,7 +2026,7 @@ Mixed Ma?a/Mbugu	WALS 81A	Order of Subject, Object and Verb	2	1.0
 Mixed Ma?a/Mbugu	WALS 42A	Pronominal and Adnominal Demonstratives	1	1.0
 Mixed Ma?a/Mbugu	WALS 44A	Gender Distinctions in Independent Personal Pronouns	6	0.0
 Mixed Ma?a/Mbugu	WALS 105A	Ditransitive Constructions: The Verb 'Give'	2	1.0
-Mixed Ma?a/Mbugu	WALS 71A	The Prohibitive	4	2.0
+Mixed Ma?a/Mbugu	WALS 71A	The Prohibitive	4	4.0
 Mixed Ma?a/Mbugu	WALS 120A	Zero Copula for Predicate Nominals	1	1.0
 Mixed Ma?a/Mbugu	WALS 87A	Order of Adjective and Noun	2	1.0
 Mixed Ma?a/Mbugu	WALS 53A	Ordinal Numerals	6	4.0

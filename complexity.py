@@ -289,7 +289,7 @@ def getFeatComplexity(walsFeatComp,walsFeatLangCount,walsCompList,apicswalsFeatC
 
 	# This matches with old top line (not rearranged)
 	#	print >> outfile, feat+"\t"+names[feat]+"\t"+types[feat]+"\t"+str(degrees[feat])+"\t"+str(walscompavg)+"\t"+str(apicscompavg)+"\t"+str(walsavgnorm)+"\t"+str(apicsavgnorm)+"\t"+str(compavg)+"\t"+ str(p)+"\t"+winner
-		print >> outfile, feat+"\t&", names[feat]+"\t&", types[feat]+"\t&", str(round(walsavgnorm,2))+"\t&", str(round(apicsavgnorm,2))+"\t&", str(round(p,2))+"\t&", winner+"\t\\\\"
+		print >> outfile, feat+"\t&", names[feat]+"\t&", types[feat]+"\t&",  str(round(apicsavgnorm,2))+"\t&", str(round(walsavgnorm,2))+"\t&", str(round(p,2))+"\t&", winner+"\t\\\\"
 		
 		walsFCompAvg.append(walscompavg/degrees[feat])
 		apicsFCompAvg.append(apicscompavg/degrees[feat])
