@@ -1,4 +1,5 @@
-complexity ==========
+complexity
+==========
 
 This repository contains code and data relevant to examining complexity of
 WALS-APiCS features. Many files are generated from an SQL database which is not
