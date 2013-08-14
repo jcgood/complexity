@@ -14,7 +14,7 @@ WALS-APiCS features.
 - APiCSLangComps.txt:  Tabular data summarizing complexity values across
 WALS-APiCS languages for languages with values for most features.
 
--APiCSLangCompVals.txt: Specific complexity values for each APiCS features
+- APiCSLangCompVals.txt: Specific complexity values for each APiCS features
 across each APiCS language.
 
 - APiCSWALS.r: Automatically generated output for loading into R for statisical
