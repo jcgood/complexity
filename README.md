@@ -1,4 +1,4 @@
-complexity
+WALS-APiCS complexity
 ==========
 
 This repository contains code and data relevant to examining complexity of
