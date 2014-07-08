@@ -59,6 +59,8 @@ def getComplexities(cur):
 	return(complexities,names,types,degrees)
 
 
+## TODO: ADD NOMIXED TO THIS PART
+
 #Go through the WALS-like APiCS values and (i) calculate complexity averages and (ii) build up lists of values for statistical processing
 def getAPiCSFeatureComps(cur,types,complexities,degrees):
 	
@@ -146,8 +148,9 @@ def getAPiCSLangComps(cur,complexities,apicsLangComp,majorFeats=False,noMixed=Fa
 
 
 
-
 # Now do the same thing for the WALS languages
+
+## TODO: GET RID OF PIDGINS AND CREOLES FOR WALS
 
 
 def getWALSFeatureComps(cur,types,complexities,degrees):
