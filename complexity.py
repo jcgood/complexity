@@ -5,6 +5,7 @@ import pymysql
 import rpy2.robjects as robj
 
 
+# Gathers reference information for other functions
 def getComplexities(cur):
 
 	# Make dictionary of dictionary of complexities for a given value
@@ -59,7 +60,6 @@ def getComplexities(cur):
 	return(complexities,names,types,degrees)
 
 
-## TODO: ADD NOMIXED TO THIS PART
 
 #Go through the WALS-like APiCS values and (i) calculate complexity averages and (ii) build up lists of values for statistical processing
 def getAPiCSFeatureComps(cur,types,complexities,degrees):
@@ -150,12 +150,9 @@ def getAPiCSLangComps(cur,complexities,apicsLangComp,majorFeats=False,noMixed=Fa
 
 # Now do the same thing for the WALS languages
 
-## TODO: GET RID OF PIDGINS AND CREOLES FOR WALS
+def getWALSFeatureComps(cur,types,complexities,degrees,noCreoles=True):
 
-
-def getWALSFeatureComps(cur,types,complexities,degrees):
-
-	cur.execute("""SELECT WALSValues.LanguageName, WALSValues.Value_number, WALSValues.Feature_number
+	cur.execute("""SELECT WALSValues.LanguageName, WALSValues.Value_number, WALSValues.Feature_number, WALSValues.LangID
 	FROM WALSValues
 	INNER JOIN APiCSFeatures on  WALSValues.Feature_number = APiCSFeatures.`WALS-APICS`
 	WHERE APiCSFeatures.`ComplexityType` is not NULL""")
@@ -164,9 +161,14 @@ def getWALSFeatureComps(cur,types,complexities,degrees):
 	walsLangCompSyn = { } 
 	walsLangFeatCompPar = [ ]
 	for row in cur.fetchall():
-		lang, value, feat = row
+		lang, value, feat, langid = row
 		compfeat = complexities[feat]
 		compValue = compfeat[str(value)]
+		
+ 		creoleLangs = ["ago","bdc","bsm","bro","cvc","gdl","gfr","gbc","hcr","hwc","jcr","ktb","kfc","knq","lcr","mlc","mqc","mcr","meb","mce","npn","ndy","npi","nub","pap","pri","rcp","srm","sey","sra","tay","tpi"]
+ 		if noCreoles and langid in creoleLangs:
+ 			print lang
+ 			continue
 
 		# Now get the numbers across languages
 		if lang in walsLangComp:
@@ -176,20 +178,20 @@ def getWALSFeatureComps(cur,types,complexities,degrees):
 				langCompList.append(normComp)
 				walsLangComp[lang] = langCompList
 				walsLangFeatCompPar.append([ lang,feat,normComp,"WALS" ]) # For regression
-			
+		
 		else:
 			if types[feat] == "Paradigmatic":
 				normComp = compValue / float(degrees[feat]) 
 				walsLangComp[lang] = [normComp]
 				walsLangFeatCompPar.append([ lang,feat,normComp,"WALS" ]) # For regression
 
-		# Now syntagmatic
+ 
 		if lang in walsLangCompSyn:
 			if types[feat] == "Syntagmatic":
 				langCompList = walsLangCompSyn[lang]
 				langCompList.append( compValue / float(degrees[feat]) )
 				walsLangCompSyn[lang] = langCompList
-			
+		
 		else:
 			if types[feat] == "Syntagmatic":
 				walsLangCompSyn[lang] = [ compValue / float(degrees[feat])  ]
@@ -198,27 +200,33 @@ def getWALSFeatureComps(cur,types,complexities,degrees):
 
 
 
-def getWALSLangComps(cur,complexities,walsLangComp,majorFeats=False):
+def getWALSLangComps(cur,complexities,walsLangComp,majorFeats=False,noCreoles=True):
 
-	cur.execute("""SELECT WALSValues.LanguageName, WALSValues.Value_number, WALSValues.Feature_number
+	cur.execute("""SELECT WALSValues.LanguageName, WALSValues.Value_number, WALSValues.Feature_number, WALSValues.LangID
 	FROM WALSValues
 	INNER JOIN APiCSFeatures on  WALSValues.Feature_number = APiCSFeatures.`WALS-APICS`
 	WHERE APiCSFeatures.`ComplexityType` is not NULL""")
+
 
 	walsFeatComp = {}
 	walsFeatLangCount = { }
 	walsCompList = { } # See comments above
 	for row in cur.fetchall():
-		lang, value, feat = row
+		lang, value, feat, langid = row
 		compfeat = complexities[feat]
 		compValue = compfeat[str(value)]
 
+ 		creoleLangs = ["ago","bdc","bsm","bro","cvc","gdl","gfr","gbc","hcr","hwc","jcr","ktb","kfc","knq","lcr","mlc","mqc","mcr","meb","mce","npn","ndy","npi","nub","pap","pri","rcp","srm","sey","sra","tay","tpi"]
+ 		if noCreoles and langid in creoleLangs:
+ 			print lang
+ 			continue
+ 			
 		if feat in walsFeatComp:
 			walsFeatComp[feat] += compValue
 			walsFeatLangCount[feat] += 1
 			walsCompList[feat].append( compValue )
 
-		# This tests to make sure the well-featured languages don't throw off calculations 
+		# This tests to make sure the non-well-featured languages don't throw off calculations 
 		elif majorFeats:
 			if len(walsLangComp[lang]) >= 26:
 				walsFeatComp[feat] = compValue
