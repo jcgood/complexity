@@ -69,27 +69,27 @@ def getAPiCSFeatureComps(cur,types,complexities,degrees):
 	INNER JOIN APiCSFeatures ON WALSAPiCSValues.`APiCS_number` = APiCSFeatures.Feature_number
 	WHERE APiCSFeatures.`WALS-APICS` != \"None\" AND APiCSFeatures.ComplexityType is not NULL""")
 
-	apicsLangComp = { }	# For paradigmatic
+	apicsLangCompPar = { }	# For paradigmatic
 	apicsLangCompSyn = { } # For syntagmatic
-	apicsLangFeatCompPar = [ ]
+	apicsLangFeatCompPar = [ ] # For latter regression analysis on paradigmatic features
 	for row in cur.fetchall():
 		lang, feat, value = row
 		compfeat = complexities[feat]
 		compValue = compfeat[str(value)]
 	
 		# Get the numbers across languages
-		if lang in apicsLangComp:
+		if lang in apicsLangCompPar:
 			if types[feat] == "Paradigmatic":
 				normComp = compValue / float(degrees[feat]) 
-				langCompList = apicsLangComp[lang]
+				langCompList = apicsLangCompPar[lang]
 				langCompList.append(normComp)
-				apicsLangComp[lang] = langCompList
+				apicsLangCompPar[lang] = langCompList
 				apicsLangFeatCompPar.append([ lang,feat,normComp,"APiCS" ]) # For regression
 		
 		else:
 			if types[feat] == "Paradigmatic":
 				normComp = compValue / float(degrees[feat]) 
-				apicsLangComp[lang] = [normComp]
+				apicsLangCompPar[lang] = [normComp]
 				apicsLangFeatCompPar.append([ lang,feat,normComp,"APiCS" ])
 
 		# Now syntagmatic
@@ -104,7 +104,7 @@ def getAPiCSFeatureComps(cur,types,complexities,degrees):
 				apicsLangCompSyn[lang] = [ compValue / float(degrees[feat])  ]
 
 	
-	return(apicsLangComp,apicsLangCompSyn,apicsLangFeatCompPar)
+	return(apicsLangCompPar,apicsLangCompSyn,apicsLangFeatCompPar)
 
 
 # Now do the same thing across features
@@ -131,6 +131,7 @@ def getAPiCSLangComps(cur,complexities,apicsLangComp,majorFeats=False,noMixed=Fa
 			apicswalsFeatLangCount[feat] += 1
 			apicsCompList[feat].append( compValue )
 
+		# Not sure what this does anymore
 		elif majorFeats:
 			if len(apicsLangComp[lang]) >= 26:
 				apicswalsFeatComp[feat] = compValue
@@ -157,7 +158,7 @@ def getWALSFeatureComps(cur,types,complexities,degrees,noCreoles=True):
 	INNER JOIN APiCSFeatures on  WALSValues.Feature_number = APiCSFeatures.`WALS-APICS`
 	WHERE APiCSFeatures.`ComplexityType` is not NULL""")
 
-	walsLangComp = { } # For paradigmatic
+	walsLangCompPar = { } # For paradigmatic
 	walsLangCompSyn = { } 
 	walsLangFeatCompPar = [ ]
 	for row in cur.fetchall():
@@ -167,22 +168,22 @@ def getWALSFeatureComps(cur,types,complexities,degrees,noCreoles=True):
 		
  		creoleLangs = ["ago","bdc","bsm","bro","cvc","gdl","gfr","gbc","hcr","hwc","jcr","ktb","kfc","knq","lcr","mlc","mqc","mcr","meb","mce","npn","ndy","npi","nub","pap","pri","rcp","srm","sey","sra","tay","tpi"]
  		if noCreoles and langid in creoleLangs:
- 			print lang
+ 			#print lang
  			continue
 
 		# Now get the numbers across languages
-		if lang in walsLangComp:
+		if lang in walsLangCompPar:
 			if types[feat] == "Paradigmatic":
 				normComp = compValue / float(degrees[feat]) 
-				langCompList = walsLangComp[lang]
+				langCompList = walsLangCompPar[lang]
 				langCompList.append(normComp)
-				walsLangComp[lang] = langCompList
+				walsLangCompPar[lang] = langCompList
 				walsLangFeatCompPar.append([ lang,feat,normComp,"WALS" ]) # For regression
 		
 		else:
 			if types[feat] == "Paradigmatic":
 				normComp = compValue / float(degrees[feat]) 
-				walsLangComp[lang] = [normComp]
+				walsLangCompPar[lang] = [normComp]
 				walsLangFeatCompPar.append([ lang,feat,normComp,"WALS" ]) # For regression
 
  
@@ -196,7 +197,7 @@ def getWALSFeatureComps(cur,types,complexities,degrees,noCreoles=True):
 			if types[feat] == "Syntagmatic":
 				walsLangCompSyn[lang] = [ compValue / float(degrees[feat])  ]
 	
-	return(walsLangComp,walsLangCompSyn,walsLangFeatCompPar)
+	return(walsLangCompPar,walsLangCompSyn,walsLangFeatCompPar)
 
 
 
@@ -218,7 +219,7 @@ def getWALSLangComps(cur,complexities,walsLangComp,majorFeats=False,noCreoles=Tr
 
  		creoleLangs = ["ago","bdc","bsm","bro","cvc","gdl","gfr","gbc","hcr","hwc","jcr","ktb","kfc","knq","lcr","mlc","mqc","mcr","meb","mce","npn","ndy","npi","nub","pap","pri","rcp","srm","sey","sra","tay","tpi"]
  		if noCreoles and langid in creoleLangs:
- 			print lang
+ 			#print lang
  			continue
  			
 		if feat in walsFeatComp:
@@ -226,7 +227,7 @@ def getWALSLangComps(cur,complexities,walsLangComp,majorFeats=False,noCreoles=Tr
 			walsFeatLangCount[feat] += 1
 			walsCompList[feat].append( compValue )
 
-		# This tests to make sure the non-well-featured languages don't throw off calculations 
+		# Not sure what this does anymore
 		elif majorFeats:
 			if len(walsLangComp[lang]) >= 26:
 				walsFeatComp[feat] = compValue
