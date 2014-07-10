@@ -23,7 +23,7 @@ def getComplexities(cur):
 			complexities[feat] = compfeat
 
 	# Make a dictionary for feature names
-	cur.execute("SELECT `Feature_number`, `Feature_name` FROM WALSFeatureNames")
+	cur.execute("SELECT `WALS-APiCS`, `Feature_name` FROM APiCSFeatures")
 	names = { }
 	for row in cur.fetchall():
 		feat, name = row	
@@ -62,7 +62,7 @@ def getComplexities(cur):
 
 
 #Go through the WALS-like APiCS values and (i) calculate complexity averages and (ii) build up lists of values for statistical processing
-def getAPiCSFeatureComps(cur,types,complexities,degrees):
+def getAPiCSLangComps(cur,types,complexities,degrees):
 	
 	cur.execute("""SELECT WALSAPiCSValues.Language, APiCSFeatures.`WALS-APICS`,  WALSAPiCSValues.Wals_value_number
 	FROM WALSAPiCSValues
@@ -108,7 +108,7 @@ def getAPiCSFeatureComps(cur,types,complexities,degrees):
 
 
 # Now do the same thing across features
-def getAPiCSLangComps(cur,complexities,apicsLangComp,majorFeats=False,noMixed=False):
+def getAPiCSFeatureComps(cur,complexities,apicsLangComp,majorFeats=False,noMixed=True):
 
 	cur.execute("""SELECT WALSAPiCSValues.Language, APiCSFeatures.`WALS-APICS`,  WALSAPiCSValues.Wals_value_number
 	FROM WALSAPiCSValues
@@ -125,7 +125,7 @@ def getAPiCSLangComps(cur,complexities,apicsLangComp,majorFeats=False,noMixed=Fa
 		mixedLangs = ["Michif", "Sri Lanka Portuguese"]
 		if noMixed and lang in mixedLangs:
 			continue
-
+		
 		if feat in apicswalsFeatComp:
 			apicswalsFeatComp[feat] += compValue
 			apicswalsFeatLangCount[feat] += 1
@@ -150,8 +150,7 @@ def getAPiCSLangComps(cur,complexities,apicsLangComp,majorFeats=False,noMixed=Fa
 
 
 # Now do the same thing for the WALS languages
-
-def getWALSFeatureComps(cur,types,complexities,degrees,noCreoles=True):
+def getWALSLangComps(cur,types,complexities,degrees,noCreoles=True):
 
 	cur.execute("""SELECT WALSValues.LanguageName, WALSValues.Value_number, WALSValues.Feature_number, WALSValues.LangID
 	FROM WALSValues
@@ -201,7 +200,7 @@ def getWALSFeatureComps(cur,types,complexities,degrees,noCreoles=True):
 
 
 
-def getWALSLangComps(cur,complexities,walsLangComp,majorFeats=False,noCreoles=True):
+def getWALSFeatureComps(cur,complexities,walsLangComp,majorFeats=False,noCreoles=True):
 
 	cur.execute("""SELECT WALSValues.LanguageName, WALSValues.Value_number, WALSValues.Feature_number, WALSValues.LangID
 	FROM WALSValues
@@ -243,8 +242,7 @@ def getWALSLangComps(cur,complexities,walsLangComp,majorFeats=False,noCreoles=Tr
 
 
  
-#Get average complexity for APiCS and WALS; features should be precisely the same
-
+#Get average feature complexity for APiCS and WALS; features should be precisely the same
 def getFeatComplexity(walsFeatComp,walsFeatLangCount,walsCompList,apicswalsFeatComp,apicswalsFeatLangCount,apicsCompList,names,types,degrees):
 
 	outfile = open('APiCSFeatureComps.txt', 'w')
@@ -309,8 +307,7 @@ def getFeatComplexity(walsFeatComp,walsFeatLangCount,walsCompList,apicswalsFeatC
 		if types[feat] == "Paradigmatic":
 			walsFCompAvgPar.append(walscompavg/degrees[feat])
 			apicsFCompAvgPar.append(apicscompavg/degrees[feat])
-			
-			
+					
 	return(walsFCompAvg,apicsFCompAvg,walsFCompAvgPar,apicsFCompAvgPar)
 	
 
