@@ -5,12 +5,13 @@ import socket
 
 hostname = socket.gethostname()
 
-#conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='', db='APiCS')
-conn = pymysql.connect(host='localhost', port=3307, user='root', passwd='', db='APiCS')
+conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='', db='APiCS')
+#conn = pymysql.connect(host='localhost', port=3307, user='root', passwd='', db='APiCS')
 
 cur = conn.cursor()
 
-outfile = open('/Volumes/Obang/MyDocuments/Saramaccan/Papers/WordStructure/MetricDocumentation.tex', 'w')
+parfile = open('/Volumes/Obang/MyDocuments/Saramaccan/Papers/WordStructure/MetricDocumentationPar.tex', 'w')
+synfile = open('/Volumes/Obang/MyDocuments/Saramaccan/Papers/WordStructure/MetricDocumentationSyn.tex', 'w')
 
 
 cur.execute("""SELECT WALSValueInfo.`Feature_number`, APiCSFeatures.`ShortName`, APiCSFeatures.`ComplexityType`,  WALSValueInfo.`ValShort`, WALSValueInfo.`Complexity`, WALSValueInfo.`ComplexityDocumentation`
@@ -34,48 +35,123 @@ for row in cur.fetchall():
 
 
 
-cur.execute("""SELECT WALSValueInfo.`Feature_number`, APiCSFeatures.`ShortName`, APiCSFeatures.`ComplexityType`,  WALSValueInfo.`ValShort`, WALSValueInfo.`Complexity`, WALSValueInfo.`ComplexityDocumentation`
+# Do paradigmatic documentation
+cur.execute("""SELECT WALSValueInfo.`Feature_number`, APiCSFeatures.`ShortName`,  WALSValueInfo.`ValShort`, WALSValueInfo.`Complexity`, WALSValueInfo.`ShortComplexityDoc`
 FROM WALSValueInfo
 INNER JOIN APiCSFeatures
 ON WALSValueInfo.`Feature_number` = APiCSFeatures.`WALS-APiCS`
-WHERE WALSValueInfo.Complexity is not NULL
-ORDER BY WALSValueInfo.`PureFeatureNumber`""")
+WHERE WALSValueInfo.Complexity is not NULL AND APiCSFeatures.`ComplexityType` = 'Paradigmatic'
+ORDER BY APiCSFeatures.`ComplexityType`, WALSValueInfo.`PureFeatureNumber`, WALSValueInfo.`Complexity`, WALSValueInfo.`ValShort`""")
 
 
-print >> outfile, "\\begin{longtable}{lllllll}"
-print >> outfile, "\\Hline"
-print >> outfile, "{\\sc id}\t&\t{\\sc feature name}\t&\t{\\sc p/s}\t&\t{\\sc value name}\t&\t{\\sc n}\t&\t{\\sc justification}\\\\"
-print >> outfile, "\\Hline"
+print >> parfile, "\\begin{longtable}{lllllll}"
+print >> parfile, "\\Hline"
+print >> parfile, "{\\sc id}\t&\t{\\sc feature name}\t&\t{\\sc value name}\t&\t{\\sc n}\t&\t{\\sc justification}\\\\"
+print >> parfile, "\\Hline"
+print >> parfile, "\\endhead"
+
 
 oldfeatname = ""
 featcount = 0
 for row in cur.fetchall():
-	featid, featname, comptype, valuedesc, compscore, documentation = row
+	featid, featname, valuedesc, compscore, documentation = row
 	
 	featid = featid.replace("WALS ", "")
-	featid = featid.replace("A ", "")
+	featid = featid.replace("A", "")
 
-	documentation = documentation.replace("One ", "1 ")
-	documentation = documentation.replace("Two ", "2 ")
-	documentation = documentation.replace("Three ", "3 ")
+# 	documentation = documentation.replace("One ", "1 ")
+# 	documentation = documentation.replace("Two ", "2 ")
+# 	documentation = documentation.replace("Three ", "3 ")
+# 	documentation = documentation.replace("Four ", "4 ")
+# 	documentation = documentation.replace("Five ", "5 ")
+# 	documentation = documentation.replace("Six ", "6 ")
+# 
+# 	documentation = documentation.replace(" one ", " 1 ")
+# 	documentation = documentation.replace(" two ", " 2 ")
+# 	documentation = documentation.replace(" three ", " 3 ")
+# 	documentation = documentation.replace(" four ", " 4 ")
+# 	documentation = documentation.replace(" five ", " 5 ")
+# 	documentation = documentation.replace(" six ", " 6 ")
 
+ 	documentation = documentation.replace("lingueme", "{\\sc lgm}")
+ 	documentation = documentation.replace("Lingueme", "{\\sc lgm}")
 	
 	hline = False
 	if featname == oldfeatname:
 		printfeatname = ""
 	else:
 		printfeatname = featname
-		if featcount > 0: hline = True
+		if featcount > 0:
+			hline = True
 	
-	if comptype == "Paradigmatic":
-		comptype = "{\\sc p}"
-	else: comptype = "{\\sc s}"
-
 	oldfeatname = featname	
 	if hline == True:
-		print >> outfile, "\\hline"
-	print >> outfile, featid+"\t&\t", "\\multirow{"+str(numfeatvals[featname])+"}{1in}{"+printfeatname+"}\t&\t", comptype+"\t&\t", valuedesc+"\t&\t", str(int(round(compscore,0)))+"\t&\t", documentation+"\t\\\\"
+		print >> parfile, "\\hline"
+		
+	print >> parfile, featid+"\t&\t", "\\multirow{"+str(numfeatvals[featname])+"}{1.25in}{"+printfeatname+"}\t&\t", valuedesc+"\t&\t", str(int(round(compscore,0)))+"\t&\t", documentation+"\t\\\\*"
+	
 	featcount = featcount + 1
 
-print >> outfile, "\\Hline"
-print >> outfile, "\\end{longtable}"
+print >> parfile, "\\Hline"
+print >> parfile, "\\end{longtable}"
+
+
+# Do syntagmatic documentation
+cur.execute("""SELECT WALSValueInfo.`Feature_number`, APiCSFeatures.`ShortName`,  WALSValueInfo.`ValShort`, WALSValueInfo.`Complexity`, WALSValueInfo.`ShortComplexityDoc`
+FROM WALSValueInfo
+INNER JOIN APiCSFeatures
+ON WALSValueInfo.`Feature_number` = APiCSFeatures.`WALS-APiCS`
+WHERE WALSValueInfo.Complexity is not NULL AND APiCSFeatures.`ComplexityType` = 'Syntagmatic'
+ORDER BY APiCSFeatures.`ComplexityType`, WALSValueInfo.`PureFeatureNumber`, WALSValueInfo.`Complexity`, WALSValueInfo.`ValShort`""")
+
+
+print >> synfile, "\\begin{longtable}{lllllll}"
+print >> synfile, "\\Hline"
+print >> synfile, "{\\sc id}\t&\t{\\sc feature name}\t&\t{\\sc value name}\t&\t{\\sc n}\t&\t{\\sc justification}\\\\"
+print >> synfile, "\\Hline"
+print >> synfile, "\\endhead"
+
+
+oldfeatname = ""
+featcount = 0
+for row in cur.fetchall():
+	featid, featname, valuedesc, compscore, documentation = row
+	
+	featid = featid.replace("WALS ", "")
+	featid = featid.replace("A", "")
+
+# 	documentation = documentation.replace("One ", "1 ")
+# 	documentation = documentation.replace("Two ", "2 ")
+# 	documentation = documentation.replace("Three ", "3 ")
+# 	documentation = documentation.replace("Four ", "4 ")
+# 	documentation = documentation.replace("Five ", "5 ")
+# 	documentation = documentation.replace("Six ", "6 ")
+# 
+# 	documentation = documentation.replace(" one ", " 1 ")
+# 	documentation = documentation.replace(" two ", " 2 ")
+# 	documentation = documentation.replace(" three ", " 3 ")
+# 	documentation = documentation.replace(" four ", " 4 ")
+# 	documentation = documentation.replace(" five ", " 5 ")
+# 	documentation = documentation.replace(" six ", " 6 ")
+
+ 	documentation = documentation.replace("lingueme", "{\\sc lgm}")
+ 	documentation = documentation.replace("Lingueme", "{\\sc lgm}")
+	
+	hline = False
+	if featname == oldfeatname:
+		printfeatname = ""
+	else:
+		printfeatname = featname
+		if featcount > 0:
+			hline = True
+	
+	oldfeatname = featname	
+	if hline == True:
+		print >> synfile, "\\hline"
+		
+	print >> synfile, featid+"\t&\t", "\\multirow{"+str(numfeatvals[featname])+"}{1.25in}{"+printfeatname+"}\t&\t", valuedesc+"\t&\t", str(int(round(compscore,0)))+"\t&\t", documentation+"\t\\\\*"
+	
+	featcount = featcount + 1
+
+print >> synfile, "\\Hline"
+print >> synfile, "\\end{longtable}"

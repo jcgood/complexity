@@ -4,9 +4,9 @@ WALS 13A	Tone	Paradigmatic	3	Three linguemes for minimal system of most complex 
 WALS 24A	Marking of possessor noun phrases	Syntagmatic	2	Double marking possible, adding a degree of complexity
 WALS 33A	Expression of nominal plural meaning	Paradigmatic	4	Syntagmatic and paradigmatic; coded as paradigmatic; two pairs of linguemes for minimal mixed system
 WALS 34A	Occurrence of nominal plural markers	Paradigmatic	5	Two linguemes for singular/plural; two for animate/inanimate; one more for optionality in inanimates
-WALS 37A	Definite articles	Paradigmatic	2	A pair of linguemes to establish definite/demonstrative contrast; ignoring indefinite articles since covered by another feature
-WALS 38A	Indefinite articles	Paradigmatic	2	A pair of linguemes to establish indefinite/one distinction; ignoring indefinite articles since covered by another feature
-WALS 39A	Inclusive/exclusive distinction in independent personal pronouns	Paradigmatic	3	Following the description of the WALS feature, one must consider the interpretation of 1s pronouns in the system, requiring up to three linguemes
+WALS 37A	Definite articles	Paradigmatic	3	Three lingueme to establish coding and distinction
+WALS 38A	Indefinite articles	Paradigmatic	3	Three lingueme to establish coding and distinction
+WALS 39A	Inclusive/exclusive distinction in independent personal pronouns	Paradigmatic	2	Two linguemes for inclusive/exclusive distinction
 WALS 41A	Distance contrasts in demonstratives	Paradigmatic	5	Five-way contrast maximum coded
 WALS 42A	Pronominal and adnominal demonstratives	Paradigmatic	2	A pair of linguemes to establish distinction
 WALS 44A	Gender distinctions in personal pronouns	Paradigmatic	4	Minimal gender distinction in at least two parts of paradigm
@@ -16,7 +16,7 @@ WALS 47A	Intensifiers and reflexive pronouns	Paradigmatic	2	A pair of linguemes 
 WALS 52A	Comitatives and instrumentals	Paradigmatic	2	A pair of linguemes to establish coding distinction
 WALS 53A	Ordinal numerals	Paradigmatic	6	Three pairs of linguemes; two for suppletion up to two, one for regular pattern after
 WALS 54A	Adnominal distributive numerals	Paradigmatic	3	A pair of linguemes to establish existence; another pair to establish mixed system; subtracting one because since the 'mixed' category includes 'other' type languages
-WALS 55A	Sortal numeral classifiers	Paradigmatic	2	A pair of linguemes to establish optionality
+WALS 55A	Sortal numeral classifiers	Paradigmatic	3	A pair of linguemes to establish distinction, plus one for optionality
 WALS 63A	Noun phrase conjunction and comitative	Paradigmatic	2	A pair of linguemes to establish coding distinction
 WALS 64A	Nominal and verbal conjunction	Paradigmatic	2	A pair of linguemes to establish coding distinction
 WALS 71A	The prohibitive	Paradigmatic	4	One pair of linguemes to establish special imperative; another pair to establish special negative
@@ -32,15 +32,15 @@ WALS 91A	Order of degree word and adjective	Syntagmatic	2	Following description 
 WALS 93A	Position of interrogative phrases in content questions	Syntagmatic	2	A pair of linguemes to establish mixed pattern
 WALS 98A	Alignment of case marking of full noun phrases	Paradigmatic	3	A pair of intransitives, plus a transitive
 WALS 99A	Alignment of case marking of personal pronouns	Paradigmatic	3	A pair of intransitives, plus a transitive
-WALS 101A	Expression of pronominal subjects	Paradigmatic	2	A pair of linguemes to establish mixed pattern
-WALS 105A	Ditransitive constructions with 'give'	Paradigmatic	2	A pair of linguemes to establish mixed pattern
+WALS 101A	Expression of pronominal subjects	Paradigmatic	3	Three linguemes to establish mixed pattern
+WALS 105A	Ditransitive constructions with `give'	Paradigmatic	3	Three linguemes to establish mixed pattern
 WALS 106A	Reciprocal constructions	Paradigmatic	3	A pair of linguemes to establish pronominal distinctions; one more to establish mixed system
 WALS 109A	Applicative constructions	Paradigmatic	4	One pair of linguemes to establish transitive/intransitive distinction; another to establish benefactive/non-benefactive distinction
 WALS 112A	Negative morpheme types	Syntagmatic	2	Double marking possible, adding a degree of complexity
-WALS 115A	Negation and indefinite pronouns	Paradigmatic	2	A pair of linguemes to establish mixed pattern
+WALS 115A	Negation and indefinite pronouns	Syntagmatic	2	A pair of linguemes to establish mixed pattern
 WALS 116A	Polar questions	Syntagmatic	2	Mixed marking possible, adding a degree of complexity
 WALS 119A	Predicative noun phrases and predicative locative phrases	Paradigmatic	2	A pair of linguemes to establish coding distinction
 WALS 120A	Predicative noun phrases	Paradigmatic	2	A pair of linguemes to establish optionality
 WALS 122A	Subject relative clauses	Paradigmatic	2	A pair of linguemes to identify pronoun retention strategy
-WALS 124A	Wantí complement subjects	Syntagmatic	2	A pair of linguemes to establish optionality of subject expression
-WALS 129A	Hand' and 'arm'	Paradigmatic	2	One lingueme for each word
+WALS 124A	`Want' complement subjects	Syntagmatic	2	A pair of linguemes to establish optionality of subject expression
+WALS 129A	`Hand' and `arm'	Paradigmatic	2	One lingueme for each word
