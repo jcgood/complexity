@@ -45,10 +45,16 @@ ORDER BY APiCSFeatures.`ComplexityType`, WALSValueInfo.`PureFeatureNumber`, WALS
 
 
 print >> parfile, "\\begin{longtable}{lllllll}"
+
+
 print >> parfile, "\\Hline"
 print >> parfile, "{\\sc id}\t&\t{\\sc feature name}\t&\t{\\sc value name}\t&\t{\\sc n}\t&\t{\\sc justification}\\\\"
 print >> parfile, "\\Hline"
 print >> parfile, "\\endhead"
+print >> parfile, "\\caption{Complexity scores assigned to values for the paradigmatic features in the WALS--APiCS data (continued)\\\\"
+print >> parfile, "\\endfoot"
+print >> parfile, "\\caption{Complexity scores assigned to values for the paradigmatic features in the WALS--APiCS data \label{ParComp}}\\\\"
+print >> parfile, "\\endlastfoot"
 
 
 oldfeatname = ""
@@ -110,6 +116,10 @@ print >> synfile, "\\Hline"
 print >> synfile, "{\\sc id}\t&\t{\\sc feature name}\t&\t{\\sc value name}\t&\t{\\sc n}\t&\t{\\sc justification}\\\\"
 print >> synfile, "\\Hline"
 print >> synfile, "\\endhead"
+print >> synfile, "\\caption{Complexity scores assigned to values for the syntagmatic features in the WALS--APiCS data (continued)}\\\\"
+print >> synfile, "\\endfoot"
+print >> synfile, "\\caption{Complexity scores assigned to values for the syntagmatic features in the WALS--APiCS data \label{SynComp}}\\\\"
+print >> synfile, "\\endlastfoot"
 
 
 oldfeatname = ""

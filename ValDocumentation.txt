@@ -59,7 +59,7 @@ WALS 45A	Multiple politeness distinctions	3	3.0	At least three linguemes
 WALS 45A	Pronouns avoided for politeness	4	3.0	Technically could be less than three but Helmbrechet's discussion suggests usually includes more than two distinctions within non-pronouns
 WALS 46A	Interrogative-based	1	0.0	No paradigm
 WALS 46A	Generic-noun-based	2	0.0	No paradigm
-WALS 46A	Special	3	2.0	Assuming one pair transferred
+WALS 46A	Special	3	3.0	Assuming one pair transferred
 WALS 46A	Mixed	4	4.0	Assuming at least two pairs transferred
 WALS 46A	Existential construction	5	2.0	Minimal syntactic paradigm
 WALS 47A	Identical	1	0.0	One lingueme
@@ -177,7 +177,7 @@ WALS 112A	Variation between negative word and affix	5	1.0	One morpheme, one synt
 WALS 112A	Double negation	6	2.0	Two morphemes
 WALS 115A	Predicate negation also present	1	2.0	One lingueme
 WALS 115A	No predicate negation	2	1.0	One lingueme
-WALS 115A	Mixed behaviour	3	2.0	Two linguemes to show mixed pattern
+WALS 115A	Mixed behaviour	3	3.0	Two linguemes to show mixed pattern
 WALS 115A	Negative existential construction	4	2.0	One lingueme
 WALS 116A	Question particle	1	1.0	One morpheme, one syntagmatic complexity
 WALS 116A	Interrogative verb morphology	2	1.0	One morpheme, one syntagmatic complexity; ignoring possibility of parsing difficulty

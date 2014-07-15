@@ -1,12 +1,13 @@
 from complexity import *
 import pymysql
+import os
 
 import socket
 
 hostname = socket.gethostname()
 
-#conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='', db='APiCS')
-conn = pymysql.connect(host='localhost', port=3307, user='root', passwd='', db='APiCS')
+conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='', db='APiCS',)
+#conn = pymysql.connect(host='localhost', port=3307, user='root', passwd='', db='APiCS')
 
 cur = conn.cursor()
 
@@ -37,3 +38,6 @@ getDocumentation(cur)
 
 # Generates file
 getValDocumentation(cur)
+
+# Run R script
+os.system('Rscript APiCSWALS.r')

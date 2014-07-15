@@ -37,7 +37,7 @@ WALS 105A	Ditransitive constructions with `give'	Paradigmatic	3	Three linguemes 
 WALS 106A	Reciprocal constructions	Paradigmatic	3	A pair of linguemes to establish pronominal distinctions; one more to establish mixed system
 WALS 109A	Applicative constructions	Paradigmatic	4	One pair of linguemes to establish transitive/intransitive distinction; another to establish benefactive/non-benefactive distinction
 WALS 112A	Negative morpheme types	Syntagmatic	2	Double marking possible, adding a degree of complexity
-WALS 115A	Negation and indefinite pronouns	Syntagmatic	2	A pair of linguemes to establish mixed pattern
+WALS 115A	Negation and indefinite pronouns	Syntagmatic	3	A pair of linguemes to establish mixed pattern
 WALS 116A	Polar questions	Syntagmatic	2	Mixed marking possible, adding a degree of complexity
 WALS 119A	Predicative noun phrases and predicative locative phrases	Paradigmatic	2	A pair of linguemes to establish coding distinction
 WALS 120A	Predicative noun phrases	Paradigmatic	2	A pair of linguemes to establish optionality

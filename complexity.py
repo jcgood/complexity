@@ -23,7 +23,7 @@ def getComplexities(cur):
 			complexities[feat] = compfeat
 
 	# Make a dictionary for feature names
-	cur.execute("SELECT `WALS-APiCS`, `Feature_name` FROM APiCSFeatures")
+	cur.execute("SELECT `WALS-APiCS`, `ShortName` FROM APiCSFeatures")
 	names = { }
 	for row in cur.fetchall():
 		feat, name = row	
@@ -64,7 +64,7 @@ def getComplexities(cur):
 #Go through the WALS-like APiCS values and (i) calculate complexity averages and (ii) build up lists of values for statistical processing
 def getAPiCSLangComps(cur,types,complexities,degrees):
 	
-	cur.execute("""SELECT WALSAPiCSValues.Language, APiCSFeatures.`WALS-APICS`,  WALSAPiCSValues.Wals_value_number
+	cur.execute("""SELECT WALSAPiCSValues.TeXLang, APiCSFeatures.`WALS-APICS`,  WALSAPiCSValues.Wals_value_number
 	FROM WALSAPiCSValues
 	INNER JOIN APiCSFeatures ON WALSAPiCSValues.`APiCS_number` = APiCSFeatures.Feature_number
 	WHERE APiCSFeatures.`WALS-APICS` != \"None\" AND APiCSFeatures.ComplexityType is not NULL""")
@@ -110,7 +110,7 @@ def getAPiCSLangComps(cur,types,complexities,degrees):
 # Now do the same thing across features
 def getAPiCSFeatureComps(cur,complexities,apicsLangComp,majorFeats=False,noMixed=True):
 
-	cur.execute("""SELECT WALSAPiCSValues.Language, APiCSFeatures.`WALS-APICS`,  WALSAPiCSValues.Wals_value_number
+	cur.execute("""SELECT WALSAPiCSValues.TeXLang, APiCSFeatures.`WALS-APICS`,  WALSAPiCSValues.Wals_value_number
 	FROM WALSAPiCSValues
 	INNER JOIN APiCSFeatures ON WALSAPiCSValues.`APiCS_number` = APiCSFeatures.Feature_number
 	WHERE APiCSFeatures.`WALS-APICS` != \"None\" AND APiCSFeatures.ComplexityType is not NULL""")
@@ -294,7 +294,7 @@ def getFeatComplexity(walsFeatComp,walsFeatLangCount,walsCompList,apicswalsFeatC
 			winner = "APiCS $>$ WALS"
 		else:
 	#		print "equal complexity"
-			winner = "APiCS $\sim$ WALS"
+			winner = "APiCS $\\approx$ WALS"
 	# 	
 	# 	print ""
 
@@ -303,7 +303,12 @@ def getFeatComplexity(walsFeatComp,walsFeatLangCount,walsCompList,apicswalsFeatC
 		print >> outfile, feat+"\t&", names[feat]+"\t&", types[feat]+"\t&",  str(round(apicsavgnorm,2))+"\t&", str(round(walsavgnorm,2))+"\t&", str(round(p,2))+"\t&", winner+"\t\\\\"
 		
 		# set row storage for later sorting
-		rowStorage.append([feat, names[feat], types[feat], '%.2f' % (round(apicsavgnorm,2)), '%.2f' % (round(walsavgnorm,2)), '%.2f' % (round(p,2)), winner ])
+		shortfeat = feat
+		#shortfeat = feat.replace("WALS ", "W")
+		#shortfeat = shortfeat.replace("A", "")
+		shorttype = "{\\sc p}"
+		if types[feat] == "Syntagmatic": shorttype = "{\\sc s}"
+		rowStorage.append([shortfeat, names[feat], shorttype, '%.2f' % (round(apicsavgnorm,2)), '%.2f' % (round(walsavgnorm,2)), '%.2f' % (round(p,2)), winner ])
 		
 		
 		walsFCompAvg.append(walscompavg/degrees[feat])
@@ -316,11 +321,22 @@ def getFeatComplexity(walsFeatComp,walsFeatLangCount,walsCompList,apicswalsFeatC
 			
 	rowStorage = sorted(rowStorage, key=operator.itemgetter(-1,-2))
 	
-	# Todo: print to proper table, file, usw. xxx
-	print "{\sc feature}\t&", "{\sc description}&\t", "{\sc type}&\t", "{\sc apics}&\t", "{\sc wals}&\t", "$\sim$ {\sc p-value}&\t", "{\sc complexity}\t\\\\" # Just doing limited info for printing on paper
+	# Print to proper table, file; this is for the paper
+	featsfile = open('/Volumes/Obang/MyDocuments/Saramaccan/Papers/WordStructure/FeatureComps.tex', 'w')
+	print >> featsfile, "\\begin{tabular}{lllrrrl}"
+	print >> featsfile, "\\Hline"
+	print >> featsfile, "{\sc feat}\t&", "{\sc description}&\t", "{\sc t}&\t", "{\sc apics}&\t", "{\sc wals}&\t", "$\\approx${\sc p}&\t", "{\sc comp}\t\\\\" # Just doing limited info for printing on paper
+	print >> featsfile, "\\Hline"
+	lastwinner = "" # for figuring out where hlines should go
 	for row in rowStorage:
+		currentwinner = row[-1]
+		if lastwinner != "" and lastwinner != currentwinner: print >> featsfile, "\hline"
 		textrow = "\t&\t".join(row)
-		print textrow + "\t\\\\"
+		print >> featsfile, textrow + "\t\\\\"
+		lastwinner = row[-1]
+	print >> featsfile, "\\Hline"
+	print >> featsfile, "\\end{tabular}"
+
 	
 	return(walsFCompAvg,apicsFCompAvg,walsFCompAvgPar,apicsFCompAvgPar)
 	
@@ -359,11 +375,28 @@ def getLangCompPar(walsLangComp,apicsLangComp):
 			WALSCount += 1
 				
 	combinedListForSorting = sorted(combinedListForSorting, key=operator.itemgetter(1,0))
-	print "Language\t\\=\tComplexity\t\\=\tSet"
+
+	# For paper
+	langsfile = open('/Volumes/Obang/MyDocuments/Saramaccan/Papers/WordStructure/LangComps.tex', 'w')
+	print >> langsfile, "\\begin{multicols}{3}"
+	print >> langsfile,	"\\footnotesize"
+	print >> langsfile,	"\\begin{tabbing}"
+	#print >> langsfile, "Language\phantom{MMMMMMMMM}\t\\=\tComp\t\\=\\\\"
+	#print "Hello"
+	
+	firstrow = combinedListForSorting.pop(0)
+	lang = firstrow[0]
+	if firstrow[2] == "APiCS": lang = "\\emph{"+lang+"}"
+	print >> langsfile, lang + "\\phantom{MMMMMM}\\=" + firstrow[1] + "\t\\\\"
+	
 	for row in combinedListForSorting:
 		if row[2] == "APiCS": row[0] = "\\emph{"+row[0]+"}"
-		textrow = "\t\>\t".join(row)
-		print textrow + "\t\\\\"
+		#shortlang = row[0].replace("Creole\\b", "Cr. ")
+		shortlang = row[0].replace("Cape Verdean Creole", "Cape Verd. Cr.")
+		textrow = "\t\>\t".join([ shortlang, row[1] ])
+		print >> langsfile, textrow + "\t\\\\"
+	print >> langsfile,	"\\end{tabbing}"
+	print >> langsfile, "\\end{multicols}"
 
 	return(totalWALS,WALSCount,WALSLangCompList,totalAPiCS,APiCSCount,APiCSLangCompList)
 
@@ -442,6 +475,7 @@ def to_R(walsFCompAvgs,apicsFCompAvgs,WALSLangCompListPar,WALSLangCompListSyn,AP
 	print >> rfile, "awFeat = rbind(apicsFeatCompAvgsDF,walsFeatCompAvgsDF)"
 	print >> rfile, "distPlot = ggplot(awFeat, aes(Complexity, fill=set)) + geom_density(alpha=0.2, aes(y=..scaled..)) + theme(panel.grid=element_blank(), panel.background = element_blank())"
 	print >> rfile, "ggsave(\"/Users/jcgood/gitrepos/complexity/featDistr.pdf\", plot=distPlot)"
+	print >> rfile, "ggsave(\"/Volumes/Obang/MyDocuments/Saramaccan/Papers/WordStructure/featDistr.pdf\", plot=distPlot)"
 	print >> rfile, "distPlotBW = distPlot +  scale_fill_grey(start = 0, end = .9)"
 	print >> rfile, "ggsave(\"/Users/jcgood/gitrepos/complexity/featDistrBW.pdf\", plot=distPlotBW)"
 
@@ -459,7 +493,8 @@ def to_R(walsFCompAvgs,apicsFCompAvgs,WALSLangCompListPar,WALSLangCompListSyn,AP
 
 	print >> rfile, "awFeatPar = rbind(apicsFeatCompAvgsParDF,walsFeatCompAvgsParDF)"
 	print >> rfile, "distPlotPar = ggplot(awFeatPar, aes(Complexity, fill=set)) + geom_density(alpha=0.2, aes(y=..scaled..)) + theme(panel.grid=element_blank(), panel.background = element_blank())"
-	print >> rfile, "ggsave(\"/Users/jcgood/gitrepos/complexity/featDistrPar.pdf\", plot=distPlotPar)"
+	print >> rfile, "#ggsave(\"/Users/jcgood/gitrepos/complexity/featDistrPar.pdf\", plot=distPlotPar)"
+	print >> rfile, "ggsave(\"/Volumes/Obang/MyDocuments/Saramaccan/Papers/WordStructure/featDistrPar.pdf\", plot=distPlotPar)"
 	print >> rfile, "distPlotParBW = distPlotPar +  scale_fill_grey(start = 0, end = .9)"
 	print >> rfile, "ggsave(\"/Users/jcgood/gitrepos/complexity/featDistrParBW.pdf\", plot=distPlotParBW)"
 
@@ -491,8 +526,10 @@ def to_R(walsFCompAvgs,apicsFCompAvgs,WALSLangCompListPar,WALSLangCompListSyn,AP
 	print >> rfile, "parPlotBW = parPlot +  scale_fill_grey(start = 0, end = .9)"
 	print >> rfile, "synPlot = ggplot(awSyn, aes(Complexity, fill=set)) + geom_density(alpha=0.2, aes(y=..scaled..)) + theme(panel.grid=element_blank(), panel.background = element_blank())"
 	print >> rfile, "synPlotBW = synPlot +  scale_fill_grey(start = 0, end = .9)"
-	print >> rfile, "ggsave(\"/Users/jcgood/gitrepos/complexity/parDistr.pdf\", plot=parPlot)"
-	print >> rfile, "ggsave(\"/Users/jcgood/gitrepos/complexity/synDistr.pdf\", plot=synPlot)"
+	print >> rfile, "#ggsave(\"/Users/jcgood/gitrepos/complexity/parDistr.pdf\", plot=parPlot)"
+	print >> rfile, "#ggsave(\"/Users/jcgood/gitrepos/complexity/synDistr.pdf\", plot=synPlot)"
+	print >> rfile, "ggsave(\"/Volumes/Obang/MyDocuments/Saramaccan/Papers/WordStructure/parDistr.pdf\", plot=parPlot)"
+	print >> rfile, "ggsave(\"/Volumes/Obang/MyDocuments/Saramaccan/Papers/WordStructure/synDistr.pdf\", plot=synPlot)"
 	print >> rfile, "ggsave(\"/Users/jcgood/gitrepos/complexity/parDistrBW.pdf\", plot=parPlotBW)"
 	print >> rfile, "ggsave(\"/Users/jcgood/gitrepos/complexity/synDistrBW.pdf\", plot=synPlotBW)"
 	
@@ -510,7 +547,7 @@ def to_R(walsFCompAvgs,apicsFCompAvgs,WALSLangCompListPar,WALSLangCompListSyn,AP
 
 
 def getLangCompsTable(cur,complexities,names):
-	cur.execute("SELECT `Language`, `WALSFeature`, `Wals_value_Number` FROM WALSAPICSValues ORDER BY `Language`")
+	cur.execute("SELECT `TeXLang`, `WALSFeature`, `Wals_value_Number` FROM WALSAPICSValues ORDER BY `Language`")
 	langfile = open('APiCSLangCompVals.txt', 'w')
 	print >> langfile, "Language\t", "Feature\t", "Feature_name\t", "Value\t", "Value_complexity"
 	for row in cur.fetchall():
