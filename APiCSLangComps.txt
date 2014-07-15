@@ -1,77 +1,77 @@
 Language \=	Complexity	 \=Set
-Ambon Malay \>	 0.31 	\> APiCS \\
-Martinican Creole \>	 0.24 	\> APiCS \\
-Pidgin Hawaiian \>	 0.33 	\> APiCS \\
-Chinese Pidgin Russian \>	 0.36 	\> APiCS \\
-Creolese \>	 0.42 	\> APiCS \\
-Krio \>	 0.27 	\> APiCS \\
-African American English \>	 0.34 	\> APiCS \\
-Kikongo-Kituba \>	 0.27 	\> APiCS \\
-Papiá Kristang \>	 0.33 	\> APiCS \\
-Gullah \>	 0.39 	\> APiCS \\
-Haitian Creole \>	 0.36 	\> APiCS \\
-Cameroon Pidgin English \>	 0.31 	\> APiCS \\
-Kinubi \>	 0.3 	\> APiCS \\
-Nicaraguan Creole English \>	 0.27 	\> APiCS \\
-Papiamentu \>	 0.33 	\> APiCS \\
-Sranan \>	 0.32 	\> APiCS \\
-Cavite Chabacano \>	 0.51 	\> APiCS \\
-Michif \>	 0.62 	\> APiCS \\
-Kriol \>	 0.38 	\> APiCS \\
-Guyanais \>	 0.36 	\> APiCS \\
-Bislama \>	 0.34 	\> APiCS \\
-Cape Verdean Creole of Brava \>	 0.4 	\> APiCS \\
-Fanakalo \>	 0.33 	\> APiCS \\
-Chinese Pidgin English \>	 0.45 	\> APiCS \\
-Early Sranan \>	 0.29 	\> APiCS \\
-Seychelles Creole \>	 0.33 	\> APiCS \\
-Belizean Creole \>	 0.28 	\> APiCS \\
-Santome \>	 0.4 	\> APiCS \\
-Guadeloupean Creole \>	 0.29 	\> APiCS \\
-Afrikaans \>	 0.42 	\> APiCS \\
-Gurindji Kriol \>	 0.38 	\> APiCS \\
-Trinidad English Creole \>	 0.33 	\> APiCS \\
-Palenquero \>	 0.22 	\> APiCS \\
-Cape Verdean Creole of Santiago \>	 0.4 	\> APiCS \\
-Zamboanga Chabacano \>	 0.52 	\> APiCS \\
-Fa d?Ambô \>	 0.39 	\> APiCS \\
-Jamaican \>	 0.35 	\> APiCS \\
-Lingala \>	 0.36 	\> APiCS \\
-Ternate Chabacano \>	 0.47 	\> APiCS \\
-Guinea-Bissau Kriyol \>	 0.43 	\> APiCS \\
-Ghanaian Pidgin English \>	 0.45 	\> APiCS \\
-Hawai?i Creole \>	 0.45 	\> APiCS \\
-Korlai \>	 0.45 	\> APiCS \\
-Norf'k \>	 0.46 	\> APiCS \\
-Cape Verdean Creole of São Vicente \>	 0.38 	\> APiCS \\
-Chinuk Wawa \>	 0.2 	\> APiCS \\
-Negerhollands \>	 0.24 	\> APiCS \\
-Berbice Dutch \>	 0.24 	\> APiCS \\
-Vincentian Creole \>	 0.35 	\> APiCS \\
-Angolar \>	 0.38 	\> APiCS \\
-Principense \>	 0.38 	\> APiCS \\
-Nigerian Pidgin \>	 0.36 	\> APiCS \\
-Casamancese Creole \>	 0.35 	\> APiCS \\
-Nengee \>	 0.33 	\> APiCS \\
-Singapore Bazaar Malay \>	 0.27 	\> APiCS \\
-San Andres Creole English \>	 0.4 	\> APiCS \\
-Tok Pisin \>	 0.27 	\> APiCS \\
-Bahamian Creole \>	 0.41 	\> APiCS \\
-Pichi \>	 0.33 	\> APiCS \\
-Reunion Creole \>	 0.38 	\> APiCS \\
-Media Lengua \>	 0.24 	\> APiCS \\
-Diu Indo-Portuguese \>	 0.43 	\> APiCS \\
-Mixed Ma?a/Mbugu \>	 0.35 	\> APiCS \\
-Mauritian Creole \>	 0.42 	\> APiCS \\
-Sri Lankan Malay \>	 0.37 	\> APiCS \\
-Tayo \>	 0.33 	\> APiCS \\
-Juba Arabic \>	 0.25 	\> APiCS \\
-Sango \>	 0.35 	\> APiCS \\
-Pidgin Hindustani \>	 0.16 	\> APiCS \\
-Sri Lanka Portuguese \>	 0.64 	\> APiCS \\
-Singlish \>	 0.37 	\> APiCS \\
-Louisiana Creole \>	 0.38 	\> APiCS \\
-Saramaccan \>	 0.39 	\> APiCS \\
+Ambon Malay \>	 0.31 	\> APiCS	\\
+Martinican Creole \>	 0.24 	\> APiCS	\\
+Pidgin Hawaiian \>	 0.33 	\> APiCS	\\
+Chinese Pidgin Russian \>	 0.36 	\> APiCS	\\
+Creolese \>	 0.42 	\> APiCS	\\
+Krio \>	 0.27 	\> APiCS	\\
+African American English \>	 0.34 	\> APiCS	\\
+Kikongo-Kituba \>	 0.27 	\> APiCS	\\
+Papiá Kristang \>	 0.33 	\> APiCS	\\
+Gullah \>	 0.39 	\> APiCS	\\
+Haitian Creole \>	 0.36 	\> APiCS	\\
+Cameroon Pidgin English \>	 0.31 	\> APiCS	\\
+Kinubi \>	 0.3 	\> APiCS	\\
+Nicaraguan Creole English \>	 0.27 	\> APiCS	\\
+Papiamentu \>	 0.33 	\> APiCS	\\
+Sranan \>	 0.32 	\> APiCS	\\
+Cavite Chabacano \>	 0.51 	\> APiCS	\\
+Michif \>	 0.62 	\> APiCS	\\
+Kriol \>	 0.38 	\> APiCS	\\
+Guyanais \>	 0.36 	\> APiCS	\\
+Bislama \>	 0.34 	\> APiCS	\\
+Cape Verdean Creole of Brava \>	 0.4 	\> APiCS	\\
+Fanakalo \>	 0.33 	\> APiCS	\\
+Chinese Pidgin English \>	 0.45 	\> APiCS	\\
+Early Sranan \>	 0.29 	\> APiCS	\\
+Seychelles Creole \>	 0.33 	\> APiCS	\\
+Belizean Creole \>	 0.28 	\> APiCS	\\
+Santome \>	 0.4 	\> APiCS	\\
+Guadeloupean Creole \>	 0.29 	\> APiCS	\\
+Afrikaans \>	 0.42 	\> APiCS	\\
+Gurindji Kriol \>	 0.38 	\> APiCS	\\
+Trinidad English Creole \>	 0.33 	\> APiCS	\\
+Palenquero \>	 0.22 	\> APiCS	\\
+Cape Verdean Creole of Santiago \>	 0.4 	\> APiCS	\\
+Zamboanga Chabacano \>	 0.52 	\> APiCS	\\
+Fa d?Ambô \>	 0.39 	\> APiCS	\\
+Jamaican \>	 0.35 	\> APiCS	\\
+Lingala \>	 0.36 	\> APiCS	\\
+Ternate Chabacano \>	 0.47 	\> APiCS	\\
+Guinea-Bissau Kriyol \>	 0.43 	\> APiCS	\\
+Ghanaian Pidgin English \>	 0.45 	\> APiCS	\\
+Hawai?i Creole \>	 0.45 	\> APiCS	\\
+Korlai \>	 0.45 	\> APiCS	\\
+Norf'k \>	 0.46 	\> APiCS	\\
+Cape Verdean Creole of São Vicente \>	 0.38 	\> APiCS	\\
+Chinuk Wawa \>	 0.2 	\> APiCS	\\
+Negerhollands \>	 0.24 	\> APiCS	\\
+Berbice Dutch \>	 0.24 	\> APiCS	\\
+Vincentian Creole \>	 0.35 	\> APiCS	\\
+Angolar \>	 0.38 	\> APiCS	\\
+Principense \>	 0.38 	\> APiCS	\\
+Nigerian Pidgin \>	 0.36 	\> APiCS	\\
+Casamancese Creole \>	 0.35 	\> APiCS	\\
+Nengee \>	 0.33 	\> APiCS	\\
+Singapore Bazaar Malay \>	 0.27 	\> APiCS	\\
+San Andres Creole English \>	 0.4 	\> APiCS	\\
+Tok Pisin \>	 0.27 	\> APiCS	\\
+Bahamian Creole \>	 0.41 	\> APiCS	\\
+Pichi \>	 0.33 	\> APiCS	\\
+Reunion Creole \>	 0.38 	\> APiCS	\\
+Media Lengua \>	 0.24 	\> APiCS	\\
+Diu Indo-Portuguese \>	 0.43 	\> APiCS	\\
+Mixed Ma?a/Mbugu \>	 0.35 	\> APiCS	\\
+Mauritian Creole \>	 0.42 	\> APiCS	\\
+Sri Lankan Malay \>	 0.37 	\> APiCS	\\
+Tayo \>	 0.33 	\> APiCS	\\
+Juba Arabic \>	 0.25 	\> APiCS	\\
+Sango \>	 0.35 	\> APiCS	\\
+Pidgin Hindustani \>	 0.16 	\> APiCS	\\
+Sri Lanka Portuguese \>	 0.64 	\> APiCS	\\
+Singlish \>	 0.37 	\> APiCS	\\
+Louisiana Creole \>	 0.38 	\> APiCS	\\
+Saramaccan \>	 0.39 	\> APiCS	\\
 Meithei \>	 0.49 	\> WALS \\
 Japanese \>	 0.5 	\> WALS \\
 Swahili \>	 0.37 	\> WALS \\

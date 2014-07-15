@@ -3,7 +3,7 @@
 # A native python MySQL library
 import pymysql
 import rpy2.robjects as robj
-
+import operator
 
 # Gathers reference information for other functions
 def getComplexities(cur):
@@ -251,6 +251,7 @@ def getFeatComplexity(walsFeatComp,walsFeatLangCount,walsCompList,apicswalsFeatC
 	apicsFCompAvg = [ ]
 	walsFCompAvgPar = [ ]
 	apicsFCompAvgPar = [ ]
+	rowStorage = [ ] #to create a new list for a sorted output
 	# NOTE DON'T JUST UNCOMMENT THIS SINCE I ALSO REARRANGED COLUMNS--see below
 	#print >> outfile, "Feature\t", "Description\t", "Types\t", "Degrees\t", "WALSscore\t", "APiCSscore\t", "WALSNorm\t", "APiCSNorm\t", "CompAvg\t", "Significance\t", "Comparison"
 	print >> outfile, "{\sc feature}\t&", "{\sc description}&\t", "{\sc type}&\t",   "{\sc apics}&\t", "{\sc wals}&\t", "$\sim$ {\sc p-value}&\t", "{\sc complexity}\t\\\\" # Just doing limited info for printing on paper
@@ -301,13 +302,26 @@ def getFeatComplexity(walsFeatComp,walsFeatLangCount,walsCompList,apicswalsFeatC
 	#	print >> outfile, feat+"\t"+names[feat]+"\t"+types[feat]+"\t"+str(degrees[feat])+"\t"+str(walscompavg)+"\t"+str(apicscompavg)+"\t"+str(walsavgnorm)+"\t"+str(apicsavgnorm)+"\t"+str(compavg)+"\t"+ str(p)+"\t"+winner
 		print >> outfile, feat+"\t&", names[feat]+"\t&", types[feat]+"\t&",  str(round(apicsavgnorm,2))+"\t&", str(round(walsavgnorm,2))+"\t&", str(round(p,2))+"\t&", winner+"\t\\\\"
 		
+		# set row storage for later sorting
+		rowStorage.append([feat, names[feat], types[feat], '%.2f' % (round(apicsavgnorm,2)), '%.2f' % (round(walsavgnorm,2)), '%.2f' % (round(p,2)), winner ])
+		
+		
 		walsFCompAvg.append(walscompavg/degrees[feat])
 		apicsFCompAvg.append(apicscompavg/degrees[feat])
 		
 		if types[feat] == "Paradigmatic":
 			walsFCompAvgPar.append(walscompavg/degrees[feat])
 			apicsFCompAvgPar.append(apicscompavg/degrees[feat])
-					
+			
+			
+	rowStorage = sorted(rowStorage, key=operator.itemgetter(-1,-2))
+	
+	# Todo: print to proper table, file, usw. xxx
+	print "{\sc feature}\t&", "{\sc description}&\t", "{\sc type}&\t", "{\sc apics}&\t", "{\sc wals}&\t", "$\sim$ {\sc p-value}&\t", "{\sc complexity}\t\\\\" # Just doing limited info for printing on paper
+	for row in rowStorage:
+		textrow = "\t&\t".join(row)
+		print textrow + "\t\\\\"
+	
 	return(walsFCompAvg,apicsFCompAvg,walsFCompAvgPar,apicsFCompAvgPar)
 	
 
@@ -316,18 +330,18 @@ def getLangCompPar(walsLangComp,apicsLangComp):
 
 	outfile = open('APiCSLangComps.txt', 'w')
 
-	print >> outfile, "Language \\=\tComplexity\t \\=Set"
-
 	totalAPiCS = 0
 	APiCSCount = 0
 	APiCSLangCompList = [ ]
+	combinedListForSorting = [ ]
 	for lang in apicsLangComp:
 		# Only do languages with lots of features (paradigmatic ones only included); 26 is a semi-arbitrary choice to get a reasonable total number of language of both groups of about equal size
 		if len(apicsLangComp[lang]) >= 26:
 			mean = sum(apicsLangComp[lang])/len(apicsLangComp[lang])
-			print >> outfile, lang, "\\>\t "+str(round(mean,2)), "\t\\> "+"APiCS \\\\"
+			print >> outfile, lang, "\\>\t "+str(round(mean,2)), "\t\\> "+"APiCS\t\\\\"
 			totalAPiCS += mean
 			APiCSLangCompList.append(mean)
+			combinedListForSorting.append([ lang, '%.2f' % mean, "APiCS" ])
 			APiCSCount += 1
 
 	# Now WALS 
@@ -341,7 +355,15 @@ def getLangCompPar(walsLangComp,apicsLangComp):
 			print >> outfile, lang, "\\>\t "+str(round(mean,2)), "\t\\> "+"WALS \\\\"
 			totalWALS += mean
 			WALSLangCompList.append(mean)
+			combinedListForSorting.append([ lang, '%.2f' % mean, "WALS" ])
 			WALSCount += 1
+				
+	combinedListForSorting = sorted(combinedListForSorting, key=operator.itemgetter(1,0))
+	print "Language\t\\=\tComplexity\t\\=\tSet"
+	for row in combinedListForSorting:
+		if row[2] == "APiCS": row[0] = "\\emph{"+row[0]+"}"
+		textrow = "\t\>\t".join(row)
+		print textrow + "\t\\\\"
 
 	return(totalWALS,WALSCount,WALSLangCompList,totalAPiCS,APiCSCount,APiCSLangCompList)
 
