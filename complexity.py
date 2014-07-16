@@ -325,7 +325,7 @@ def getFeatComplexity(walsFeatComp,walsFeatLangCount,walsCompList,apicswalsFeatC
 	featsfile = open('/Volumes/Obang/MyDocuments/Saramaccan/Papers/WordStructure/FeatureComps.tex', 'w')
 	print >> featsfile, "\\begin{tabular}{lllrrrl}"
 	print >> featsfile, "\\Hline"
-	print >> featsfile, "{\sc feat}\t&", "{\sc description}&\t", "{\sc t}&\t", "{\sc apics}&\t", "{\sc wals}&\t", "$\\approx${\sc p}&\t", "{\sc comp}\t\\\\" # Just doing limited info for printing on paper
+	print >> featsfile, "{\sc feature}\t&", "{\sc description}&\t", "{\sc t}&\t", "{\sc apics}&\t", "{\sc wals}&\t", "$\\approx${\sc p}&\t", "{\sc comp}\t\\\\" # Just doing limited info for printing on paper
 	print >> featsfile, "\\Hline"
 	lastwinner = "" # for figuring out where hlines should go
 	for row in rowStorage:
