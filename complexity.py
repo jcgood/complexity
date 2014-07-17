@@ -367,12 +367,14 @@ def getLangCompPar(walsLangComp,apicsLangComp):
 	for lang in walsLangComp:
 		# Only do languages with lots of features (paradigmatic ones only included)
 		if len(walsLangComp[lang]) >= 26:
+			print lang
 			mean = sum(walsLangComp[lang])/len(walsLangComp[lang])
 			print >> outfile, lang, "\\>\t "+str(round(mean,2)), "\t\\> "+"WALS \\\\"
 			totalWALS += mean
 			WALSLangCompList.append(mean)
 			combinedListForSorting.append([ lang, '%.2f' % mean, "WALS" ])
 			WALSCount += 1
+	print WALSLangCompList
 				
 	combinedListForSorting = sorted(combinedListForSorting, key=operator.itemgetter(1,0))
 
@@ -454,6 +456,8 @@ def featComparison(apicsLangFeatCompPar,walsLangFeatCompPar,apicsLangComp,walsLa
 		
 		
 def to_R(walsFCompAvgs,apicsFCompAvgs,WALSLangCompListPar,WALSLangCompListSyn,APiCSLangCompListPar,APiCSLangCompListSyn,walsFCompAvgsPar,apicsFCompAvgsPar):
+
+	print WALSLangCompListPar
 
 	rfile = open('APiCSWALS.r', 'w')
 
