@@ -72,12 +72,13 @@ def getAPiCSLangComps(cur,types,complexities,degrees):
 	apicsLangCompPar = { }	# For paradigmatic
 	apicsLangCompSyn = { } # For syntagmatic
 	apicsLangFeatCompPar = [ ] # For latter regression analysis on paradigmatic features
+	apicsLangFeatCompSyn = [ ] # For latter regression analysis on paradigmatic features
 	for row in cur.fetchall():
 		lang, feat, value = row
 		compfeat = complexities[feat]
 		compValue = compfeat[str(value)]
 	
-		# Get the numbers across languages
+		# Get the numbers across languages; looks like some refactoring is needed here
 		if lang in apicsLangCompPar:
 			if types[feat] == "Paradigmatic":
 				normComp = compValue / float(degrees[feat]) 
@@ -95,16 +96,20 @@ def getAPiCSLangComps(cur,types,complexities,degrees):
 		# Now syntagmatic
 		if lang in apicsLangCompSyn:
 			if types[feat] == "Syntagmatic":
+				normComp = compValue / float(degrees[feat]) 
 				langCompList = apicsLangCompSyn[lang]
-				langCompList.append( compValue / float(degrees[feat]) )
+				langCompList.append( normComp )
 				apicsLangCompSyn[lang] = langCompList
+				apicsLangFeatCompSyn.append([ lang,feat,normComp,"APiCS" ]) # For regression
 			
 		else:
 			if types[feat] == "Syntagmatic":
-				apicsLangCompSyn[lang] = [ compValue / float(degrees[feat])  ]
+				normComp = compValue / float(degrees[feat]) 
+				apicsLangCompSyn[lang] = [ normComp ]
+				apicsLangFeatCompSyn.append([ lang,feat,normComp,"APiCS" ]) # For regression
 
 	
-	return(apicsLangCompPar,apicsLangCompSyn,apicsLangFeatCompPar)
+	return(apicsLangCompPar,apicsLangCompSyn,apicsLangFeatCompPar,apicsLangFeatCompSyn)
 
 
 # Now do the same thing across features
@@ -160,6 +165,7 @@ def getWALSLangComps(cur,types,complexities,degrees,noCreoles=True):
 	walsLangCompPar = { } # For paradigmatic
 	walsLangCompSyn = { } 
 	walsLangFeatCompPar = [ ]
+	walsLangFeatCompSyn = [ ]
 	for row in cur.fetchall():
 		lang, value, feat, langid = row
 		compfeat = complexities[feat]
@@ -170,7 +176,7 @@ def getWALSLangComps(cur,types,complexities,degrees,noCreoles=True):
  			#print lang
  			continue
 
-		# Now get the numbers across languages
+		# Now get the numbers across languages; looks like some refactoring is needed
 		if lang in walsLangCompPar:
 			if types[feat] == "Paradigmatic":
 				normComp = compValue / float(degrees[feat]) 
@@ -188,15 +194,19 @@ def getWALSLangComps(cur,types,complexities,degrees,noCreoles=True):
  
 		if lang in walsLangCompSyn:
 			if types[feat] == "Syntagmatic":
+				normComp = compValue / float(degrees[feat]) 
 				langCompList = walsLangCompSyn[lang]
-				langCompList.append( compValue / float(degrees[feat]) )
+				langCompList.append( normComp )
 				walsLangCompSyn[lang] = langCompList
+				walsLangFeatCompSyn.append([ lang,feat,normComp,"WALS" ]) # For regression
 		
 		else:
 			if types[feat] == "Syntagmatic":
-				walsLangCompSyn[lang] = [ compValue / float(degrees[feat])  ]
+				normComp = compValue / float(degrees[feat]) 
+				walsLangCompSyn[lang] = [ normComp  ]
+				walsLangFeatCompSyn.append([ lang,feat,normComp,"WALS" ]) # For regression
 	
-	return(walsLangCompPar,walsLangCompSyn,walsLangFeatCompPar)
+	return(walsLangCompPar,walsLangCompSyn,walsLangFeatCompPar,walsLangFeatCompSyn)
 
 
 
@@ -367,14 +377,14 @@ def getLangCompPar(walsLangComp,apicsLangComp):
 	for lang in walsLangComp:
 		# Only do languages with lots of features (paradigmatic ones only included)
 		if len(walsLangComp[lang]) >= 26:
-			print lang
+			#print lang
 			mean = sum(walsLangComp[lang])/len(walsLangComp[lang])
 			print >> outfile, lang, "\\>\t "+str(round(mean,2)), "\t\\> "+"WALS \\\\"
 			totalWALS += mean
 			WALSLangCompList.append(mean)
 			combinedListForSorting.append([ lang, '%.2f' % mean, "WALS" ])
 			WALSCount += 1
-	print WALSLangCompList
+	#print WALSLangCompList
 				
 	combinedListForSorting = sorted(combinedListForSorting, key=operator.itemgetter(1,0))
 
@@ -436,7 +446,7 @@ def getLangCompSyn(walsLangCompSyn,apicsLangCompSyn):
 	return(totalWALSSyn,WALSCountSyn,WALSLangCompListSyn,totalAPiCSSyn,APiCSCountSyn,APiCSLangCompListSyn)
 
 
-def featComparison(apicsLangFeatCompPar,walsLangFeatCompPar,apicsLangComp,walsLangComp):
+def featComparison(apicsLangFeatCompPar,walsLangFeatCompPar,apicsLangComp,walsLangComp,apicsLangFeatCompSyn,walsLangFeatCompSyn,apicsLangCompSyn,walsLangCompSyn):
 	
 	fcfile = open('FeatComp.txt', 'w')
 
@@ -453,11 +463,27 @@ def featComparison(apicsLangFeatCompPar,walsLangFeatCompPar,apicsLangComp,walsLa
 		if len(walsLangComp[lang]) >= 26:
 			feat = feat.replace(" ", "")
 			print >> fcfile, feat+"\t"+str(comp)+"\t"+set
+
+	fcfilesyn = open('FeatCompSyn.txt', 'w')
+
+	print >> fcfilesyn, "Feature\tComplexity\tSet"
+	
+	for featcomp in apicsLangFeatCompSyn:
+		lang, feat, comp, set = featcomp
+		if len(apicsLangCompSyn[lang]) >= 13:
+			feat = feat.replace(" ", "")
+			print >> fcfilesyn, feat+"\t"+str(comp)+"\t"+set
+
+	for featcomp in walsLangFeatCompSyn:
+		lang, feat, comp, set = featcomp
+		if len(walsLangCompSyn[lang]) >= 13:
+			feat = feat.replace(" ", "")
+			print >> fcfilesyn, feat+"\t"+str(comp)+"\t"+set
 		
 		
 def to_R(walsFCompAvgs,apicsFCompAvgs,WALSLangCompListPar,WALSLangCompListSyn,APiCSLangCompListPar,APiCSLangCompListSyn,walsFCompAvgsPar,apicsFCompAvgsPar):
 
-	print WALSLangCompListPar
+	#print WALSLangCompListPar
 
 	rfile = open('APiCSWALS.r', 'w')
 
@@ -530,8 +556,8 @@ def to_R(walsFCompAvgs,apicsFCompAvgs,WALSLangCompListPar,WALSLangCompListSyn,AP
 	print >> rfile, "parPlotBW = parPlot +  scale_fill_grey(start = 0, end = .9)"
 	print >> rfile, "synPlot = ggplot(awSyn, aes(Complexity, fill=set)) + geom_density(alpha=0.2, aes(y=..scaled..)) + theme(panel.grid=element_blank(), panel.background = element_blank())"
 	print >> rfile, "synPlotBW = synPlot +  scale_fill_grey(start = 0, end = .9)"
-	print >> rfile, "#ggsave(\"/Users/jcgood/gitrepos/complexity/parDistr.pdf\", plot=parPlot)"
-	print >> rfile, "#ggsave(\"/Users/jcgood/gitrepos/complexity/synDistr.pdf\", plot=synPlot)"
+	print >> rfile, "ggsave(\"/Users/jcgood/gitrepos/complexity/parDistr.pdf\", plot=parPlot)"
+	print >> rfile, "ggsave(\"/Users/jcgood/gitrepos/complexity/synDistr.pdf\", plot=synPlot)"
 	print >> rfile, "ggsave(\"/Volumes/Obang/MyDocuments/Saramaccan/Papers/WordStructure/parDistr.pdf\", plot=parPlot)"
 	print >> rfile, "ggsave(\"/Volumes/Obang/MyDocuments/Saramaccan/Papers/WordStructure/synDistr.pdf\", plot=synPlot)"
 	print >> rfile, "ggsave(\"/Users/jcgood/gitrepos/complexity/parDistrBW.pdf\", plot=parPlotBW)"
@@ -542,12 +568,20 @@ def to_R(walsFCompAvgs,apicsFCompAvgs,WALSLangCompListPar,WALSLangCompListSyn,AP
 	print >> rfile, "ggsave(\"/Users/jcgood/gitrepos/complexity/aParHist.pdf\", plot=aParHist)"
 	print >> rfile, "ggsave(\"/Users/jcgood/gitrepos/complexity/wParHist.pdf\", plot=wParHist)"
 	
-	# For GLM (not really used for now, but for future reference)
+	# For GLM par
 	print >> rfile, "fc = read.table(\"/Users/jcgood/gitrepos/complexity/FeatComp.txt\", row.names=NULL, header=TRUE)"
 	print >> rfile, "fcfit = glm(fc$Set ~ fc$Feature:fc$Complexity, family=\"binomial\")" # binomial default to logit function, I think; the colon means only use interacting terms, a "*" does interacting and individual
 	print >> rfile, "layout(matrix(c(1,2,3,4),2,2))" #  4 graphs/page
 	print >> rfile, "fcplot = plot(fcfit)"
 	# Note 1 - pchisq(residualDeviance, resisdualDF) (see http://data.princeton.edu/R/glms.html) appears to be a valid "significance" test for extent to which model models the data
+
+	# For GLM syn
+	print >> rfile, "fcsyn = read.table(\"/Users/jcgood/gitrepos/complexity/FeatCompSyn.txt\", row.names=NULL, header=TRUE)"
+	print >> rfile, "fcfitsyn = glm(fcsyn$Set ~ fcsyn$Feature:fcsyn$Complexity, family=\"binomial\")" # binomial default to logit function, I think; the colon means only use interacting terms, a "*" does interacting and individual
+	print >> rfile, "layout(matrix(c(1,2,3,4),2,2))" #  4 graphs/page
+	print >> rfile, "fcplotsyn = plot(fcfitsyn)"
+	# Note 1 - pchisq(residualDeviance, resisdualDF) (see http://data.princeton.edu/R/glms.html) appears to be a valid "significance" test for extent to which model models the data
+
 
 
 def getLangCompsTable(cur,complexities,names):

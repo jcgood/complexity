@@ -13,9 +13,9 @@ cur = conn.cursor()
 
 # Get data from database
 (complexities,names,types,degrees) = getComplexities(cur)
-(apicsLangCompPar,apicsLangCompSyn,apicsLangFeatCompPar) = getAPiCSLangComps(cur,types,complexities,degrees)
+(apicsLangCompPar,apicsLangCompSyn,apicsLangFeatCompPar,apicsLangFeatCompSyn) = getAPiCSLangComps(cur,types,complexities,degrees)
 (apicsFeatComp,apicsFeatCount,apicsFeatCompList) = getAPiCSFeatureComps(cur,complexities,apicsLangCompPar)
-(walsLangCompPar,walsLangCompSyn,walsLangFeatCompPar) = getWALSLangComps(cur,types,complexities,degrees)
+(walsLangCompPar,walsLangCompSyn,walsLangFeatCompPar,walsLangFeatCompSyn) = getWALSLangComps(cur,types,complexities,degrees)
 (walsFeatComp,walsFeatCount,walsFeatCompList) = getWALSFeatureComps(cur,complexities,walsLangCompPar)
 
 # Prints results to file among other things
@@ -31,7 +31,7 @@ to_R(walsFCompAvgs,apicsFCompAvgs,WALSLangCompListPar,WALSLangCompListSyn,APiCSL
 getLangCompsTable(cur,complexities,names)
 
 # Generates file
-featComparison(apicsLangFeatCompPar,walsLangFeatCompPar,apicsLangCompPar,walsLangCompPar)
+featComparison(apicsLangFeatCompPar,walsLangFeatCompPar,apicsLangCompPar,walsLangCompPar,apicsLangFeatCompSyn,walsLangFeatCompSyn,apicsLangCompSyn,walsLangCompSyn)
 
 # Generates file
 getDocumentation(cur)
