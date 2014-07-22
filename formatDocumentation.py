@@ -5,8 +5,8 @@ import socket
 
 hostname = socket.gethostname()
 
-conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='', db='APiCS')
-#conn = pymysql.connect(host='localhost', port=3307, user='root', passwd='', db='APiCS')
+#conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='', db='APiCS')
+conn = pymysql.connect(host='localhost', port=3307, user='root', passwd='', db='APiCS')
 
 cur = conn.cursor()
 
@@ -51,7 +51,7 @@ print >> parfile, "\\Hline"
 print >> parfile, "{\\sc id}\t&\t{\\sc feature name}\t&\t{\\sc value name}\t&\t{\\sc n}\t&\t{\\sc justification}\\\\"
 print >> parfile, "\\Hline"
 print >> parfile, "\\endhead"
-print >> parfile, "\\caption{Complexity scores assigned to values for the paradigmatic features in the WALS--APiCS data (continued)\\\\"
+print >> parfile, "\\caption{Complexity scores assigned to values for the paradigmatic features in the WALS--APiCS data (continued)}\\\\"
 print >> parfile, "\\endfoot"
 print >> parfile, "\\caption{Complexity scores assigned to values for the paradigmatic features in the WALS--APiCS data \label{ParComp}}\\\\"
 print >> parfile, "\\endlastfoot"

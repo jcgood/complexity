@@ -157,7 +157,7 @@ def getAPiCSFeatureComps(cur,complexities,apicsLangComp,majorFeats=False,noMixed
 # Now do the same thing for the WALS languages
 def getWALSLangComps(cur,types,complexities,degrees,noCreoles=True):
 
-	cur.execute("""SELECT WALSValues.LanguageName, WALSValues.Value_number, WALSValues.Feature_number, WALSValues.LangID
+	cur.execute("""SELECT "WALS".TeXLanguageName, WALSValues.Value_number, WALSValues.Feature_number, WALSValues.LangID
 	FROM WALSValues
 	INNER JOIN APiCSFeatures on  WALSValues.Feature_number = APiCSFeatures.`WALS-APICS`
 	WHERE APiCSFeatures.`ComplexityType` is not NULL""")
@@ -212,7 +212,7 @@ def getWALSLangComps(cur,types,complexities,degrees,noCreoles=True):
 
 def getWALSFeatureComps(cur,complexities,walsLangComp,majorFeats=False,noCreoles=True):
 
-	cur.execute("""SELECT WALSValues.LanguageName, WALSValues.Value_number, WALSValues.Feature_number, WALSValues.LangID
+	cur.execute("""SELECT WALSValues.TeXLanguageName, WALSValues.Value_number, WALSValues.Feature_number, WALSValues.LangID
 	FROM WALSValues
 	INNER JOIN APiCSFeatures on  WALSValues.Feature_number = APiCSFeatures.`WALS-APICS`
 	WHERE APiCSFeatures.`ComplexityType` is not NULL""")
@@ -393,8 +393,6 @@ def getLangCompPar(walsLangComp,apicsLangComp):
 	print >> langsfile, "\\begin{multicols}{3}"
 	print >> langsfile,	"\\footnotesize"
 	print >> langsfile,	"\\begin{tabbing}"
-	#print >> langsfile, "Language\phantom{MMMMMMMMM}\t\\=\tComp\t\\=\\\\"
-	#print "Hello"
 	
 	firstrow = combinedListForSorting.pop(0)
 	lang = firstrow[0]
@@ -412,6 +410,7 @@ def getLangCompPar(walsLangComp,apicsLangComp):
 
 	return(totalWALS,WALSCount,WALSLangCompList,totalAPiCS,APiCSCount,APiCSLangCompList)
 
+
 # Now same for syntagmatic
 # Now get average complexity for all features within a language; start with APiCS
 def getLangCompSyn(walsLangCompSyn,apicsLangCompSyn):
@@ -419,6 +418,7 @@ def getLangCompSyn(walsLangCompSyn,apicsLangCompSyn):
 	totalAPiCSSyn = 0
 	APiCSCountSyn = 0
 	APiCSLangCompListSyn = [ ]
+	combinedListForSorting = [ ]
 	for lang in apicsLangCompSyn:
 		# Only do languages with lots of features (paradigmatic ones only included); 26 is a semi-arbitrary choice to get a reasonable total number of language of both groups of about equal size
 		if len(apicsLangCompSyn[lang]) >= 13:
@@ -427,6 +427,7 @@ def getLangCompSyn(walsLangCompSyn,apicsLangCompSyn):
 			#print lang, mean
 			totalAPiCSSyn += mean
 			APiCSLangCompListSyn.append(mean)
+			combinedListForSorting.append([ lang, '%.2f' % mean, "APiCS" ])
 			APiCSCountSyn += 1
 
 	# Now WALS 
@@ -441,7 +442,32 @@ def getLangCompSyn(walsLangCompSyn,apicsLangCompSyn):
 			#print lang, mean
 			totalWALSSyn += mean
 			WALSLangCompListSyn.append(mean)
+			combinedListForSorting.append([ lang, '%.2f' % mean, "WALS" ])
 			WALSCountSyn += 1
+
+
+	combinedListForSorting = sorted(combinedListForSorting, key=operator.itemgetter(1,0))
+
+	# For paper
+	langsfile = open('/Volumes/Obang/MyDocuments/Saramaccan/Papers/WordStructure/LangCompsSyn.tex', 'w')
+	print >> langsfile, "\\begin{multicols}{3}"
+	print >> langsfile,	"\\footnotesize"
+	print >> langsfile,	"\\begin{tabbing}"
+	
+	firstrow = combinedListForSorting.pop(0)
+	lang = firstrow[0]
+	if firstrow[2] == "APiCS": lang = "\\emph{"+lang+"}"
+	print >> langsfile, lang + "\\phantom{MMMMMM}\\=" + firstrow[1] + "\t\\\\"
+	
+	for row in combinedListForSorting:
+		if row[2] == "APiCS": row[0] = "\\emph{"+row[0]+"}"
+		#shortlang = row[0].replace("Creole\\b", "Cr. ")
+		shortlang = row[0].replace("Cape Verdean Creole", "Cape Verd. Cr.")
+		textrow = "\t\>\t".join([ shortlang, row[1] ])
+		print >> langsfile, textrow + "\t\\\\"
+	print >> langsfile,	"\\end{tabbing}"
+	print >> langsfile, "\\end{multicols}"
+
 
 	return(totalWALSSyn,WALSCountSyn,WALSLangCompListSyn,totalAPiCSSyn,APiCSCountSyn,APiCSLangCompListSyn)
 
