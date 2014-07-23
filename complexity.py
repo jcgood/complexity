@@ -335,7 +335,7 @@ def getFeatComplexity(walsFeatComp,walsFeatLangCount,walsCompList,apicswalsFeatC
 	featsfile = open('/Volumes/Obang/MyDocuments/Saramaccan/Papers/WordStructure/FeatureComps.tex', 'w')
 	print >> featsfile, "\\begin{tabular}{lllrrrl}"
 	print >> featsfile, "\\Hline"
-	print >> featsfile, "{\sc feature}\t&", "{\sc description}&\t", "{\sc t}&\t", "{\sc apics}&\t", "{\sc wals}&\t", "$\\approx${\sc p}&\t", "{\sc comp}\t\\\\" # Just doing limited info for printing on paper
+	print >> featsfile, "{\sc feature}\t&", "{\sc description}&\t", "{\sc t}&\t", "{\sc apics}&\t", "{\sc wals}&\t", "\phantom{iii}$\\approx${\sc p}&\t", "{\sc comp}\t\\\\" # Just doing limited info for printing on paper
 	print >> featsfile, "\\Hline"
 	lastwinner = "" # for figuring out where hlines should go
 	for row in rowStorage:
@@ -452,12 +452,13 @@ def getLangCompSyn(walsLangCompSyn,apicsLangCompSyn):
 	langsfile = open('/Volumes/Obang/MyDocuments/Saramaccan/Papers/WordStructure/LangCompsSyn.tex', 'w')
 	print >> langsfile, "\\begin{multicols}{3}"
 	print >> langsfile,	"\\footnotesize"
+	print >> langsfile,	"\\begin{spacing}{.96}"
 	print >> langsfile,	"\\begin{tabbing}"
 	
 	firstrow = combinedListForSorting.pop(0)
 	lang = firstrow[0]
 	if firstrow[2] == "APiCS": lang = "\\emph{"+lang+"}"
-	print >> langsfile, lang + "\\phantom{MMMMMM}\\=" + firstrow[1] + "\t\\\\"
+	print >> langsfile, lang + "\\phantom{MMMMMMii}\\=" + firstrow[1] + "\t\\\\"
 	
 	for row in combinedListForSorting:
 		if row[2] == "APiCS": row[0] = "\\emph{"+row[0]+"}"
@@ -466,45 +467,82 @@ def getLangCompSyn(walsLangCompSyn,apicsLangCompSyn):
 		textrow = "\t\>\t".join([ shortlang, row[1] ])
 		print >> langsfile, textrow + "\t\\\\"
 	print >> langsfile,	"\\end{tabbing}"
+	print >> langsfile,	"\\end{spacing}"
 	print >> langsfile, "\\end{multicols}"
-
+	
 
 	return(totalWALSSyn,WALSCountSyn,WALSLangCompListSyn,totalAPiCSSyn,APiCSCountSyn,APiCSLangCompListSyn)
 
 
 def featComparison(apicsLangFeatCompPar,walsLangFeatCompPar,apicsLangComp,walsLangComp,apicsLangFeatCompSyn,walsLangFeatCompSyn,apicsLangCompSyn,walsLangCompSyn):
+
+	# Note to self: I wanted to use language as a random variable and learned
+	# about glmm over several hours (wasted?) and the difference between glm, which
+	# does not allow for random variables. But, I can't use glmm since, while language
+	# is a random variable, it fully predict WALS vs. APiCS, which is why I ignored
+	# it before, but forgot now. Oh well.
+	# So I don't need language in the output here, but I am keeping it in for now for documentation
 	
+
 	fcfile = open('FeatComp.txt', 'w')
 
-	print >> fcfile, "Feature\tComplexity\tSet"
+	print >> fcfile, "Feature\tLanguage\tComplexity\tSet"
 	
 	for featcomp in apicsLangFeatCompPar:
 		lang, feat, comp, set = featcomp
 		if len(apicsLangComp[lang]) >= 26:
+			lang = lang.replace(" ", "")
+			lang = lang.replace("\\", "")
+			lang = lang.replace("/", "")
+			lang = lang.replace("'", "")
+			lang = lang.replace("`", "")
+			lang = lang.replace("^", "")			
+			lang = lang.replace("-", "")			
 			feat = feat.replace(" ", "")
-			print >> fcfile, feat+"\t"+str(comp)+"\t"+set
+			print >> fcfile, feat+"\t"+lang+"\t"+str(comp)+"\t"+set
 
 	for featcomp in walsLangFeatCompPar:
 		lang, feat, comp, set = featcomp
 		if len(walsLangComp[lang]) >= 26:
+			lang = lang.replace(" ", "")
+			lang = lang.replace("\\", "")
+			lang = lang.replace("/", "")
+			lang = lang.replace("'", "")
+			lang = lang.replace("`", "")
+			lang = lang.replace("^", "")			
+			lang = lang.replace("-", "")			
 			feat = feat.replace(" ", "")
-			print >> fcfile, feat+"\t"+str(comp)+"\t"+set
+			print >> fcfile, feat+"\t"+lang+"\t"+str(comp)+"\t"+set
 
 	fcfilesyn = open('FeatCompSyn.txt', 'w')
 
-	print >> fcfilesyn, "Feature\tComplexity\tSet"
+	print >> fcfilesyn, "Feature\tLanguage\tComplexity\tSet"
 	
 	for featcomp in apicsLangFeatCompSyn:
 		lang, feat, comp, set = featcomp
 		if len(apicsLangCompSyn[lang]) >= 13:
+			lang = lang.replace(" ", "")
+			lang = lang.replace("\\", "")
+			lang = lang.replace("/", "")
+			lang = lang.replace("'", "")
+			lang = lang.replace("`", "")
+			lang = lang.replace("^", "")			
+			lang = lang.replace("-", "")			
 			feat = feat.replace(" ", "")
-			print >> fcfilesyn, feat+"\t"+str(comp)+"\t"+set
+			print >> fcfilesyn, feat+"\t"+lang+"\t"+str(comp)+"\t"+set
 
 	for featcomp in walsLangFeatCompSyn:
 		lang, feat, comp, set = featcomp
 		if len(walsLangCompSyn[lang]) >= 13:
+			lang = lang.replace(" ", "")
+			lang = lang.replace("\\", "")
+			lang = lang.replace("/", "")
+			lang = lang.replace("'", "")
+			lang = lang.replace("`", "")
+			lang = lang.replace("^", "")			
+			lang = lang.replace("-", "")			
 			feat = feat.replace(" ", "")
-			print >> fcfilesyn, feat+"\t"+str(comp)+"\t"+set
+			print >> fcfilesyn, feat+"\t"+lang+"\t"+str(comp)+"\t"+set
 		
 		
 def to_R(walsFCompAvgs,apicsFCompAvgs,WALSLangCompListPar,WALSLangCompListSyn,APiCSLangCompListPar,APiCSLangCompListSyn,walsFCompAvgsPar,apicsFCompAvgsPar):
