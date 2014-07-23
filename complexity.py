@@ -157,7 +157,7 @@ def getAPiCSFeatureComps(cur,complexities,apicsLangComp,majorFeats=False,noMixed
 # Now do the same thing for the WALS languages
 def getWALSLangComps(cur,types,complexities,degrees,noCreoles=True):
 
-	cur.execute("""SELECT "WALS".TeXLanguageName, WALSValues.Value_number, WALSValues.Feature_number, WALSValues.LangID
+	cur.execute("""SELECT WALSValues.TeXLanguageName, WALSValues.Value_number, WALSValues.Feature_number, WALSValues.LangID
 	FROM WALSValues
 	INNER JOIN APiCSFeatures on  WALSValues.Feature_number = APiCSFeatures.`WALS-APICS`
 	WHERE APiCSFeatures.`ComplexityType` is not NULL""")
