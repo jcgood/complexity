@@ -2,16 +2,19 @@ WALS-APiCS complexity
 ==========
 
 This repository contains code and data relevant to examining complexity of
-WALS-APiCS features. Documentation is relatively sparse since it is not clear to
-me how much outside interest there will be in these materials. However, they are
-posted here in the interest of transparency and replicability. Please feel free
-to contact Jeff Good (jcgood@buffalo.edu) with any questions on how to use these
-materials. Please note that the database posted here is mostly based on content
-from the World Atlas of Language Structures (WALS; http://wals.info) and the
-Atlas of Pidgin and Creole Language Structures (APiCS;
-http://apics-online.info). If you choose to reuse this data, please cite these
-original sources as appropriate. Citation information can be found on the
-websites for each of these projects.
+WALS-APiCS features following proposals made in this paper:
+https://benjamins.com/#catalog/journals/jpcl.27.1.01goo/ and procedures
+described in this draft paper:
+http://buffalo.edu/~jcgood/jcgood-ParadigmaticComplexityCreoles.pdf.
+Documentation is relatively sparse since it is not clear to me how much outside
+interest there will be in these materials. However, they are posted here in the
+interest of transparency and replicability. Please feel free to contact Jeff
+Good (jcgood@buffalo.edu) with any questions on how to use these materials.
+Please note that the database posted here is mostly based on content from the
+World Atlas of Language Structures (WALS; http://wals.info) and the Atlas of
+Pidgin and Creole Language Structures (APiCS; http://apics-online.info). If you
+choose to reuse this data, please cite these original sources as appropriate.
+Citation information can be found on the websites for each of these projects.
 
 Brief descriptions of each file are given below
 
